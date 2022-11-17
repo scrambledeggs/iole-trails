@@ -1,2 +1,16 @@
-<h1>People#show</h1>
-<p>Find me in app/views/people/show.html.erb</p>
+<h2><%= @person.name.upcase %>'s Details</h2>
+
+<p>Age: <%= @person.age %></p>
+<p>Weight: <%= @person.weight %></p>
+<p>Body Build: <%= @person.body_build %></p>
+
+<%= link_to "Edit", edit_person_path(@person) %> | 
+<%= link_to "Remove", person_path(@person), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %>
+
+<br><br>
+<h2><%= @person.name.upcase %>'s Ongoing Trail: </h2>
+<br>
+<h2><%= @person.name.upcase %>'s Past Trails: </h2>

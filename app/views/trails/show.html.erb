@@ -1,2 +1,17 @@
-<h1>Trails#show</h1>
-<p>Find me in app/views/trails/show.html.erb</p>
+<h2>The <%= @trail.name %> Trail</h2>
+
+<h3>Requirements:</h3>
+<p>Age: <%= @trail.age_minimum %></p>
+<p>Weight: <%= @trail.weight_minimum %></p>
+<p>Body Build: <%= @trail.body_build %></p>
+
+<%= link_to "Edit", edit_trail_path(@trail) %> | 
+<%= link_to "Remove", trail_path(@trail), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %>
+
+<br><br>
+<h2><%= @trail.name %> Trail's Ongoing Trailers: </h2>
+<br>
+<h2><%= @trail.name %> Trail's Finishers</h2>

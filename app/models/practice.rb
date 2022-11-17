@@ -1,7 +1,7 @@
 class Practice < ApplicationRecord
   enum status: {
-    started: 0,
-    finished: 1
+    STARTED: 0,
+    FINISHED: 1
   }, _prefix: true
 
   belongs_to :person

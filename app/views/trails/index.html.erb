@@ -1,2 +1,11 @@
-<h1>Trails#index</h1>
-<p>Find me in app/views/trails/index.html.erb</p>
+<h2>List of Trails</h2>
+<ul>
+  <% @trails.each do |trail| %>
+    <li>
+      <%= link_to trail.name, trail %>
+    </li>
+  <% end %>
+</ul>
+
+<br>
+<%= link_to "New Trail", new_trail_path %>
