@@ -10,7 +10,7 @@ Person model
  - [x] can `start` *practice* on any *trail*
   - given he/she has passed the criteria of a trail
   - given he/she is not already starting a practice on a trail
- - [ ] can `finish` *practice* on a *trail*
+ - [x] can `finish` *practice* on a *trail*
   - given he/she is starting this particular trail
  - [x] can see all trails finished
  - [x] can see all uncompleted trails
@@ -25,7 +25,7 @@ Practice model
  - [x] has the status field of person/trail
 
 Stuff
- - [ ] Mark as finished
+ - [x] Mark as finished
  - [ ] Form for Trails
 
 Additional

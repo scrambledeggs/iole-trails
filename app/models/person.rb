@@ -13,7 +13,11 @@ class Person < ApplicationRecord
   validates :weight, presence: true
   validates :body_build, presence: true
 
-  def has_ongoing_trail?
-    !practices.empty?
+  def has_ongoing_practice?
+    !practices.where(status: :STARTED).empty?
+  end
+
+  def ongoing
+    practices.where(status: :STARTED)[0]
   end
 end

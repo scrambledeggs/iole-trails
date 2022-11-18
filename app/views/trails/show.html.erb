@@ -24,7 +24,7 @@
 <h2><%= @trail.name %> Trail's Finishers</h2>
 <% if !@past_practice.empty? %> 
   <% @past_practice.each do |practice| %> 
-    <ul><li><%= link_to practice.person.name, practice.person %> </li></ul>
+    <ul><li><%= link_to practice.person.name.capitalize, practice.person %> </li></ul>
   <% end %> 
 <% else %> 
   None yet!

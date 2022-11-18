@@ -1,13 +1,14 @@
 class PracticesController < ApplicationController
-  prepend_before_action :set_person, only: [:new, :create, :finish]
+  prepend_before_action :set_person, only: [:new, :finish]
   before_action :check_eligibility, only: [:create]
 
   def new
     @trails = Trail.all
+    @practice = Practice.new
   end
 
   def create
-    if @practice = @person.practices.create!(practice_params)
+    if @person.practices.create!(practice_params)
       redirect_to person_path(@person)
     else
       render :new, status: :unprocessable_entity
@@ -18,6 +19,8 @@ class PracticesController < ApplicationController
   end
 
   def update
+    @practice = Practice.find(params[:id])
+    @person = Person.find(params[:practice][:person_id])
     if @practice.update(practice_params)
       redirect_to person_path(@person)
     else
@@ -31,11 +34,12 @@ class PracticesController < ApplicationController
   end
 
   def check_eligibility
+    @person = Person.find(params[:practice][:person_id])
     @trail = Trail.find(params[:practice][:trail_id])
     throw(:abort) if !@trail.eligible?(@person.age, @person.weight, @person.body_build) || @person.has_ongoing_trail?
   end
 
   def practice_params
-    params.require(:practice).permit(:trail_id)
+    params.require(:practice).permit(:person_id, :trail_id, :status)
   end
 end
