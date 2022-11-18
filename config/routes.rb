@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get 'practices/create'
-  resources :people
+  resources :people do
+    resources :practices, only: [:new, :create]
+  end
   resources :trails
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

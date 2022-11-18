@@ -12,5 +12,28 @@
 
 <br><br>
 <h2><%= @person.name.upcase %>'s Ongoing Trail: </h2>
-<br>
+<% if !@ongoing_practice.empty? %> 
+  <table style="border:1px solid gray; width:15% ">
+  <tr>
+  <td><strong><%= @ongoing_practice[0].trail.name %></strong></td>
+  </tr>
+  <tr>
+  <td><%= link_to "Details", @ongoing_practice[0].trail %></td>
+  <td>Mark as Finished</td>
+  </tr>
+  </table>
+<% else %> 
+  None at the moment. 
+  <%= link_to "Start a Trail!", new_person_practice_path(@person) %></td>
+<% end %> 
+
 <h2><%= @person.name.upcase %>'s Past Trails: </h2>
+<% if !@past_practice.empty? %> 
+  <% @past_practice.each do |practice| %> 
+    <ul><li><%= link_to practice.trail.name, practice.trail %> </li></ul>
+  <% end %> 
+<% else %> 
+  None yet!
+<% end %> 
+
+<%= link_to "Start a Trail!", new_person_practice_path(@person) %></td>

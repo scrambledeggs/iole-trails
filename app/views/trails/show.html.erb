@@ -1,8 +1,8 @@
 <h2>The <%= @trail.name %> Trail</h2>
 
 <h3>Requirements:</h3>
-<p>Age: <%= @trail.age_minimum %></p>
-<p>Weight: <%= @trail.weight_minimum %></p>
+<p>Age (years): <%= @trail.age_minimum %> to <%= @trail.age_maximum %></p>
+<p>Weight (kg): <%= @trail.weight_minimum %> to <%= @trail.weight_maximum %></p>
 <p>Body Build: <%= @trail.body_build %></p>
 
 <%= link_to "Edit", edit_trail_path(@trail) %> | 
@@ -13,5 +13,19 @@
 
 <br><br>
 <h2><%= @trail.name %> Trail's Ongoing Trailers: </h2>
-<br>
+<% if !@ongoing_practice.empty? %> 
+  <% @ongoing_practice.each do |practice| %> 
+    <ul><li><%= link_to practice.person.name.capitalize, practice.person %> </li></ul>
+  <% end %> 
+<% else %> 
+  None at the moment.
+<% end %> 
+
 <h2><%= @trail.name %> Trail's Finishers</h2>
+<% if !@past_practice.empty? %> 
+  <% @past_practice.each do |practice| %> 
+    <ul><li><%= link_to practice.person.name, practice.person %> </li></ul>
+  <% end %> 
+<% else %> 
+  None yet!
+<% end %> 

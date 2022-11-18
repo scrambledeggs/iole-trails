@@ -2,7 +2,7 @@
 <ul>
   <% @people.each do |person| %>
     <li>
-      <%= link_to person.name.upcase, person %>
+      <%= link_to person.name.capitalize, person %>
     </li>
   <% end %>
 </ul>

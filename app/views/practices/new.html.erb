@@ -1,0 +1,12 @@
+<h1>Start a Practice for: <%= @person.name.capitalize %></h1>
+
+
+<%= form_with model: [ @person, @person.practices.build ] do |form| %>
+  <p>
+    <%= form.label "Select a trail" %><br>
+    <%= form.select :trail_id, @trails.collect { |t| [ t.name, t.id ] } %>
+  </p>
+  <p>
+    <%= form.submit "Start Practice"%>
+  </p>
+<% end %>
