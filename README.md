@@ -24,6 +24,11 @@ Trail model
 Practice model
  - [x] has the status field of person/trail
 
+Stuff
+ - [ ] Mark as finished
+ - [ ] Form for Trails
+
 Additional
  - [ ] Fat model, skinny controller
  - [ ] Practice start and end date?
+ - [ ] Ask if need for Practices view?
