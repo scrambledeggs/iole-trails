@@ -1,5 +1,5 @@
 class PracticesController < ApplicationController
-  prepend_before_action :set_person, only: [:new, :create]
+  prepend_before_action :set_person, only: [:new, :create, :finish]
   before_action :check_eligibility, only: [:create]
 
   def new
@@ -7,8 +7,22 @@ class PracticesController < ApplicationController
   end
 
   def create
-    @practice = @person.practices.create!(practice_params)
-    redirect_to person_path(@person)
+    if @practice = @person.practices.create!(practice_params)
+      redirect_to person_path(@person)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @practice.update(practice_params)
+      redirect_to person_path(@person)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private

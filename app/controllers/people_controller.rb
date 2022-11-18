@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_person, except: [:index, :new, :create]
 
   def index
     @people = Person.all
@@ -39,14 +39,6 @@ class PeopleController < ApplicationController
     @person.destroy
 
     redirect_to root_path, status: :see_other
-  end
-
-  def start_practice
-    puts "start_practice"
-  end
-
-  def finish_practice
-    puts "finish_practice"
   end
 
 private

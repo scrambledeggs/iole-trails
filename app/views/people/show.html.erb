@@ -19,7 +19,7 @@
   </tr>
   <tr>
   <td><%= link_to "Details", @ongoing_practice[0].trail %></td>
-  <td>Mark as Finished</td>
+  <td><%= link_to "Mark as Finished", person_practice_path(@person, status: :finished) %></td>
   </tr>
   </table>
 <% else %> 
@@ -34,6 +34,4 @@
   <% end %> 
 <% else %> 
   None yet!
-<% end %> 
-
-<%= link_to "Start a Trail!", new_person_practice_path(@person) %></td>
+<% end %>

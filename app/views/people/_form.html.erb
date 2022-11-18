@@ -1,0 +1,38 @@
+<%= form_with model: person do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    <% person.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :age %><br>
+    <%= form.number_field :age %><br>
+    <% person.errors.full_messages_for(:age).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :weight %><br>
+    <%= form.number_field :weight %><br>
+    <% person.errors.full_messages_for(:weight).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :body_build %><br>
+    <%= form.text_field :body_build %><br>
+    <% person.errors.full_messages_for(:body_build).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

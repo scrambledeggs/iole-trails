@@ -10,6 +10,10 @@ class TrailsController < ApplicationController
     @past_practice = @trail.practices.where(status: :FINISHED)
   end
 
+  def new
+    @trail = Trail.new
+  end
+
   def create
     @trail = Trail.new(trail_params)
 
