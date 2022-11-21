@@ -1,4 +1,5 @@
 class Trail < ApplicationRecord
+  # before_validation :set_defaults
   enum body_build: {
     SLIM: 0,
     FIT: 1,
@@ -15,7 +16,7 @@ class Trail < ApplicationRecord
   end
 
   def eligible_people
-    # get all people with matching specs
+    Person.where(age: [age_minimum..age_maximum], weight: [weight_minimum..weight_maximum], body_build: body_build)
   end
 
   def has_ongoing_practices?
@@ -32,18 +33,18 @@ class Trail < ApplicationRecord
 
   def past_practices
     finished_practices = practices.where(status: :FINISHED)
-    filtered_practices = finished_practices.uniq { |item| [item.person_id] }
+    finished_practices.uniq { |item| [item.person_id] }
   end
 
   private
   def age_eligible(input_age)
-    lower_pass = if self[:age_minimum].present?
-                   input_age >= self[:age_minimum]
+    lower_pass = if age_minimum.present?
+                   input_age >= age_minimum
                  else
                    true
                  end
-    upper_pass = if self[:age_maximum].present?
-                   input_age <= self[:age_maximum]
+    upper_pass = if age_maximum.present?
+                   input_age <= age_maximum
                  else
                    true
                  end
@@ -51,13 +52,13 @@ class Trail < ApplicationRecord
   end
 
   def weight_eligible(input_weight)
-    lower_pass = if self[:weight_minimum].present?
-                   input_weight >= self[:weight_minimum]
+    lower_pass = if weight_minimum.present?
+                   input_weight >= weight_minimum
                  else
                    true
                  end
-    upper_pass = if self[:weight_maximum].present?
-                   input_weight <= self[:weight_maximum]
+    upper_pass = if weight_maximum.present?
+                   input_weight <= weight_maximum
                  else
                    true
                  end
@@ -65,6 +66,10 @@ class Trail < ApplicationRecord
   end
 
   def body_build_eligible(input_body_build)
-    input_body_build == self[:body_build]
+    !body_build.present? || input_body_build == body_build
+  end
+
+  def set_defaults
+    puts 'set_default'
   end
 end

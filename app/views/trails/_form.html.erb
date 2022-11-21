@@ -8,6 +8,15 @@
   </div>
 
   <div>
+    <%= form.label :body_build %><br>
+    <%= form.radio_button :body_build, 'SLIM' %>
+    <%= form.label :body_build, 'SLIM' %><br>
+    <%= form.radio_button :body_build, 'FIT' %>
+    <%= form.label :body_build, 'FIT' %><br>
+    <%= form.radio_button :body_build, 'LARGE' %>
+    <%= form.label :body_build, 'LARGE' %><br>
+  </div>
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

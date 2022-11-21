@@ -45,6 +45,6 @@ class TrailsController < ApplicationController
   end
 
   def trail_params
-    params.require(:trail).permit(:name)
+    params.require(:trail).permit(:name, :age_minimum, :age_maximum, :body_build, :weight_minimum, :weight_maximum)
   end
 end

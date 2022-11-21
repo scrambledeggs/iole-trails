@@ -19,21 +19,23 @@ Trail model
  - [x] has pass criteria depending on age, body-build
  - [x] can see people who have finished this trail
  - [x] can see people who have started the trail
- - [ ] can see people who can start the trail
+ - [x] can see people who can start the trail
 
 Practice model
  - [x] has the status field of person/trail
 
 Stuff
+ - [ ] Fat model, skinny controller
  - [x] Mark as finished
  - [ ] Form for New/Edit Trails
- - [ ] Radio buttons for body build in New/Edit Person
+ - [X] Radio buttons for body build in New/Edit Person
  - [x] Update Trails controller same as People
  - [x] Check eligibility redirect
  - [ ] Make body_build enum as common
- - [ ] Fat model, skinny controller
+ - [ ] View for eligible people
 
 Additional
+ - [ ] Trails validation: simplify?
  - [ ] Practice start and end date?
  - [ ] Ask if need for Practices view?
 
