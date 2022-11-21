@@ -36,7 +36,7 @@ class TrailsController < ApplicationController
   def destroy
     @trail.destroy
 
-    redirect_to root_path, status: :see_other
+    redirect_to trails_path, status: :see_other
   end
 
   def eligibles

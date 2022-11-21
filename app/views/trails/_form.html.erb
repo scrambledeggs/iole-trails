@@ -1,6 +1,6 @@
 <%= form_with model: trail do |form| %>
   <div>
-    <%= form.label :name %><br>
+    <%= form.label :name %> <br>
     <%= form.text_field :name %>
     <% trail.errors.full_messages_for(:name).each do |message| %>
       <div><%= message %></div>
@@ -8,14 +8,29 @@
   </div>
 
   <div>
-    <%= form.label :body_build %><br>
-    <%= form.radio_button :body_build, 'SLIM' %>
-    <%= form.label :body_build, 'SLIM' %><br>
-    <%= form.radio_button :body_build, 'FIT' %>
-    <%= form.label :body_build, 'FIT' %><br>
-    <%= form.radio_button :body_build, 'LARGE' %>
-    <%= form.label :body_build, 'LARGE' %><br>
+    <%= form.label 'Minimum Age' %> <br>
+    <%= form.number_field :age_minimum %> <br>
+    <%= form.label 'Maximum Age' %> <br>
+    <%= form.number_field :age_maximum %>
   </div>
+
+  <div>
+    <%= form.label 'Minimum Weight (kg)' %> <br>
+    <%= form.number_field :weight_minimum %> <br>
+    <%= form.label 'Maximum weight (kg)' %> <br>
+    <%= form.number_field :weight_maximum %>
+  </div>
+
+  <div>
+    <%= form.label :body_build %> <br>
+    <%= form.radio_button :body_build, 'SLIM' %>
+    <%= form.label :body_build, 'SLIM' %> <br>
+    <%= form.radio_button :body_build, 'FIT' %>
+    <%= form.label :body_build, 'FIT' %> <br>
+    <%= form.radio_button :body_build, 'LARGE' %>
+    <%= form.label :body_build, 'LARGE' %> <br>
+  </div>
+  <br>
   <div>
     <%= form.submit %>
   </div>

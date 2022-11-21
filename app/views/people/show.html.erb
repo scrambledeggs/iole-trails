@@ -1,7 +1,7 @@
 <h2><%= @person.name.upcase %>'s Details</h2>
 
 <p>Age: <%= @person.age %></p>
-<p>Weight: <%= @person.weight %></p>
+<p>Weight: <%= @person.weight %> kg</p>
 <p>Body Build: <%= @person.body_build %></p>
 
 <%= link_to "Edit", edit_person_path(@person) %> | 
@@ -12,7 +12,7 @@
 
 <br><br>
 <h2><%= @person.name.upcase %>'s Ongoing Trail: </h2>
-<% if @person.has_ongoing_practice? %> 
+<% if @person.ongoing_practice? %> 
   <table style="border:1px solid gray; width:15% ">
   <tr>
   <td><strong><%= @person.ongoing_practice.trail.name %></strong></td>
@@ -34,9 +34,9 @@
 <% end %> 
 
 <h2><%= @person.name.upcase %>'s Past Trails: </h2>
-<% if @person.has_past_practices? %> 
+<% if @person.past_practices? %> 
   <% @person.past_practices.each do |practice| %> 
-    <ul><li><%= link_to practice.trail.name, practice.trail %> </li></ul>
+    <ul><li><%= link_to practice.trail.name, practice.trail %> </li> (<%= practice.updated_at.to_fs(:db) %>)</ul>
   <% end %> 
 <% else %> 
   None yet!

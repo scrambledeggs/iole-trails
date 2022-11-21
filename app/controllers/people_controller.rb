@@ -36,10 +36,11 @@ class PeopleController < ApplicationController
   def destroy
     @person.destroy
 
-    redirect_to root_path, status: :see_other
+    redirect_to people_path, status: :see_other
   end
 
-private
+  private
+
   def set_person
     @person = Person.find(params[:id])
   end

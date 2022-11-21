@@ -9,6 +9,9 @@
   <p>
     <%= form.hidden_field :person_id, value: @person.id %>
   </p>
+  <% if flash[:alert] %>
+    <p style="color:red;"><%= flash[:alert] %></p>
+  <% end %>
   <p>
     <%= form.submit "Start Practice"%>
   </p>

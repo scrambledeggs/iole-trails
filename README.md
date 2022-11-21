@@ -1,5 +1,5 @@
 # Trails Exercise
-## To-do list
+## Requirements
 3 models
  - [x] Person (people table)
  - [x] Trail (trails table)
@@ -24,20 +24,20 @@ Trail model
 Practice model
  - [x] has the status field of person/trail
 
-Stuff
- - [ ] Fat model, skinny controller
+## To-do list
+ - [x] Fat model, skinny controller
  - [x] Mark as finished
- - [ ] Form for New/Edit Trails
- - [X] Radio buttons for body build in New/Edit Person
+ - [x] Form for New/Edit Trails
+ - [x] Radio buttons for body build in New/Edit Person
  - [x] Update Trails controller same as People
  - [x] Check eligibility redirect
- - [ ] Make body_build enum as common
+ - [x] Make body_build enum as common -- referencing only
  - [x] View for eligible people
-
-Additional
- - [ ] Trails validation: simplify?
- - [ ] Practice start and end date?
- - [ ] Ask if need for Practices view?
+ - [x] Implement `person.practice_on(trail)`
+ - [x] Add date for past trails
+ - [x] Notice for eligibility error
+ - [x] Shorten eligibility check conditions in model
+ - [x] Record dependency
 
 ## Diagram
 ![Diagram](src/trails_diagram.png)
