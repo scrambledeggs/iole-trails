@@ -6,8 +6,6 @@ class TrailsController < ApplicationController
   end
 
   def show
-    @ongoing_practice = @trail.practices.where(status: :STARTED)
-    @past_practice = @trail.practices.where(status: :FINISHED)
   end
 
   def new

@@ -13,8 +13,8 @@
 
 <br><br>
 <h2><%= @trail.name %> Trail's Ongoing Trailers: </h2>
-<% if !@ongoing_practice.empty? %> 
-  <% @ongoing_practice.each do |practice| %> 
+<% if @trail.has_ongoing_practices? %> 
+  <% @trail.ongoing_practices.each do |practice| %> 
     <ul><li><%= link_to practice.person.name.capitalize, practice.person %> </li></ul>
   <% end %> 
 <% else %> 
@@ -22,8 +22,8 @@
 <% end %> 
 
 <h2><%= @trail.name %> Trail's Finishers</h2>
-<% if !@past_practice.empty? %> 
-  <% @past_practice.each do |practice| %> 
+<% if @trail.has_past_practices? %> 
+  <% @trail.past_practices.each do |practice| %> 
     <ul><li><%= link_to practice.person.name.capitalize, practice.person %> </li></ul>
   <% end %> 
 <% else %> 

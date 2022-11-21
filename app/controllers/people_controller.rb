@@ -6,8 +6,6 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @ongoing_practice = @person.practices.where(status: :STARTED)
-    @past_practice = @person.practices.where(status: :FINISHED)
   end
 
   def new

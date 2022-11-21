@@ -15,13 +15,12 @@
 <% if @person.has_ongoing_practice? %> 
   <table style="border:1px solid gray; width:15% ">
   <tr>
-  <td><strong><%= @person.ongoing.trail.name %></strong></td>
+  <td><strong><%= @person.ongoing_practice.trail.name %></strong></td>
   </tr>
   <tr>
-  <td><%= link_to "Details", @person.ongoing.trail %></td>
-  <!--td><%= link_to "Mark as Finished", practice_path(@ongoing_practice[0], status: :finished), method: :post, remote: true %></td-->
+  <td><%= link_to "Details", @person.ongoing_practice.trail %></td>
   <td>
-  <%= form_with model: @person.ongoing do |form| %>
+  <%= form_with model: @person.ongoing_practice do |form| %>
     <%= form.hidden_field :status, value: :FINISHED %>
     <%= form.hidden_field :person_id, value: @person.id %>
     <%= form.submit "Mark as Finished"%>
@@ -35,8 +34,8 @@
 <% end %> 
 
 <h2><%= @person.name.upcase %>'s Past Trails: </h2>
-<% if !@past_practice.empty? %> 
-  <% @past_practice.each do |practice| %> 
+<% if @person.has_past_practices? %> 
+  <% @person.past_practices.each do |practice| %> 
     <ul><li><%= link_to practice.trail.name, practice.trail %> </li></ul>
   <% end %> 
 <% else %> 

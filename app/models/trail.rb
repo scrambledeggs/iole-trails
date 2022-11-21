@@ -18,6 +18,23 @@ class Trail < ApplicationRecord
     # get all people with matching specs
   end
 
+  def has_ongoing_practices?
+    !practices.where(status: :STARTED).empty?
+  end
+
+  def ongoing_practices
+    practices.where(status: :STARTED)
+  end
+
+  def has_past_practices?
+    !practices.where(status: :FINISHED).empty?
+  end
+
+  def past_practices
+    finished_practices = practices.where(status: :FINISHED)
+    filtered_practices = finished_practices.uniq { |item| [item.person_id] }
+  end
+
   private
   def age_eligible(input_age)
     lower_pass = if self[:age_minimum].present?

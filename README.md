@@ -26,9 +26,16 @@ Practice model
 
 Stuff
  - [x] Mark as finished
- - [ ] Form for Trails
+ - [ ] Form for New/Edit Trails
+ - [ ] Radio buttons for body build in New/Edit Person
+ - [x] Update Trails controller same as People
+ - [x] Check eligibility redirect
+ - [ ] Make body_build enum as common
+ - [ ] Fat model, skinny controller
 
 Additional
- - [ ] Fat model, skinny controller
  - [ ] Practice start and end date?
  - [ ] Ask if need for Practices view?
+
+## Diagram
+![Diagram](src/trails_diagram.png)

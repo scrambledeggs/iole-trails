@@ -1,6 +1,5 @@
 class PracticesController < ApplicationController
-  prepend_before_action :set_person, only: [:new, :finish]
-  before_action :check_eligibility, only: [:create]
+  before_action :set_person, only: [:new, :finish]
 
   def new
     @trails = Trail.all
@@ -8,10 +7,17 @@ class PracticesController < ApplicationController
   end
 
   def create
-    if @person.practices.create!(practice_params)
-      redirect_to person_path(@person)
+    @person = Person.find(practice_params[:person_id])
+    @trail = Trail.find(practice_params[:trail_id])
+
+    if @trail.eligible?(@person.age, @person.weight, @person.body_build) && !@person.has_ongoing_practice?
+      if @person.practices.create!(practice_params)
+        redirect_to person_path(@person)
+      else
+        render :new, status: :unprocessable_entity
+      end
     else
-      render :new, status: :unprocessable_entity
+      redirect_to new_practice_path(person_id: practice_params[:person_id]), status: :precondition_failed 
     end
   end
 
@@ -31,12 +37,6 @@ class PracticesController < ApplicationController
   private
   def set_person
     @person = Person.find(params[:person_id])
-  end
-
-  def check_eligibility
-    @person = Person.find(params[:practice][:person_id])
-    @trail = Trail.find(params[:practice][:trail_id])
-    throw(:abort) if !@trail.eligible?(@person.age, @person.weight, @person.body_build) || @person.has_ongoing_trail?
   end
 
   def practice_params

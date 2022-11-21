@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "trails#index"
   resources :people 
   resources :practices, only: [:new, :create, :edit, :update]
   resources :trails

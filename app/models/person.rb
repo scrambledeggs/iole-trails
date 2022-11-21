@@ -17,7 +17,15 @@ class Person < ApplicationRecord
     !practices.where(status: :STARTED).empty?
   end
 
-  def ongoing
+  def ongoing_practice
     practices.where(status: :STARTED)[0]
+  end
+
+  def has_past_practices?
+    !practices.where(status: :FINISHED).empty?
+  end
+
+  def past_practices
+    practices.where(status: :FINISHED)
   end
 end
