@@ -32,7 +32,7 @@ Stuff
  - [x] Update Trails controller same as People
  - [x] Check eligibility redirect
  - [ ] Make body_build enum as common
- - [ ] View for eligible people
+ - [x] View for eligible people
 
 Additional
  - [ ] Trails validation: simplify?

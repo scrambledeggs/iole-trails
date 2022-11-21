@@ -1,5 +1,5 @@
 class TrailsController < ApplicationController
-  before_action :set_trail, only: [:show, :edit, :update, :destroy]
+  before_action :set_trail, only: [:show, :edit, :update, :destroy, :eligibles]
 
   def index
     @trails = Trail.all
@@ -39,7 +39,11 @@ class TrailsController < ApplicationController
     redirect_to root_path, status: :see_other
   end
 
+  def eligibles
+  end
+
   private
+
   def set_trail
     @trail = Trail.find(params[:id])
   end

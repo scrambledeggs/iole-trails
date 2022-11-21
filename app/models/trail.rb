@@ -37,6 +37,7 @@ class Trail < ApplicationRecord
   end
 
   private
+
   def age_eligible(input_age)
     lower_pass = if age_minimum.present?
                    input_age >= age_minimum

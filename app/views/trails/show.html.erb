@@ -9,7 +9,9 @@
 <%= link_to "Remove", trail_path(@trail), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
-                  } %>
+                  } %> |
+<%= link_to "See eligibles", eligible_people_trail_path(@trail) %> 
+
 
 <br><br>
 <h2><%= @trail.name %> Trail's Ongoing Trailers: </h2>
