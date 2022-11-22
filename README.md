@@ -25,19 +25,11 @@ Practice model
  - [x] has the status field of person/trail
 
 ## To-do list
- - [x] Fat model, skinny controller
- - [x] Mark as finished
- - [x] Form for New/Edit Trails
- - [x] Radio buttons for body build in New/Edit Person
- - [x] Update Trails controller same as People
- - [x] Check eligibility redirect
- - [x] Make body_build enum as common -- referencing only
- - [x] View for eligible people
- - [x] Implement `person.practice_on(trail)`
- - [x] Add date for past trails
- - [x] Notice for eligibility error
- - [x] Shorten eligibility check conditions in model
- - [x] Record dependency
+ - [ ] routes: practice should be nested under people
+ - [ ] ruby way for arrays: `%i[ ]`
+ - [ ] For new practice: pre-filter only eligible trails
+ - [ ] practice controller: separate method for checking eligibility
+ - [ ] change if/else in controllers for create, update etc. to 2 lines
 
 ## Diagram
 ![Diagram](src/trails_diagram.png)
