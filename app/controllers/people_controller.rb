@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, except: [:index, :new, :create]
+  before_action :set_person, except: %i[index new create]
 
   def index
     @people = Person.all
@@ -15,27 +15,22 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
 
-    if @person.save
-      redirect_to @person
-    else
-      render :new, status: :unprocessable_entity
-    end
+    redirect_to @person and return if @person.save
+
+    render :new, status: :unprocessable_entity
   end
 
   def edit
   end
 
   def update
-    if @person.update(person_params)
-      redirect_to @person
-    else
-      render :edit, status: :unprocessable_entity
-    end
+    redirect_to @person and return if @person.update(person_params)
+
+    render :edit, status: :unprocessable_entity
   end
 
   def destroy
     @person.destroy
-
     redirect_to people_path, status: :see_other
   end
 

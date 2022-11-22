@@ -6,12 +6,13 @@ class Trail < ApplicationRecord
 
   validates :name, presence: true
 
-  def eligible?(input_age, input_weight, input_body_build)
-    age_eligible(input_age) && weight_eligible(input_weight) && body_build_eligible(input_body_build)
+  def eligible?(age, weight, person_body_build)
+    age_eligible(age) && weight_eligible(weight) && body_build_eligible(person_body_build)
   end
 
   def eligible_people
-    Person.where(age: [age_minimum..age_maximum], weight: [weight_minimum..weight_maximum], body_build: body_build)
+    any_body_build = Person.body_builds.keys unless body_build
+    Person.where(age: [age_minimum..age_maximum], weight: [weight_minimum..weight_maximum], body_build: body_build || any_body_build)
   end
 
   def ongoing_practices?

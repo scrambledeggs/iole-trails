@@ -1,5 +1,5 @@
 class TrailsController < ApplicationController
-  before_action :set_trail, only: [:show, :edit, :update, :destroy, :eligibles]
+  before_action :set_trail, except: %i[index new create]
 
   def index
     @trails = Trail.all
@@ -15,27 +15,22 @@ class TrailsController < ApplicationController
   def create
     @trail = Trail.new(trail_params)
 
-    if @trail.save
-      redirect_to @trail
-    else
-      render :new, status: :unprocessable_entity
-    end
+    redirect_to @trail and return if @trail.save
+
+    render :new, status: :unprocessable_entity
   end
 
   def edit
   end
 
   def update
-    if @trail.update(trail_params)
-      redirect_to @trail
-    else
-      render :edit, status: :unprocessable_entity
-    end
+    redirect_to @trail and return if @trail.update(trail_params)
+
+    render :edit, status: :unprocessable_entity
   end
 
   def destroy
     @trail.destroy
-
     redirect_to trails_path, status: :see_other
   end
 
