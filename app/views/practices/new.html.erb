@@ -4,7 +4,7 @@
 <%= form_with model: [@person, @person.practices.build] do |form| %>
   <p>
     <%= form.label "Select a trail" %><br>
-    <%= form.select :trail_id, @trails.collect { |t| [ t.name, t.id ] } %>
+    <%= form.select :trail_id, @person.get_trail_options(@trails)%>
   </p>
   <p>
     <%= form.hidden_field :person_id, value: @person.id %>
