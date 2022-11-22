@@ -20,7 +20,7 @@
   <tr>
   <td><%= link_to "Details", @person.ongoing_practice.trail %></td>
   <td>
-  <%= form_with model: @person.ongoing_practice do |form| %>
+  <%= form_with model: [@person, @person.ongoing_practice] do |form| %>
     <%= form.hidden_field :status, value: :FINISHED %>
     <%= form.hidden_field :person_id, value: @person.id %>
     <%= form.submit "Mark as Finished"%>
@@ -30,7 +30,7 @@
   </table>
 <% else %> 
   None at the moment. 
-  <%= link_to "Start a Trail!", new_practice_path(person_id: @person.id) %></td>
+  <%= link_to "Start a Trail!", new_person_practice_path(@person) %></td>
 <% end %> 
 
 <h2><%= @person.name.upcase %>'s Past Trails: </h2>

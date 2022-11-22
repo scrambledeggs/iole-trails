@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root "trails#index"
-  resources :people
-  resources :practices, only: [:new, :create, :edit, :update]
+  resources :people do
+    resources :practices, only: %i[new create edit update]
+  end
   resources :trails do
     get "eligible-people", to: "trails#eligibles", on: :member
   end

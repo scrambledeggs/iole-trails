@@ -25,7 +25,7 @@ Practice model
  - [x] has the status field of person/trail
 
 ## To-do list
- - [ ] routes: practice should be nested under people
+ - [x] routes: practice should be nested under people
  - [x] ruby way for arrays: `%i[ ]`
  - [ ] For new practice: pre-filter only eligible trails
  - [x] practice controller: separate method for checking eligibility -- removed nesting only
