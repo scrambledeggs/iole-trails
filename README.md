@@ -27,7 +27,7 @@ Practice model
 ## To-do list
  - [x] routes: practice should be nested under people
  - [x] ruby way for arrays: `%i[ ]`
- - [ ] For new practice: pre-filter only eligible trails
+ - [x] For new practice view: pre-filter only eligible trails -- added marking for ineligibility only
  - [x] practice controller: separate method for checking eligibility -- removed nesting only
  - [x] change if/else in controllers for create, update etc. to 2 lines
 
