@@ -1,0 +1,11 @@
+<h2><%= @trail.name.capitalize %>'s List of Races</h2>
+<ul>
+  <% @races.each do |race| %>
+    <li>
+      <%= link_to race.name, [@trail, race] %>
+    </li>
+  <% end %>
+</ul>
+
+<br>
+<%= link_to "New Race", new_trail_race_path %>

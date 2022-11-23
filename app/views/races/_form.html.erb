@@ -1,0 +1,34 @@
+<%= form_with model: [@trail, @race] do |form| %>
+  <div>
+    <%= form.label :name %> <br>
+    <%= form.text_field :name %>
+    <% @race.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label 'Start Date and Time' %> <br>
+    <%= form.datetime_local_field :start %>
+    <% @race.errors.full_messages_for(:start).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :duration %> <br>
+    <%= form.number_field :duration, step: 0.01 %>
+    <% @race.errors.full_messages_for(:duration).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <% if flash[:alert] %>
+    <p style="color:red;"><%= flash[:alert] %></p>
+  <% end %>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
+<%= link_to "Back to Races", trail_races_path(@trail) %>

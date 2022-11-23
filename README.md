@@ -36,7 +36,7 @@ Practice model
 - [x] Run (table runs)
 
 Race model
-- [ ] belongs to a *Trail*
+- [x] belongs to a *Trail*
 - [ ] can `register` People to join
 - [ ] can `start`/`end` a race
   - [ ] State is manually changed (new → started, started → finished)
@@ -62,6 +62,7 @@ Rules
 Additional
 - [ ] Add view on Trail for races list
 - [ ] Add view on Person for races list
+- [ ] Add view for Races via navbar: `trails/races`
 
 ### Diagram
 ![Diagram 2](src/trails_diagram_2.png)
