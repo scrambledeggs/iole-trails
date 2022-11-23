@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RaceControllerTest < ActionDispatch::IntegrationTest
+class RacesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get race_index_url
     assert_response :success
