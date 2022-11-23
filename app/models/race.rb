@@ -10,4 +10,8 @@ class Race < ApplicationRecord
   validates :name, presence: true
   validates :start, presence: true
   validates :duration, presence: true
+
+  def expected_end
+    start + duration.hours
+  end
 end
