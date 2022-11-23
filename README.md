@@ -32,8 +32,8 @@ Practice model
 
 ### Requirements
 2 models
-- [ ] Race (table races)
-- [ ] Run (table runs)
+- [x] Race (table races)
+- [x] Run (table runs)
 
 Race model
 - [ ] belongs to a *Trail*
@@ -47,7 +47,7 @@ Race model
 - [ ] Can only have 1 winner
 
 Run model
-- [ ] States: Registered and Dropped (manually changed), Finished and Unfinished (randomly assigned when Race has ended)
+- [x] States: Registered and Dropped (manually changed), Finished and Unfinished (randomly assigned when Race has ended)
 
 Rules
 - [ ] Trail can have multiple Races but should have different time slots

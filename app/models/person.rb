@@ -7,6 +7,8 @@ class Person < ApplicationRecord
 
   has_many :practices, dependent: :destroy
   has_many :trails, through: :practices
+  has_many :runs, dependent: :destroy
+  has_many :races, through: :runs
 
   validates :name, presence: true
   validates :age, presence: true

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  status: 1
+  start: 2022-11-23 11:34:19
+  end: 2022-11-23 11:34:19
+  duration: 1.5
+  winner: 1
+  trail: one
+
+two:
+  name: MyString
+  status: 1
+  start: 2022-11-23 11:34:19
+  end: 2022-11-23 11:34:19
+  duration: 1.5
+  winner: 1
+  trail: two
