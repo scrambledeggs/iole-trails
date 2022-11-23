@@ -2,6 +2,8 @@ class RunsController < ApplicationController
   before_action :set_person, only: %i[create update]
 
   def new
+    @person = Person.find(params[:person_id])
+    @races = Race.all
     @run = Run.new
   end
 
