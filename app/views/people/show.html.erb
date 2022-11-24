@@ -46,6 +46,11 @@
 <%= link_to "Register for a Race", new_person_run_path(@person) %></td>
 
 <h3>All:</h3>
-<% @person.runs.each do |run| %> 
-  <ul><li><%= link_to run.race.name, trail_race_path(run.race) %></li></ul>
+<ul>
+<% @person.upcoming_runs.each do |run| %> 
+  <li>
+  <%= link_to run.race.name, person_run_path(@person, run) %> 
+  </li>
+  <br>
 <% end %> 
+</ul>

@@ -1,15 +1,17 @@
 class RunsController < ApplicationController
-  before_action :set_person, only: %i[create update]
+  before_action :set_person
+  before_action :set_run, only: %i[show update]
+  before_action :set_races, only: %i[new create]
+
+  def show
+  end
 
   def new
     @run = Run.new
-    @person = Person.find(params[:person_id])
-    @races = Race.all
   end
 
   def create
     @run = @person.runs.create(run_params)
-    @races = Race.all
 
     redirect_to person_path(@person) and return if @run.errors.blank?
 
@@ -20,9 +22,7 @@ class RunsController < ApplicationController
   end
 
   def update
-    @run = Run.find(params[:id])
-
-    redirect_to person_path(@person) and return if @person.runs.update!(run_params)
+    redirect_to person_run_path(@person, @run) and return if @run.update!(run_params)
 
     render :edit, status: :unprocessable_entity
   end
@@ -30,7 +30,15 @@ class RunsController < ApplicationController
   private
 
   def set_person
-    @person = Person.find(run_params[:person_id])
+    @person = Person.find(params[:person_id] || run_params[:person_id])
+  end
+
+  def set_run
+    @run = Run.find(params[:id])
+  end
+
+  def set_races
+    @races = Race.all
   end
 
   def run_params
