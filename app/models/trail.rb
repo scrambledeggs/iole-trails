@@ -39,7 +39,7 @@ class Trail < ApplicationRecord
 
   def overlapping_races(tentative_start, tentative_duration)
     tentative_end = tentative_start + tentative_duration.hours
-    races.where("start < ? AND ? >  start + (duration * interval '1 hour')", tentative_end, tentative_start)
+    races.where("start < ? AND ? <  start + (duration * interval '1 hour')", tentative_end, tentative_start)
   end
 
   private

@@ -23,9 +23,10 @@
     <% end %>
   </div>
 
-  <% if flash[:alert] %>
-    <p style="color:red;"><%= flash[:alert] %></p>
+  <% @race.errors.full_messages_for(:time_period).each do |message| %>
+    <p style="color:red;"><%= message %></p>
   <% end %>
+
   <p>
     <%= form.submit %>
   </p>

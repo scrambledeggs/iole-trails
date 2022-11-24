@@ -14,12 +14,9 @@ class RacesController < ApplicationController
   end
 
   def create
-    if @trail.overlaps_races?(race_params[:start].to_date, race_params[:duration].to_i)
-      flash[:alert] = "Time overlaps another race. Set a different start and/or duration."
-      redirect_to new_trail_race_path(@trail), status: :precondition_failed and return
-    end
+    @race = @trail.races.create(race_params)
 
-    redirect_to trail_races_path(@trail) and return if @trail.races.create!(race_params)
+    redirect_to trail_races_path(@trail) and return if @race.errors.blank?
 
     render :new, status: :unprocessable_entity
   end
@@ -50,6 +47,6 @@ class RacesController < ApplicationController
   end
 
   def race_params
-    params.require(:race).permit(:name, :duration, :start)
+    params.require(:race).permit(:name, :duration, :start, :status)
   end
 end
