@@ -37,7 +37,7 @@ Practice model
 
 Race model
 - [x] belongs to a *Trail*
-- [ ] can `register` People to join
+- [x] can `register` People to join
 - [ ] can `start`/`end` a race
   - [ ] State is manually changed (new → started, started → finished)
 - [ ] can't start if less than 2 People registered
@@ -52,7 +52,7 @@ Run model
 Rules
 - [ ] Trail can have multiple Races but should have different time slots
 - [ ] Person should have a finished Practice for the Trail before becoming eligible to register for a Race
-- [ ] Person can only register for a Race once.
+- [x] Person can only register for a Race once.
 - [ ] Person cannot register for a Race if there is an ongoing Practice.
 - [ ] Person cannot also start a Practice if there is an ongoing Race.
 - [ ] Person can register for another Race:

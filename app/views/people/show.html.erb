@@ -30,7 +30,7 @@
   </table>
 <% else %> 
   None at the moment. 
-  <%= link_to "Start a Trail!", new_person_practice_path(@person) %></td>
+  <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %></td>
 <% end %> 
 
 <h2><%= @person.name.upcase %>'s Past Trails: </h2>
@@ -41,3 +41,11 @@
 <% else %> 
   None yet!
 <% end %>
+
+<h2><%= @person.name.upcase %>'s Races: </h2>
+<%= link_to "Register for a Race", new_person_run_path(@person) %></td>
+
+<h3>All:</h3>
+<% @person.runs.each do |run| %> 
+  <ul><li><%= link_to run.race.name, trail_race_path(run.race) %></li></ul>
+<% end %> 

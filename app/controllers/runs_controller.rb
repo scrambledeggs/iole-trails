@@ -2,14 +2,16 @@ class RunsController < ApplicationController
   before_action :set_person, only: %i[create update]
 
   def new
+    @run = Run.new
     @person = Person.find(params[:person_id])
     @races = Race.all
-    @run = Run.new
   end
 
   def create
-    # validation
-    redirect_to person_path(@person) and return if @person.runs.create!(run_params)
+    @run = @person.runs.create(run_params)
+    @races = Race.all
+
+    redirect_to person_path(@person) and return if @run.errors.blank?
 
     render :new, status: :unprocessable_entity
   end

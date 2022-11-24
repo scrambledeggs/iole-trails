@@ -8,4 +8,9 @@ class Run < ApplicationRecord
 
   belongs_to :person
   belongs_to :race
+
+  validates :person_id, uniqueness: { 
+    scope: :race_id,
+    message: 'already registered for this race'
+  }
 end

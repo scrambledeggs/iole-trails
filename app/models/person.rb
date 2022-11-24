@@ -41,4 +41,12 @@ class Person < ApplicationRecord
       [ "#{t.name}#{validity}", t.id ]
     end
   end
+
+  def ongoing_race?
+    ongoing_race.present?
+  end
+
+  def ongoing_race
+    races.where(status: :STARTED).first
+  end
 end
