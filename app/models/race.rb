@@ -13,11 +13,22 @@ class Race < ApplicationRecord
   validates :name, presence: true
   validates :start, presence: true
   validates :duration, presence: true
+  validate :detail_change_allowed, on: :update, unless: :status_changed?
   validate :time_overlaps, if: :start_changed? || :duration_changed?
   validate :status_change, on: :update, if: :status_changed?
 
   def expected_end
     start + duration.hours
+  end
+
+  def registered_runs
+    runs.where(status: :REGISTERED)
+  end
+
+  def detail_change_allowed
+    return if registered_runs.blank?
+
+    errors.add(:detail, 'changes no longer allowed')
   end
 
   def time_overlaps
@@ -26,10 +37,6 @@ class Race < ApplicationRecord
     return if overlaps.blank? || (overlaps.length == 1 && overlaps.find(id))
 
     errors.add(:time_period, 'overlaps another race')
-  end
-
-  def registered_runs
-    runs.where(status: :REGISTERED)
   end
 
   def status_change
