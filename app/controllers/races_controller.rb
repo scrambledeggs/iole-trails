@@ -7,6 +7,10 @@ class RacesController < ApplicationController
   end
 
   def show
+    return unless @race.winner.present?
+
+    @winning_run = Run.find(@race.winner)
+    @winner = @winning_run.person
   end
 
   def new

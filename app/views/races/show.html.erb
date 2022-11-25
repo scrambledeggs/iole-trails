@@ -28,6 +28,11 @@
 <% end %>
 <% end %>
 
+<% if @race.status_FINISHED? %>
+<h2>Winner</h2>
+Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
+<% end %>
+
 <h2>Participants</h2>
 <% if @race.registered_runs.present? %> 
   <% @race.registered_runs.each do |run| %> 

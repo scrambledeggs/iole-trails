@@ -42,9 +42,9 @@ Race model
   - [x] State is manually changed (new → started, started → finished)
 - [x] can't start if less than 2 People registered
 - [ ] can't register when it's starting already
-- [ ] when a Race finishes, assign random duration and status (finished or unfinished) for the racers
-  - [ ] declare the fastest runner as winner
-- [ ] Can only have 1 winner
+- [x] when a Race finishes, assign random duration and status (finished or unfinished) for the racers
+  - [x] declare the fastest runner as winner
+- [x] Can only have 1 winner
 
 Run model
 - [x] States: Registered and Dropped (manually changed), Finished and Unfinished (randomly assigned when Race has ended)
