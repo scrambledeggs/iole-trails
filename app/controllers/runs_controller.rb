@@ -38,7 +38,7 @@ class RunsController < ApplicationController
   end
 
   def set_races
-    @races = Race.all
+    @races = Race.where(status: :NEW)
   end
 
   def run_params

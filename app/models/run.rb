@@ -41,6 +41,7 @@ class Run < ApplicationRecord
   end
 
   def race_overlaps_registered
+    # TODO: checks if current ongoing or upcoming races overlap
     puts 'checks if current ongoing or upcoming races overlap'
     # errors.add(:race_id, 'overlaps with another race you registered for')
   end
