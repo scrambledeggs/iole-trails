@@ -23,7 +23,7 @@
     <% end %>
   </div>
 
-  <% @race.errors.full_messages_for(:time_period).each do |message| %>
+  <% @race.errors.full_messages.each do |message| %>
     <p style="color:red;"><%= message %></p>
   <% end %>
 

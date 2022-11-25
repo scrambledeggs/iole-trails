@@ -27,3 +27,12 @@
   <%= form.submit "Finish Race"%>
 <% end %>
 <% end %>
+
+<h2>Participants</h2>
+<% if @race.registered_runs.present? %> 
+  <% @race.registered_runs.each do |run| %> 
+    <ul><li><%= run.person.name.capitalize %> </li></ul>
+  <% end %> 
+<% else %> 
+  None yet!
+<% end %> 
