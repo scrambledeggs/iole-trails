@@ -18,6 +18,8 @@ class Run < ApplicationRecord
   validate :race_ongoing_registration
   validate :race_overlaps_registered
 
+  private
+
   def person_availability
     person = Person.find(person_id)
     return unless person.ongoing_practice?
@@ -41,10 +43,10 @@ class Run < ApplicationRecord
   end
 
   def race_overlaps_registered
-    upcoming_runs = Person.find(person_id).upcoming_runs
+    registered_runs = Person.find(person_id).registered_runs
     tentative_race = Race.find(race_id)
 
-    upcoming_runs.each do |run|
+    registered_runs.each do |run|
       next unless run.race.overlaps?(tentative_race.start, tentative_race.duration)
 
       errors.add(:race_id, 'overlaps with another registered race')

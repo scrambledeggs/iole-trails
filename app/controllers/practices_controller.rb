@@ -24,7 +24,7 @@ class PracticesController < ApplicationController
 
     redirect_to person_path(@person) and return if @practice.update(practice_params)
 
-    render :edit, status: :unprocessable_entity
+    redirect_to person_path(@person), status: :unprocessable_entity
   end
 
   private

@@ -53,11 +53,11 @@ Rules
 - [x] Person should have a finished Practice for the Trail before becoming eligible to register for a Race
 - [x] Person can only register for a Race once.
 - [x] Person cannot register for a Race if there is an ongoing Practice.
-- [ ] Person cannot also start a Practice if there is an ongoing Race.
+- [x] Person cannot also start a Practice if there is an ongoing Race.
 - [x] Person cannot register when Race is already starting or finished
-- [ ] Person can register for another Race:
+- [x] Person can register for another Race:
   - [x] For the same Trail (since none of the Races per Trail would overlap)
-  - [ ] For another Trail but should not overlap with currently registered Race
+  - [x] For another Trail but should not overlap with currently registered Race
 
 Additional
 - [ ] Add view on Trail for races list

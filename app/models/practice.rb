@@ -7,7 +7,10 @@ class Practice < ApplicationRecord
   belongs_to :person
   belongs_to :trail
 
-  validate :person_eligibility
+  validate :person_eligibility, on: :create
+  validate :person_availability, on: :create
+
+  private
 
   def person_eligibility
     @trail = Trail.find(trail_id)
@@ -16,5 +19,13 @@ class Practice < ApplicationRecord
     return if @person.practice_on?(@trail)
 
     errors.add(:person_id, 'not eligible for this trail')
+  end
+
+  def person_availability
+    @person = Person.find(person_id)
+
+    return unless @person.ongoing_race?
+
+    errors.add(:person_id, 'already has an ongoing race')
   end
 end
