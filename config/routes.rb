@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "trails#index"
   resources :people do
     resources :practices, only: %i[new create edit update]
-    resources :runs, only: %i[new create edit update]
+    resources :runs, only: %i[show new create edit update]
   end
   resources :trails do
     get "eligible-people", to: "trails#eligibles", on: :member
