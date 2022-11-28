@@ -8,14 +8,10 @@ class PracticesController < ApplicationController
   end
 
   def create
-    @trail = Trail.find(practice_params[:trail_id])
+    @trails = Trail.all
+    @practice = @person.practices.create(practice_params)
 
-    if !@person.practice_on?(@trail)
-      flash[:alert] = "Not eligible in #{@trail.name} Trail. Select a different trail."
-      redirect_to new_person_practice_path(person_id: practice_params[:person_id]), status: :precondition_failed and return
-    end
-
-    redirect_to person_path(@person) and return if @person.practices.create!(practice_params)
+    redirect_to person_path(@person) and return if @practice.errors.blank?
 
     render :new, status: :unprocessable_entity
   end

@@ -35,8 +35,8 @@ class Person < ApplicationRecord
     !ongoing_practice? && trail.eligible?(age, weight, body_build)
   end
 
-  def get_trail_options(trail)
-    trail.collect do |t|
+  def get_trail_options(trails)
+    trails.collect do |t|
       validity = " (ineligible)" unless t.eligible?(age, weight, body_build)
       [ "#{t.name}#{validity}", t.id ]
     end
