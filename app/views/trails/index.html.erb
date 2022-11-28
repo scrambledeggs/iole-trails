@@ -1,4 +1,5 @@
 <h2>List of Trails</h2>
+<%= link_to "New Trail", new_trail_path %>
 <ul>
   <% @trails.each do |trail| %>
     <li>
@@ -8,4 +9,3 @@
 </ul>
 
 <br>
-<%= link_to "New Trail", new_trail_path %>
