@@ -45,9 +45,9 @@
 <h2><%= @person.name.upcase %>'s Races: </h2>
 <%= link_to "Register for a Race", new_person_run_path(@person) %></td>
 
-<h3>All:</h3>
+<h3>Run history</h3>
 <ul>
-<% @person.upcoming_runs.each do |run| %> 
+<% @person.runs.each do |run| %> 
   <li>
   <%= link_to run.race.name, person_run_path(@person, run) %> 
   </li>
