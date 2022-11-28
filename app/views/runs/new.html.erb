@@ -9,7 +9,7 @@
   <p>
     <%= form.hidden_field :person_id, value: @person.id %>
   </p>
-  <% @run.errors.full_messages_for(:person_id).each do |message| %>
+  <% @run.errors.full_messages.each do |message| %>
     <p style="color:red;"><%= message %></p>
   <% end %>
   <p>

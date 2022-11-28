@@ -9,7 +9,7 @@ class Run < ApplicationRecord
   belongs_to :person
   belongs_to :race
 
-  validates :person_id, uniqueness: { 
+  validates :person_id, uniqueness: {
     scope: :race_id,
     message: 'already registered for this race'
   }
@@ -41,8 +41,14 @@ class Run < ApplicationRecord
   end
 
   def race_overlaps_registered
-    # TODO: checks if current ongoing or upcoming races overlap
-    puts 'checks if current ongoing or upcoming races overlap'
-    # errors.add(:race_id, 'overlaps with another race you registered for')
+    upcoming_runs = Person.find(person_id).upcoming_runs
+    tentative_race = Race.find(race_id)
+
+    upcoming_runs.each do |run|
+      next unless run.race.overlaps?(tentative_race.start, tentative_race.duration)
+
+      errors.add(:race_id, 'overlaps with another registered race')
+      break
+    end
   end
 end
