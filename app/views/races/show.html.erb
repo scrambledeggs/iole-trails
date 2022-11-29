@@ -32,10 +32,10 @@
 
 <article>
 <% if @race.winner.present? %>
-<h3>Winner</h3>
+<h4>Winner</h4>
 Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
 <% end %>
-<h3>Participants</h3>
+<h4>Participants</h4>
 <% if @race.registered_runs.present? %> 
   <ul>
   <% @race.registered_runs.each do |run| %> 
