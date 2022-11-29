@@ -16,8 +16,18 @@ Body Build: <%= @trail.body_build %>
 
 </article>
 <article>
+<% if @trail.ongoing_race.present? %>
+<h4>Ongoing Race</h4>
+<%= link_to @trail.ongoing_race.name, [@trail, @trail.ongoing_race] %> - <%= @trail.ongoing_race.start.to_date %>, <%= @trail.ongoing_race.start.strftime("%I:%M%p") %>
+<% end %>
 <h4>Upcoming Race</h4>
-
+<ul>
+  <% @trail.upcoming_races.each do |race| %>
+  <li>
+    <%= link_to race.name, [@trail, race] %> - <%= race.start.to_date %>, <%= race.start.strftime("%I:%M%p") %>
+  </li>
+  <% end %>
+</ul>
 <%= link_to "See All Races", trail_races_path(@trail) %>
 </article>
 <article>

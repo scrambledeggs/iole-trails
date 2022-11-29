@@ -33,6 +33,14 @@ class Trail < ApplicationRecord
     finished_practices.uniq { |item| [item.person_id] }
   end
 
+  def upcoming_races
+    races.where(status: :NEW).order(:start)
+  end
+
+  def ongoing_race
+    races.where(status: :STARTED).first
+  end
+
   private
 
   def age_eligible(age)

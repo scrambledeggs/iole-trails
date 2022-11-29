@@ -19,7 +19,7 @@
     </tr>
   </thead>
 <tbody>
-  <% @races.each do |race| %>
+  <% @races.order(:start).each do |race| %>
   <tr>
     <td style="width:35%"><%= link_to race.name, [@trail, race] %></td>
     <td><%= race.status %></td>

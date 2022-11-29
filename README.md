@@ -60,7 +60,7 @@ Rules
   - [x] For another Trail but should not overlap with currently registered Race
 
 Additional
-- [ ] Add view on Trail for races list
+- [x] Add view on Trail for races list
 - [ ] Add view on Person for races list
 - [ ] Add view for Races via navbar: `trails/races`
 - [x] Don't update Race details if runners have already registered
