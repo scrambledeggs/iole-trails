@@ -1,9 +1,33 @@
-<h2><%= @trail.name.capitalize %>'s List of Races</h2>
-<%= link_to "New Race", new_trail_race_path %>
-<ul>
+<h3>The <%= @trail.name %> Trail</h3>
+
+<div class="row">
+  <div class="column left">
+    <h3>List of Races</h3>
+  </div>
+  <div class="column right">
+    <%= button_to "New Race", new_trail_race_path, method: :get %>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Race Name</th>
+      <th>Status</th>
+      <th>Start Date</th>
+      <th>Start Time</th>
+    </tr>
+  </thead>
+<tbody>
   <% @races.each do |race| %>
-    <li>
-      <%= link_to race.name, [@trail, race] %>
-    </li>
+  <tr>
+    <td style="width:35%"><%= link_to race.name, [@trail, race] %></td>
+    <td><%= race.status %></td>
+    <td><%= race.start.to_date %></td>
+    <td><%= race.start.strftime("%I:%M%p") %></td>
+  </tr>
   <% end %>
-</ul>
+</tbody>
+</table>
+
+<%= link_to "Back", trail_path(@trail) %>

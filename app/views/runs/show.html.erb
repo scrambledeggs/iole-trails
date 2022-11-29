@@ -1,8 +1,12 @@
-<h2><%= link_to @run.race.name, trail_race_path(@run.race.trail, @run.race) %> Race:</h2>
-<h3>Runner number: #<%= @run.id %></h3>
+<h3><%= @person.name.capitalize %>'s Page</h3>
 
-<% if @run.race.status_NEW? %>
-<h3>Status: <%= @run.status %></h3>
+
+<article>
+<h4><%= @run.race.name %>: Runner #<%= @run.id %></h4>
+<%= link_to "Details", trail_race_path(@run.race.trail, @run.race) %>
+<p>
+Status: <%= @run.status %>
+</p>
 
 <% if @run.status_REGISTERED? %>
 <%= form_with model: [@person, @run] do |form| %>
@@ -10,13 +14,13 @@
   <%= form.submit "Drop Race"%>
 <% end %>
 <% end %>
-<% end %>
 
 <% if @run.race.status_FINISHED? %>
-<h3>Runner's Status</h3>
-<p>Place: <%= @run.place %></p>
-<p>Duration (hours): <%= number_with_precision(@run.duration, precision: 2) %></p>
+<h5>Run Stats</h5>
+<p>
+Place: <%= @run.place %> <br>
+Run hours: <%= number_with_precision(@run.duration, precision: 2) %></p>
 <% end %>
+</article>
 
-<br>
 <%= link_to "Back", person_path(@person) %>

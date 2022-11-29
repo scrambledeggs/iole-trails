@@ -1,11 +1,16 @@
-<h3>People using Trails</h3>
-<%= link_to "New Person", new_person_path %>
-<ul>
-  <% @people.each do |person| %>
-    <li>
-      <%= link_to person.name.capitalize, person %>
-    </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="column left">
+    <h3>People using Trails</h3>
+  </div>
+  <div class="column right">
+    <%= button_to "New Person", new_person_path, method: :get %>
+  </div>
+</div>
 
-<br>
+<article class="cards">
+<% @people.each do |person| %>
+  <article class="card">
+    <%= link_to person.name.capitalize, person %>
+  </article>
+<% end %>
+</article>

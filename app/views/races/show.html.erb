@@ -1,14 +1,4 @@
-<h2>The <%= @race.name %> Race</h2>
-
-<%= link_to "Edit Details", edit_trail_race_path([@trail, @race]) %> | 
-<%= link_to "Remove", trail_race_path([@trail, @race]), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %>
-<h3>Details:</h3>
-<p>Status: <%= @race.status %></p>
-<p>Start: <%= @race.start.to_fs(:db) %></p>
-<p>Duration (hours): <%= @race.duration %></p>
+<h3>The <%= @race.name %> Race</h3>
 
 <% if @race.status_NEW? %>
 <%= form_with model: [@trail, @race] do |form| %>
@@ -28,12 +18,24 @@
 <% end %>
 <% end %>
 
+<article>
+<h4>Details:</h4>
+<p>Status: <%= @race.status %></p>
+<p>Start: <%= @race.start.to_fs(:db) %></p>
+<p>Duration (hours): <%= @race.duration %></p>
+<%= link_to "Edit Details", edit_trail_race_path([@trail, @race]) %> | 
+<%= link_to "Remove", trail_race_path([@trail, @race]), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %>
+</article>
+
+<article>
 <% if @race.winner.present? %>
-<h2>Winner</h2>
+<h3>Winner</h3>
 Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
 <% end %>
-
-<h2>Participants</h2>
+<h3>Participants</h3>
 <% if @race.registered_runs.present? %> 
   <ul>
   <% @race.registered_runs.each do |run| %> 
@@ -43,3 +45,4 @@ Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
 <% else %> 
   None yet!
 <% end %> 
+</article>

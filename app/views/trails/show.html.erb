@@ -1,5 +1,6 @@
 <h3>The <%= @trail.name %> Trail</h3>
 
+<article>
 <h4>Requirements:</h4>
 <p>
 Age (years): <%= @trail.age_minimum %> to <%= @trail.age_maximum %> <br>
@@ -7,16 +8,20 @@ Weight (kg): <%= @trail.weight_minimum %> to <%= @trail.weight_maximum %> <br>
 Body Build: <%= @trail.body_build %>
 </p>
 
-<%= link_to "Edit", edit_trail_path(@trail) %>
+<%= link_to "Edit", edit_trail_path(@trail) %> |
 <%= link_to "Remove", trail_path(@trail), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   } %>
-<%= link_to "See Eligibles", eligible_people_trail_path(@trail) %>
-<%= link_to "See Races", trail_races_path(@trail) %>
 
-<br>
-<h5><%= @trail.name %> Trail's Ongoing Trailers: </h5>
+</article>
+<article>
+<h4>Upcoming Race</h4>
+
+<%= link_to "See All Races", trail_races_path(@trail) %>
+</article>
+<article>
+<h4>Ongoing Trailers</h4>
 <% if @trail.ongoing_practices? %> 
   <ul>
   <% @trail.ongoing_practices.each do |practice| %> 
@@ -26,8 +31,9 @@ Body Build: <%= @trail.body_build %>
 <% else %> 
   <p>None at the moment.</p> 
 <% end %> 
+<%= link_to "See Eligibles", eligible_people_trail_path(@trail) %>
 
-<h5><%= @trail.name %> Trail's Finishers</h5>
+<h4>Trail Finishers</h4>
 <% if @trail.past_practices? %> 
   <ul>
   <% @trail.past_practices.each do |practice| %> 
