@@ -22,7 +22,7 @@ class Run < ApplicationRecord
 
   def person_availability
     person = Person.find(person_id)
-    return unless person.ongoing_practice?
+    return if !person.ongoing_practice?
 
     errors.add(:person_id, 'has an ongoing practice')
   end
@@ -47,7 +47,7 @@ class Run < ApplicationRecord
     tentative_race = Race.find(race_id)
 
     registered_runs.each do |run|
-      next unless run.race.overlaps?(tentative_race.start, tentative_race.duration)
+      next if !run.race.overlaps?(tentative_race.start, tentative_race.duration)
 
       errors.add(:race_id, 'overlaps with another registered race')
       break

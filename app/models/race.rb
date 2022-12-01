@@ -53,7 +53,7 @@ class Race < ApplicationRecord
   end
 
   def status_change
-    return unless status_STARTED?
+    return if !status_STARTED?
 
     return if registered_runs.length > 1
 
@@ -61,7 +61,7 @@ class Race < ApplicationRecord
   end
 
   def finish_sequence
-    return unless status_FINISHED?
+    return if !status_FINISHED?
 
     formatted_updates = []
     first_placer = 0

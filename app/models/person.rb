@@ -37,7 +37,7 @@ class Person < ApplicationRecord
 
   def get_trail_options(trails)
     trails.collect do |t|
-      validity = " (ineligible)" unless t.eligible?(age, weight, body_build)
+      validity = " (ineligible)" if !t.eligible?(age, weight, body_build)
       [ "#{t.name}#{validity}", t.id ]
     end
   end

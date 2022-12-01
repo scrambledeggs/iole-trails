@@ -24,7 +24,7 @@ class Practice < ApplicationRecord
   def person_availability
     @person = Person.find(person_id)
 
-    return unless @person.ongoing_race?
+    return if !@person.ongoing_race?
 
     errors.add(:person_id, 'already has an ongoing race')
   end
