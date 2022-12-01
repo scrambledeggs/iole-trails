@@ -20,9 +20,13 @@
 
 <article>
 <h4>Details:</h4>
-<p>Status: <%= @race.status %></p>
-<p>Start: <%= @race.start.to_fs(:db) %></p>
-<p>Duration (hours): <%= @race.duration %></p>
+<p>
+Status: <%= @race.status %> <br>
+Start Date: <%= @race.start.to_date %> <br>
+Start Time: <%= @race.start.strftime("%I:%M%p") %> <br>
+End Time: <%= @race.expected_end.strftime("%I:%M%p") %> <br>
+Duration (hours): <%= @race.duration %>
+</p>
 <%= link_to "Edit Details", edit_trail_race_path([@trail, @race]) %> | 
 <%= link_to "Remove", trail_race_path([@trail, @race]), data: {
                     turbo_method: :delete,
