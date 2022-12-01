@@ -1,4 +1,4 @@
-<h3>The <%= @trail.name %> Trail</h3>
+<h3><%= image_tag("trail_32.png")%> The <%= @trail.name %> Trail</h3>
 
 <div class="row">
   <div class="column left">
@@ -9,6 +9,7 @@
   </div>
 </div>
 
+<% if @races.present? %>
 <table>
   <thead>
     <tr>
@@ -21,7 +22,7 @@
 <tbody>
   <% @races.order(:start).each do |race| %>
   <tr>
-    <td style="width:35%"><%= link_to race.name, [@trail, race] %></td>
+    <td style="width:35%"><%= image_tag("race.png")%> <%= link_to race.name, [@trail, race] %></td>
     <td><%= race.status %></td>
     <td><%= race.start.to_date %></td>
     <td><%= race.start.strftime("%I:%M%p") %></td>
@@ -29,5 +30,8 @@
   <% end %>
 </tbody>
 </table>
+<% else %>
+<p>None yet!</p>
+<% end %>
 
 <%= link_to "Back", trail_path(@trail) %>

@@ -1,4 +1,4 @@
-<h3>The <%= @race.name %> Race</h3>
+<h3><%= image_tag("race_32.png")%> The <%= @race.name %> Race</h3>
 
 <% if @race.status_NEW? %>
 <%= form_with model: [@trail, @race] do |form| %>

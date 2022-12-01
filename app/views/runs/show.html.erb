@@ -1,9 +1,8 @@
-<h3><%= @person.name.capitalize %>'s Page</h3>
-
+<h3><%= image_tag("user_32.png")%> <%= @person.name.capitalize %>'s Page > <%= @run.race.name %></h3>
 
 <article>
-<h4><%= @run.race.name %>: Runner #<%= @run.id %></h4>
-<%= link_to "Details", trail_race_path(@run.race.trail, @run.race) %>
+<h4>Runner #<%= @run.id %></h4>
+<%= link_to "Race Details", trail_race_path(@run.race.trail, @run.race) %>
 <p>
 Status: <%= @run.status %>
 </p>

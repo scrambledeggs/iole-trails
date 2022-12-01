@@ -68,3 +68,8 @@ Additional
 ### Diagram
 ![Diagram 2](src/trails_diagram_2.png)
 
+
+### Attributions
+- [User icons](https://www.flaticon.com/free-icons/user) created by Freepik - Flaticon
+- [Road icons](https://www.flaticon.com/free-icons/road) created by Smashicons - Flaticon
+- [Race icons](https://www.flaticon.com/free-icons/race) created by Good Ware - Flaticon

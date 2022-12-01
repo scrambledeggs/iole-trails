@@ -10,7 +10,7 @@
 <article class="cards">
 <% @trails.each do |trail| %>
   <article class="card">
-    <%= link_to trail.name, trail %>
+    <%= image_tag("trail.png")%> <%= link_to trail.name, trail %>
   </article>
 <% end %>
 </article>
