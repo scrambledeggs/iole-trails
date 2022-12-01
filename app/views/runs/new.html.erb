@@ -2,19 +2,19 @@
 
 
 <%= form_with model: [@person, @person.runs.build] do |form| %>
-  <p>
+  <div>
     <%= form.label "Select a Race" %><br>
     <%= form.select :race_id, @races.collect {|race| [race.name, race.id]} %>
-  </p>
-  <p>
+  </div>
+  <div>
     <%= form.hidden_field :person_id, value: @person.id %>
-  </p>
+  </div>
   <% @run.errors.full_messages.each do |message| %>
-    <p style="color:red;"><%= message %></p>
+    <div class="form_error"><%= message %></div>
   <% end %>
-  <p>
+  <div>
     <%= form.submit "Register"%>
-  </p>
+  </div>
 <% end %>
 
 <%= link_to "Back", person_path(@person) %>

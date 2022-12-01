@@ -1,35 +1,35 @@
 <%= form_with model: [@trail, @race] do |form| %>
   <div>
-    <%= form.label :name %> <br>
+    <%= form.label :name %>
     <%= form.text_field :name %>
     <% @race.errors.full_messages_for(:name).each do |message| %>
-      <div><%= message %></div>
+      <div class="form_error"><%= message %></div>
     <% end %>
   </div>
 
   <div>
-    <%= form.label 'Start Date and Time' %> <br>
+    <%= form.label 'Start Date and Time' %>
     <%= form.datetime_local_field :start %>
     <% @race.errors.full_messages_for(:start).each do |message| %>
-      <div><%= message %></div>
+      <div class="form_error"><%= message %></div>
     <% end %>
   </div>
 
   <div>
-    <%= form.label :duration %> <br>
+    <%= form.label :duration %>
     <%= form.number_field :duration, step: 0.01 %>
     <% @race.errors.full_messages_for(:duration).each do |message| %>
-      <div><%= message %></div>
+      <div class="form_error"><%= message %></div>
     <% end %>
   </div>
 
-  <% @race.errors.full_messages.each do |message| %>
-    <p style="color:red;"><%= message %></p>
+  <% @race.errors.full_messages_for(:detail || :status || :time_period).each do |message| %>
+    <div class="form_error"><%= message %></div>
   <% end %>
 
-  <p>
+  <div>
     <%= form.submit %>
-  </p>
+  </div>
 <% end %>
 
 <%= link_to "Back to Races", trail_races_path(@trail) %>

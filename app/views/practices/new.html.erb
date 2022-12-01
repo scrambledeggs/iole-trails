@@ -2,19 +2,19 @@
 
 
 <%= form_with model: [@person, @person.practices.build] do |form| %>
-  <p>
+  <div>
     <%= form.label "Select a trail" %><br>
     <%= form.select :trail_id, @person.get_trail_options(@trails)%>
-  </p>
-  <p>
+  </div>
+  <div>
     <%= form.hidden_field :person_id, value: @person.id %>
-  </p>
+  </div>
   <% @practice.errors.full_messages.each do |message| %>
-    <p style="color:red;"><%= message %></p>
+    <div class="form_error"><%= message %></div>
   <% end %>
-  <p>
+  <div>
     <%= form.submit "Start Practice"%>
-  </p>
+  </div>
 <% end %>
 
 <%= link_to "Back", person_path(@person) %>
