@@ -38,7 +38,7 @@ Body Build: <%= @person.body_build %>
 <% if @person.past_practices? %> 
   <ul>
   <% @person.past_practices.each do |practice| %> 
-    <li><%= link_to practice.trail.name, practice.trail %> (<%= practice.updated_at.to_fs(:db) %>)</li> 
+    <li><%= link_to practice.trail.name, practice.trail %> (<%= practice.updated_at.strftime("%Y-%m-%d %I:%M%p") %>)</li> 
   <% end %> 
   </ul>
 <% else %> 

@@ -7,7 +7,7 @@
 Status: <%= @run.status %>
 </p>
 
-<% if @run.status_REGISTERED? %>
+<% if @run.status_REGISTERED? && @run.race.status_NEW? %>
 <%= form_with model: [@person, @run] do |form| %>
   <%= form.hidden_field :status, value: :DROPPED %>
   <%= form.submit "Drop Race"%>

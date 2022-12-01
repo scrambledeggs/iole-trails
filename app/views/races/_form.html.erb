@@ -23,7 +23,13 @@
     <% end %>
   </div>
 
-  <% @race.errors.full_messages_for(:detail || :status || :time_period).each do |message| %>
+  <% @race.errors.full_messages_for(:detail).each do |message| %>
+    <div class="form_error"><%= message %></div>
+  <% end %>
+  <% @race.errors.full_messages_for(:status).each do |message| %>
+    <div class="form_error"><%= message %></div>
+  <% end %>
+  <% @race.errors.full_messages_for(:time_period).each do |message| %>
     <div class="form_error"><%= message %></div>
   <% end %>
 
