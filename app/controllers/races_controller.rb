@@ -29,7 +29,6 @@ class RacesController < ApplicationController
   end
 
   def update
-    # TODO: dont update an ongoing race
     redirect_to trail_race_path(@trail, @race) and return if @race.update(race_params)
 
     render :edit, status: :unprocessable_entity and return !@race.errors.include?(:status)
