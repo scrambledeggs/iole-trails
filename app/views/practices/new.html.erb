@@ -1,9 +1,9 @@
-<h1>Start a Practice for: <%= @person.name.capitalize %></h1>
+<h3>Start a Practice for: <%= @person.name.capitalize %></h3>
 
 
 <%= form_with model: [@person, @person.practices.build] do |form| %>
   <div>
-    <%= form.label "Select a trail" %><br>
+    <%= form.label "Select a trail" %>
     <%= form.select :trail_id, @person.get_trail_options(@trails)%>
   </div>
   <div>
