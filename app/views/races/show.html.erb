@@ -11,10 +11,10 @@
 <p>Duration (hours): <%= @race.duration %></p>
 
 <% if @race.status_NEW? %>
-<%= form_with model: [@trail, @race] do |form| %>
-  <%= form.hidden_field :status, value: :STARTED %>
-  <%= form.submit "Start Race"%>
-<% end %>
+  <%= form_with model: [@trail, @race] do |form| %>
+    <%= form.hidden_field :status, value: :STARTED %>
+    <%= form.submit "Start Race"%>
+  <% end %>
 <% end %>
 
 <% if flash[:alert] %>
@@ -22,15 +22,15 @@
 <% end %>
 
 <% if @race.status_STARTED? %>
-<%= form_with model: [@trail, @race] do |form| %>
-  <%= form.hidden_field :status, value: :FINISHED %>
-  <%= form.submit "Finish Race"%>
-<% end %>
+  <%= form_with model: [@trail, @race] do |form| %>
+    <%= form.hidden_field :status, value: :FINISHED %>
+    <%= form.submit "Finish Race"%>
+  <% end %>
 <% end %>
 
 <% if @race.winner.present? %>
-<h2>Winner</h2>
-Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
+  <h2>Winner</h2>
+  Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
 <% end %>
 
 <h2>Participants</h2>
