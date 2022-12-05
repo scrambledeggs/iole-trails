@@ -8,21 +8,21 @@ RSpec.describe Person, type: :model do
 
   it 'is not valid without a name' do
     person2 = build(:person, name: nil)
-    expect(person2).to_not be_valid
+    expect(person2).not_to be_valid
   end
 
   it 'is not valid without an age' do
     person2 = build(:person, age: nil)
-    expect(person2).to_not be_valid
+    expect(person2).not_to be_valid
   end
 
   it 'is not valid without a weight' do
     person2 = build(:person, weight: nil)
-    expect(person2).to_not be_valid
+    expect(person2).not_to be_valid
   end
 
   it 'is not valid without a body build' do
     person2 = build(:person, body_build: nil)
-    expect(person2).to_not be_valid
+    expect(person2).not_to be_valid
   end
 end

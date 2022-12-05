@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :person do
-    name { "MyString" }
+    sequence(:name) { |n| "person#{n}" }
     age { 1 }
     weight { 1.5 }
-    body_build { 1 }
+    body_build { 'FIT' }
   end
 end
