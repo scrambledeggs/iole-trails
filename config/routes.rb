@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get "eligible-people", to: "trails#eligibles", on: :member
     resources :races
   end
+
+  get "races", to: "races#all"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
