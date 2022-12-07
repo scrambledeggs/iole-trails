@@ -1,16 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "TrailsController", type: :request do
-  before :each do
-    @expected_trail = create(:trail)
-    @expected_params = @expected_trail.attributes
-  end
+  let!(:expected_trail) { create(:trail) }
 
   # index
   describe 'GET /trails' do
     it 'works!' do
       get trails_path
-
       actual_trails = assigns(:trails)
 
       expect(response).to have_http_status(:ok)
@@ -32,11 +28,11 @@ RSpec.describe "TrailsController", type: :request do
   # show
   describe 'GET /trails/:id' do
     it 'retrieves the correct trail' do
-      get trail_path(@expected_trail.id)
+      get trail_path(expected_trail)
       actual_trail = assigns(:trail)
 
       expect(response).to have_http_status(:ok)
-      expect(actual_trail.name).to eq @expected_trail.name
+      expect(actual_trail.name).to eq expected_trail.name
     end
   end
 
@@ -60,7 +56,7 @@ RSpec.describe "TrailsController", type: :request do
       actual_trail = assigns(:trail)
 
       expect(response).to have_http_status(:found)
-      expect(response).to redirect_to trail_path(actual_trail.id)
+      expect(response).to redirect_to trail_path(actual_trail)
       expect(actual_trail.name).to eq new_trail_params[:name]
     end
 
@@ -73,7 +69,7 @@ RSpec.describe "TrailsController", type: :request do
       actual_trail = assigns(:trail)
 
       expect(response).to have_http_status(:found)
-      expect(response).to redirect_to trail_path(actual_trail.id)
+      expect(response).to redirect_to trail_path(actual_trail)
       expect(actual_trail.name).to eq new_trail_params[:name]
     end
 
@@ -93,32 +89,32 @@ RSpec.describe "TrailsController", type: :request do
   # edit
   describe 'GET /trails/:id/edit' do
     it 'retrieves correct Trail for editing' do
-      get edit_trail_path(@expected_trail.id)
+      get edit_trail_path(expected_trail)
       actual_trail = assigns(:trail)
 
       expect(response).to have_http_status(:ok)
-      expect(actual_trail.name).to eq @expected_trail.name
+      expect(actual_trail.name).to eq expected_trail.name
     end
   end
 
   # update
   describe 'PUT /trails/:id' do
     it 'updates a Trail with valid parameters' do
-      new_weight_maximum = @expected_trail.weight_maximum + 5
-      @expected_params[:weight_maximum] = new_weight_maximum
+      new_weight_maximum = expected_trail.weight_maximum + 5
+      expected_params = { weight_maximum: new_weight_maximum }
 
-      put trail_path(@expected_trail.id), params: { trail: @expected_params }
+      put trail_path(expected_trail), params: { trail: expected_params }
       actual_trail = assigns(:trail)
 
       expect(response).to have_http_status(:found)
-      expect(response).to redirect_to trail_path(actual_trail.id)
+      expect(response).to redirect_to trail_path(actual_trail)
       expect(actual_trail.weight_maximum).to eq new_weight_maximum
     end
 
     it 'does not update with invalid parameter' do
-      @expected_params[:name] = nil
+      expected_params = { name: nil }
 
-      put trail_path(@expected_trail.id), params: { trail: @expected_params }
+      put trail_path(expected_trail), params: { trail: expected_params }
       actual_trail = assigns(:trail)
 
       expect(response).to have_http_status(:unprocessable_entity)
@@ -130,7 +126,7 @@ RSpec.describe "TrailsController", type: :request do
   # destroy
   describe 'DELETE /trails/:id' do
     it 'deletes a Trail' do
-      delete trail_path(@expected_trail.id)
+      delete trail_path(expected_trail)
 
       expect(response).to have_http_status(:see_other)
       expect(response).to redirect_to trails_path

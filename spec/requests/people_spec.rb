@@ -1,16 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'PeopleController', type: :request do
-  before :each do
-    @expected_person = create(:person)
-    @expected_params = @expected_person.attributes
-  end
+  let!(:expected_person) { create(:person) }
 
   # index
   describe 'GET /people' do
     it 'works!' do
       get people_path
-
       actual_people = assigns(:people)
 
       expect(response).to have_http_status(:ok)
@@ -32,11 +28,11 @@ RSpec.describe 'PeopleController', type: :request do
   # show
   describe 'GET /people/:id' do
     it 'retrieves the correct Person' do
-      get person_path(@expected_person.id)
+      get person_path(expected_person)
       actual_person = assigns(:person)
 
       expect(response).to have_http_status(:ok)
-      expect(actual_person.name).to eq @expected_person.name
+      expect(actual_person.name).to eq expected_person.name
     end
   end
 
@@ -60,7 +56,7 @@ RSpec.describe 'PeopleController', type: :request do
       actual_person = assigns(:person)
 
       expect(response).to have_http_status(:found)
-      expect(response).to redirect_to person_path(actual_person.id)
+      expect(response).to redirect_to person_path(actual_person)
       expect(actual_person.name).to eq new_person_params[:name]
     end
 
@@ -80,32 +76,32 @@ RSpec.describe 'PeopleController', type: :request do
   # edit
   describe 'GET /people/:id/edit' do
     it 'retrieves correct Person for editing' do
-      get edit_person_path(@expected_person.id)
+      get edit_person_path(expected_person)
       actual_person = assigns(:person)
 
       expect(response).to have_http_status(:ok)
-      expect(actual_person.name).to eq @expected_person.name
+      expect(actual_person.name).to eq expected_person.name
     end
   end
 
   # update
   describe 'PUT /people/:id' do
     it 'updates a Person with valid parameters' do
-      new_weight = @expected_person.weight + 5
-      @expected_params[:weight] = new_weight
+      new_weight = expected_person.weight + 5
+      expected_params = { weight: new_weight }
 
-      put person_path(@expected_person.id), params: { person: @expected_params }
+      put person_path(expected_person), params: { person: expected_params }
       actual_person = assigns(:person)
 
       expect(response).to have_http_status(:found)
-      expect(response).to redirect_to person_path(actual_person.id)
+      expect(response).to redirect_to person_path(actual_person)
       expect(actual_person.weight).to eq new_weight
     end
-
+    
     it 'does not update with invalid parameters' do
-      @expected_params[:weight] = nil
+      expected_params = { weight: nil }
 
-      put person_path(@expected_person.id), params: { person: @expected_params }
+      put person_path(expected_person), params: { person: expected_params }
       actual_person = assigns(:person)
 
       expect(response).to have_http_status(:unprocessable_entity)
@@ -117,7 +113,7 @@ RSpec.describe 'PeopleController', type: :request do
   # destroy
   describe 'DELETE /people/:id' do
     it 'deletes a Person' do
-      delete person_path(@expected_person.id)
+      delete person_path(expected_person)
 
       expect(response).to have_http_status(:see_other)
       expect(response).to redirect_to people_path
