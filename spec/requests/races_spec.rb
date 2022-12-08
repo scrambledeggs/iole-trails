@@ -145,17 +145,15 @@ RSpec.describe "RacesController", type: :request do
       expect(actual_race.errors).not_to be_empty
     end
 
-    pending 'does not update status with less than 2 participants'
-    # it 'does not update status with less than 2 participants' do
-    #   expected_params = { status: :STARTED }
+    it 'does not update status with less than 2 participants' do
+      expected_params = { status: :STARTED }
 
-    #   put trail_race_path(trail, expected_race), params: { race: expected_params }
-    #   actual_race = assigns(:race)
+      put trail_race_path(trail, expected_race), params: { race: expected_params }
+      actual_race = assigns(:race)
 
-    #   expect(response).to have_http_status(:conflict)
-    #   expect(response).to redirect_to trail_race_path(trail, actual_race)
-    #   expect(actual_race.errors).not_to be_empty
-    # end
+      expect(response).to redirect_to trail_race_path(trail, actual_race)
+      expect(actual_race.errors).not_to be_empty
+    end
   end
 
   # destroy

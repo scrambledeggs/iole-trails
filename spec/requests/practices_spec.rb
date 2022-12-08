@@ -46,7 +46,7 @@ RSpec.describe "PracticesController", type: :request do
 
   # update
   describe "PUT /people/:person_id/practices/:id" do
-    it "updates the status to finished" do
+    it "updates the status to FINISHED" do
       practice = create(:practice, person: person, trail: trail)
       new_practice_params = {
         person_id: person.id, # TODO: update in model?
@@ -61,4 +61,6 @@ RSpec.describe "PracticesController", type: :request do
       expect(actual_practice.status).to eq 'FINISHED'
     end
   end
+
+  # TODO: it renders edit again
 end
