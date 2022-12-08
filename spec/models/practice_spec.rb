@@ -29,5 +29,23 @@ RSpec.describe Practice, type: :model do
     expect(practice1).not_to be_valid
   end
 
-  # TODO: is invalid for unavailable people
+  context 'when a person has an ongoing race' do
+    let!(:trail1) { create(:trail, :FIT) }
+    let!(:race1) { create(:race, trail: trail1) }
+
+    let!(:person1) { create(:person, :FIT) }
+    let!(:practice1) { create(:practice, :FINISHED, :for_fit, person: person1, trail: trail1) }
+    let!(:run1) { create(:run, person: person1, race: race1) }
+
+    let!(:person2) { create(:person, :FIT) }
+    let!(:practice2) { create(:practice, :FINISHED, :for_fit, person: person2, trail: trail1) }
+    let!(:run2) { create(:run, person: person2, race: race1) }
+
+    it 'is invalid' do
+      race1.update(status: :STARTED)
+
+      practice3 = build(:practice, person: person1, trail: trail1)
+      expect(practice3).not_to be_valid
+    end
+  end
 end

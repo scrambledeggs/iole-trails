@@ -105,14 +105,51 @@ RSpec.describe Person, type: :model do
   end
 
   describe 'practice_on' do
-    pending 'hehe'
+    context 'when a person is eligible for the trail' do
+      let!(:trail1) { create(:trail, :for_young, :FIT) }
+      let!(:person1) { create(:person, :young) }
+
+      it { expect(person1.practice_on?(trail1)).to eq true }
+    end
+
+    context 'when a person is ineligible for the trail' do
+      let!(:trail1) { create(:trail, :for_young, :FIT) }
+      let!(:person1) { create(:person, :old) }
+
+      it { expect(person1.practice_on?(trail1)).to eq false }
+    end
   end
 
   describe 'get_trail_options' do
-    pending 'hehe'
+    let!(:person1) { create(:person, :young, :FIT, :light) }
+    let!(:trail1) { create(:trail, :for_young, :for_light, :FIT) }
+    let!(:trail2) { create(:trail, :for_young_only) }
+    let!(:trail3) { create(:trail, :for_heavy_only) }
+
+    it 'marks trails uneligible for' do
+      trail_options = person1.get_trail_options(Trail.all)
+
+      puts trail_options.inspect
+      expect(trail_options[0][0]).to eq trail1.name
+      expect(trail_options[1][0]).to eq trail2.name
+      expect(trail_options[2][0]).to eq "#{trail3.name} (ineligible)"
+    end
   end
 
   describe 'finished_practice_on' do
-    pending 'hehe'
+    let!(:person1) { create(:person, :FIT) }
+    let!(:trail1) { create(:trail, :FIT) }
+
+    context 'for a person with a finished practice' do
+      let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
+
+      it { expect(person1.finished_practice_on?(trail1.id)).to eq true }
+    end
+
+    context 'for a person with an unfinished practice' do
+      let!(:practice1) { create(:practice, :STARTED, person: person1, trail: trail1) }
+
+      it { expect(person1.finished_practice_on?(trail1.id)).to eq false }
+    end
   end
 end

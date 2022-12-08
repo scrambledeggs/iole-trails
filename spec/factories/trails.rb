@@ -27,4 +27,18 @@ FactoryBot.define do
     weight_minimum { 70 }
     weight_maximum { 100 }
   end
+
+  trait :for_young_only do
+    for_young
+    weight_minimum { nil }
+    weight_maximum { nil }
+    body_build { nil }
+  end
+
+  trait :for_heavy_only do
+    for_heavy
+    age_minimum { nil }
+    age_maximum { nil }
+    body_build { nil }
+  end
 end

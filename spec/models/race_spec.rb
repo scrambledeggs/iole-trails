@@ -21,8 +21,8 @@ RSpec.describe Race, type: :model do
     expect(race2).not_to be_valid
   end
 
-  context 'given other races exist' do
-    let!(:trail) { create(:trail)}
+  context 'when other races exist' do
+    let!(:trail) { create(:trail) }
     let!(:race1) { create(:race, trail: trail) }
     let!(:race2) { create(:race, trail: trail) }
 
@@ -40,7 +40,7 @@ RSpec.describe Race, type: :model do
   end
 
   context 'with no participants' do
-    let!(:trail) { create(:trail)}
+    let!(:trail) { create(:trail) }
     let!(:race1) { create(:race, trail: trail) }
 
     it 'is allowed to change details' do
@@ -59,7 +59,7 @@ RSpec.describe Race, type: :model do
   end
 
   context 'with a participant' do
-    let!(:trail1) { create(:trail, :FIT)}
+    let!(:trail1) { create(:trail, :FIT) }
     let!(:person1) { create(:person, :FIT) }
     let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
     let!(:race1) { create(:race, trail: trail1) }
@@ -81,4 +81,6 @@ RSpec.describe Race, type: :model do
       expect(race1.status).to eq 'STARTED'
     end
   end
+
+  # TODO: finish_sequence
 end
