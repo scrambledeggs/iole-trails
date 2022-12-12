@@ -6,9 +6,6 @@
     <%= form.label "Select a Race" %><br>
     <%= form.select :race_id, @races.collect {|race| [race.name, race.id]} %>
   </p>
-  <p>
-    <%= form.hidden_field :person_id, value: @person.id %>
-  </p>
   <% @run.errors.full_messages.each do |message| %>
     <p style="color:red;"><%= message %></p>
   <% end %>

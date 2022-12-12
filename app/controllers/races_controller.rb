@@ -34,7 +34,7 @@ class RacesController < ApplicationController
     render :edit, status: :unprocessable_entity and return if !@race.errors.include?(:status)
 
     flash[:alert] = @race.errors.messages_for(:status).first
-    redirect_to trail_race_path(@trail, @race), status: :conflict
+    redirect_to trail_race_path(@trail, @race)
   end
 
   def destroy
