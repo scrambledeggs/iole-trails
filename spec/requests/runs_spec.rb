@@ -82,5 +82,7 @@ RSpec.describe "Runs", type: :request do
       expect(response).to redirect_to person_run_path(person, run)
       expect(actual_run.status).to eq 'FINISHED'
     end
+
+    # TODO: it renders edit again
   end
 end

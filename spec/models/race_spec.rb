@@ -82,5 +82,68 @@ RSpec.describe Race, type: :model do
     end
   end
 
-  # TODO: finish_sequence
+  context 'when an ongoing race is finished' do
+    let!(:trail1) { create(:trail, :FIT) }
+    let!(:race1) { create(:race, trail: trail1) }
+
+    let!(:person1) { create(:person, :FIT) }
+    let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
+    let!(:run1) { create(:run, person: person1, race: race1, id: 1) }
+
+    let!(:person2) { create(:person, :FIT) }
+    let!(:practice2) { create(:practice, :FINISHED, person: person2, trail: trail1) }
+    let!(:run2) { create(:run, person: person2, race: race1, id: 2) }
+
+    it 'changes status to finished' do
+      race1.update(status: :FINISHED)
+
+      expect(race1.status).to eq 'FINISHED'
+    end
+
+    it 'assigns a random run status and run duration' do
+      race1.update(status: :FINISHED)
+
+      run1_record = Run.find(1)
+      run2_record = Run.find(2)
+
+      expect(run1_record.status).to include('FINISHED')
+      expect(run2_record.status).to include('FINISHED')
+      expect(run1_record.duration).not_to eq nil
+      expect(run2_record.duration).not_to eq nil
+    end
+
+    it 'assigns the winner' do
+      race1.update(status: :FINISHED)
+
+      expect(race1.winner).not_to eq nil
+    end
+  end
+
+  describe 'expected_end' do
+    let!(:race1) { create(:race) }
+
+    it { expect(race1.expected_end).to eq (race1.start + race1.duration.hours) }
+  end
+
+  describe 'overlaps?' do
+    let!(:race1) { create(:race, start: 1.day.from_now) }
+
+    context 'when input parameters overlap race time period' do
+      it 'returns true' do
+        start = 1.day.from_now
+        duration = 1
+
+        expect(race1.overlaps?(start, duration)).to eq true
+      end
+    end
+
+    context 'when input parameters differ from race time period' do
+      it 'returns true' do
+        start = 3.days.from_now
+        duration = 1
+
+        expect(race1.overlaps?(start, duration)).to eq false
+      end
+    end
+  end
 end

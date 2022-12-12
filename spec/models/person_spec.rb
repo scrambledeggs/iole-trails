@@ -63,11 +63,11 @@ RSpec.describe Person, type: :model do
     let!(:race1) { create(:race, trail: trail1) }
 
     let!(:person1) { create(:person, :FIT) }
-    let!(:practice1) { create(:practice, :FINISHED, :for_fit, person: person1, trail: trail1) }
+    let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
     let!(:run1) { create(:run, person: person1, race: race1) }
 
     let!(:person2) { create(:person, :FIT) }
-    let!(:practice2) { create(:practice, :FINISHED, :for_fit, person: person2, trail: trail1) }
+    let!(:practice2) { create(:practice, :FINISHED, person: person2, trail: trail1) }
     let!(:run2) { create(:run, person: person2, race: race1) }
 
     context 'for a person without an ongoing race' do
@@ -89,7 +89,7 @@ RSpec.describe Person, type: :model do
     let!(:race1) { create(:race, trail: trail1) }
 
     let!(:person1) { create(:person, :FIT) }
-    let!(:practice1) { create(:practice, :FINISHED, :for_fit, person: person1, trail: trail1) }
+    let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
 
     context 'for a person with a registered run' do
       let!(:run1) { create(:run, person: person1, race: race1) }
@@ -129,7 +129,6 @@ RSpec.describe Person, type: :model do
     it 'marks trails uneligible for' do
       trail_options = person1.get_trail_options(Trail.all)
 
-      puts trail_options.inspect
       expect(trail_options[0][0]).to eq trail1.name
       expect(trail_options[1][0]).to eq trail2.name
       expect(trail_options[2][0]).to eq "#{trail3.name} (ineligible)"
