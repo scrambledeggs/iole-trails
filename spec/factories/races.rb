@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :race do
     association :trail
-    sequence(:name) { |n| "race#{n}" }
+    name { Faker::Movies::HarryPotter.spell }
     status { :NEW }
     sequence(:start) { |n| n.days.from_now }
-    duration { 1.5 }
+    duration { Faker::Number.within(range: 0.5..12.0) }
   end
 
   trait :with_winner do

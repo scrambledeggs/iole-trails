@@ -107,7 +107,7 @@ RSpec.describe Person, type: :model do
   describe 'practice_on' do
     context 'when a person is eligible for the trail' do
       let!(:trail1) { create(:trail, :for_young, :FIT) }
-      let!(:person1) { create(:person, :young) }
+      let!(:person1) { create(:person, :young, :FIT) }
 
       it { expect(person1.practice_on?(trail1)).to eq true }
     end
@@ -151,4 +151,5 @@ RSpec.describe Person, type: :model do
       it { expect(person1.finished_practice_on?(trail1.id)).to eq false }
     end
   end
+  # subject rspec <- used in booky dos
 end

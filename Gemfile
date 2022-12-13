@@ -78,4 +78,5 @@ group :test do
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'simplecov', require: false
+  gem 'faker'
 end
