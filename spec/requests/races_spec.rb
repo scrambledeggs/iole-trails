@@ -1,55 +1,41 @@
 require 'rails_helper'
 
 RSpec.describe "RacesController", type: :request do
-  let!(:trail) { create(:trail) }
-  let!(:expected_race) { create(:race, trail: trail) }
+  let!(:trail) { create(:trail, :SLIM) }
+  let!(:race1) { create(:race, trail: trail) }
+  let!(:race2) { create(:race, trail: trail) }
+  let(:actual_races) { assigns(:races) }
+  let(:actual_race) { assigns(:race) }
 
   # index
   describe 'GET /trails/:trail_id/races' do
-    it 'works!' do
-      get trail_races_path(trail)
-      actual_races = assigns(:races)
+    let!(:path) { get trail_races_path(trail) }
 
-      expect(response).to have_http_status(:ok)
-      expect(actual_races.count).to eq 1
-    end
-
-    it 'retrieves all Races for the Trail' do
-      2.times { create(:race, trail: trail) }
-
-      get trail_races_path(trail)
-      actual_races = assigns(:races)
-
-      expect(response).to have_http_status(:ok)
-      expect(actual_races).not_to be_empty
-      expect(actual_races.count).to eq 3
-    end
+    it { expect(response).to have_http_status(:ok) }
+    it { expect(actual_races.count).to eq 2 }
   end
 
   # show
   describe 'GET /trails/:trail_id/races/:id' do
-    context 'the race is not finished' do
-      it 'retrieves the correct Race' do
-        get trail_race_path(trail, expected_race)
-        actual_race = assigns(:race)
+    context 'when the race is not finished' do
+      let!(:path) { get trail_race_path(trail, race1) }
 
-        expect(response).to have_http_status(:ok)
-        expect(actual_race.name).to eq expected_race.name
-      end
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(actual_race.name).to eq race1.name }
     end
 
-    context 'the race has finished' do
+    context 'when the race has finished' do
       it 'retrieves the correct Race and winner' do
-        trail1 = create(:trail, :SLIM)
+        race3 = create(:race, :with_winner, trail: trail)
+
         person1 = create(:person, :SLIM)
         person2 = create(:person, :SLIM)
-        practice1 = create(:practice, :FINISHED, person: person1, trail: trail1)
-        practice2 = create(:practice, :FINISHED, person: person2, trail: trail1)
-        race1 = create(:race, :with_winner, trail: trail1)
-        run1 = create(:run, :with_finished_stats, person: person1, race: race1, id: 1)
-        run2 = create(:run, :with_unfinished_stats, person: person2, race: race1, id: 2)
+        practice1 = create(:practice, :FINISHED, person: person1, trail: trail)
+        practice2 = create(:practice, :FINISHED, person: person2, trail: trail)
+        run1 = create(:run, :with_finished_stats, person: person1, race: race3, id: 1)
+        run2 = create(:run, :with_unfinished_stats, person: person2, race: race3, id: 2)
 
-        get trail_race_path(trail1, race1)
+        get trail_race_path(trail, race3)
         actual_winner = assigns(:winner)
         actual_winning_run = assigns(:winning_run)
 
@@ -62,122 +48,94 @@ RSpec.describe "RacesController", type: :request do
 
   # new
   describe 'GET /trails/:trail_id/races/new' do
-    it 'instantiates a new Race' do
-      get new_trail_race_path(trail)
-      actual_race = assigns(:race)
+    let!(:path) { get new_trail_race_path(trail) }
 
-      expect(response).to have_http_status(:ok)
-      expect(actual_race.name).to be_nil
-    end
+    it { expect(response).to have_http_status(:ok) }
+    it { expect(actual_race.name).to be_nil }
   end
 
   # create
   describe 'POST /trails/:trail_id/races' do
-    it 'creates a new Race with valid parameters' do
-      new_race_params = attributes_for(:race)
+    let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
 
-      post trail_races_path(trail), params: { race: new_race_params }
-      actual_race = assigns(:race)
+    context 'when creating with valid parameters' do
+      let(:new_race_params) { attributes_for(:race) }
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to trail_race_path(trail, actual_race)
-      expect(actual_race.name).to eq new_race_params[:name]
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to trail_race_path(trail, actual_race) }
+      it { expect(actual_race.name).to eq new_race_params[:name] }
     end
 
-    it 'does not create with invalid parameter' do
-      new_race_params = attributes_for(:race)
-      new_race_params[:name] = nil
+    context 'when creating with invalid parameter' do
+      let(:new_race_params) { attributes_for(:race, name: nil) }
 
-      post trail_races_path(trail), params: { race: new_race_params }
-      actual_race = assigns(:race)
-
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(response).to render_template :new
-      expect(actual_race.errors).not_to be_empty
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to render_template :new }
+      it { expect(actual_race.errors.messages_for(:name)).not_to be_empty }
     end
 
-    it 'does not create overlapping races within the same trail' do
-      new_race_params = attributes_for(:race)
-      new_race_params[:start] = expected_race.start
+    context 'when creating overlapping races within the same trail' do
+      let(:new_race_params) { attributes_for(:race, start: race1.start) }
 
-      post trail_races_path(trail), params: { race: new_race_params }
-      actual_race = assigns(:race)
-
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(response).to render_template :new
-      expect(actual_race.errors).not_to be_empty
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to render_template :new }
+      it { expect(actual_race.errors.messages_for(:time_period)).not_to be_empty }
     end
   end
 
   # edit
   describe 'GET /trails/:trail_id/races/:id/edit' do
-    it 'retrieves correct Race for editing' do
-      get edit_trail_race_path(trail, expected_race)
-      actual_race = assigns(:race)
+    let!(:path) { get edit_trail_race_path(trail, race1) }
 
-      expect(response).to have_http_status(:ok)
-      expect(actual_race.name).to eq expected_race.name
-    end
+    it { expect(response).to have_http_status(:ok) }
+    it { expect(actual_race.name).to eq race1.name }
   end
 
   # update
   describe 'PUT /trails/:trail_id/races/:id' do
-    it 'updates a new Race with valid parameters' do
-      new_duration = expected_race.duration + 1
-      expected_params = { duration: new_duration }
+    let!(:path) { put trail_race_path(trail, race1), params: { race: expected_params } }
 
-      put trail_race_path(trail, expected_race), params: { race: expected_params }
-      actual_race = assigns(:race)
+    context 'when updating with valid parameters' do
+      let(:expected_params) { { duration: race1.duration + 1 } }
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to trail_race_path(trail, actual_race)
-      expect(actual_race.duration).to eq new_duration
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to trail_race_path(trail, actual_race) }
+      it { expect(actual_race.duration).to eq expected_params[:duration] }
     end
 
-    it 'does not update with invalid parameter' do
-      expected_params = { duration: nil }
+    context 'when updating with invalid parameters' do
+      let(:expected_params) { { duration: nil } }
 
-      put trail_race_path(trail, expected_race), params: { race: expected_params }
-      actual_race = assigns(:race)
-
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(response).to render_template :edit
-      expect(actual_race.errors).not_to be_empty
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to render_template :edit }
+      it { expect(actual_race.errors.messages_for(:duration)).not_to be_empty }
     end
 
-    it 'does not update status with less than 2 participants' do
-      expected_params = { status: :STARTED }
+    context 'when starting with less than 2 participants' do
+      let(:expected_params) { { status: :STARTED } }
 
-      put trail_race_path(trail, expected_race), params: { race: expected_params }
-      actual_race = assigns(:race)
-
-      expect(response).to redirect_to trail_race_path(trail, actual_race)
-      expect(actual_race.errors).not_to be_empty
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to trail_race_path(trail, actual_race) }
+      it { expect(actual_race.errors.messages_for(:status)).not_to be_empty }
     end
   end
 
   # destroy
   describe 'DELETE /trails/:trail_id/races/:id' do
-    it 'deletes a Race' do
-      delete trail_race_path(trail, expected_race)
+    let!(:path) { delete trail_race_path(trail, race1) }
 
-      expect(response).to have_http_status(:see_other)
-      expect(response).to redirect_to trail_races_path(trail)
-      expect(Race.all).to be_empty
-    end
+    it { expect(response).to have_http_status(:see_other) }
+    it { expect(response).to redirect_to trail_races_path(trail) }
+    it { expect(Race.all.count).to eq 1 }
   end
 
-  # # all
-  # describe 'GET /races' do
-  #   it 'retrieves all Races' do
-  #     trail2 = create(:trail)
-  #     race2 = create(:race, trail: trail2)
+  # all
+  describe 'GET /races' do
+    pending 'route to be implemented'
+    # let!(:race3) { create(:trail) }
+    # let!(:path) { get races_path }
 
-  #     get races_path
-  #     actual_races = assigns(:races)
-
-  #     expect(response).to have_http_status(:ok)
-  #     expect(actual_races.count).to eq 2
-  #   end
-  # end
+    # it { expect(response).to have_http_status(:ok) }
+    # it { expect(actual_races.count).to eq 3 }
+  end
 end

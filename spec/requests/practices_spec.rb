@@ -3,64 +3,57 @@ require 'rails_helper'
 RSpec.describe "PracticesController", type: :request do
   let!(:person) { create(:person, :SLIM) }
   let!(:trail) { create(:trail, :SLIM) }
+  let(:practice) { create(:practice, person: person, trail: trail) }
+  let(:actual_practice) { assigns(:practice) }
+
   # new
   describe "GET /people/:person_id/practices/new" do
-    it 'instantiates a new Practice' do
-      get new_person_practice_path(person)
-      actual_practice = assigns(:practice)
+    let!(:path) { get new_person_practice_path(person) }
 
-      expect(response).to have_http_status(:ok)
-      expect(actual_practice.trail).to be_nil
-    end
+    it { expect(response).to have_http_status(:ok) }
+    it { expect(actual_practice.trail).to be_nil }
   end
 
   # create
   describe "POST /people/:person_id/practices" do
-    it "creates a Practice for eligible people" do
-      new_practice_params = {
-        trail_id: trail.id,
-        person_id: person.id
-      }
+    let!(:path) {
+      post person_practices_path(person), params: {
+        practice: {
+          trail_id: trail_id,
+          person_id: person.id
+        }}}
 
-      post person_practices_path(person), params: { practice: new_practice_params }
+    context "when person is eligible" do
+      let(:trail_id) { trail.id }
 
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to person_path(person)
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to person_path(person) }
     end
 
-    it "shows an error for ineligible people" do
-      trail = create(:trail, :FIT)
-      new_practice_params = {
-        trail_id: trail.id,
-        person_id: person.id
-      }
+    context "when person is ineligible" do
+      let(:trail2) { create(:trail, :FIT) }
+      let(:trail_id) { trail2.id }
 
-      post person_practices_path(person), params: { practice: new_practice_params }
-      actual_practice = assigns(:practice)
-
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(response).to render_template :new
-      expect(actual_practice.errors).not_to be_empty
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to render_template :new }
+      it { expect(actual_practice.errors.messages_for(:person_id)).not_to be_empty }
     end
   end
 
   # update
   describe "PUT /people/:person_id/practices/:id" do
-    it "updates the status to FINISHED" do
-      practice = create(:practice, person: person, trail: trail)
-      new_practice_params = {
-        person_id: person.id, # TODO: update in model?
-        status: :FINISHED
-      }
+    let!(:path) { put person_practice_path(person, practice), params: { practice: new_practice_params } }
+    let(:new_practice_params) { {
+      person_id: person.id, # TODO: update in model
+      status: :FINISHED
+    } }
 
-      put person_practice_path(person, practice), params: { practice: new_practice_params }
-      actual_practice = assigns(:practice)
-
-      expect(response).to have_http_status(:found)
-      expect(response).to redirect_to person_path(person)
-      expect(actual_practice.status).to eq 'FINISHED'
+    context "when updating status to FINISHED" do
+      it { expect(response).to have_http_status(:found) }
+      it { expect(response).to redirect_to person_path(person) }
+      it { expect(actual_practice.status).to eq 'FINISHED' }
     end
-  end
 
-  # TODO: it renders edit again
+    # TODO: it renders edit again
+  end
 end
