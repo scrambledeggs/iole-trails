@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "TrailsController", type: :request do
+RSpec.describe 'TrailsController', type: :request do
   let!(:trail1) { create(:trail, :for_heavy) }
   let!(:trail2) { create(:trail) }
   let(:actual_trails) { assigns(:trails) }

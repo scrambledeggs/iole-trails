@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Runs", type: :request do
+RSpec.describe 'RunsController', type: :request do
   let!(:trail) { create(:trail, :SLIM) }
   let!(:race) { create(:race, trail: trail) }
   let!(:person) { create(:person, :SLIM) }

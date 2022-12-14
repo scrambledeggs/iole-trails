@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "PracticesController", type: :request do
+RSpec.describe 'PracticesController', type: :request do
   let!(:person) { create(:person, :SLIM) }
   let!(:trail) { create(:trail, :SLIM) }
   let(:practice) { create(:practice, person: person, trail: trail) }
   let(:actual_practice) { assigns(:practice) }
 
   # new
-  describe "GET /people/:person_id/practices/new" do
+  describe 'GET /people/:person_id/practices/new' do
     let!(:path) { get new_person_practice_path(person) }
 
     it { expect(response).to have_http_status(:ok) }
@@ -15,7 +15,7 @@ RSpec.describe "PracticesController", type: :request do
   end
 
   # create
-  describe "POST /people/:person_id/practices" do
+  describe 'POST /people/:person_id/practices' do
     let!(:path) {
       post person_practices_path(person), params: {
         practice: {
@@ -23,14 +23,14 @@ RSpec.describe "PracticesController", type: :request do
           person_id: person.id
         }}}
 
-    context "when person is eligible" do
+    context 'when person is eligible' do
       let(:trail_id) { trail.id }
 
       it { expect(response).to have_http_status(:found) }
       it { expect(response).to redirect_to person_path(person) }
     end
 
-    context "when person is ineligible" do
+    context 'when person is ineligible' do
       let(:trail2) { create(:trail, :FIT) }
       let(:trail_id) { trail2.id }
 
@@ -41,14 +41,14 @@ RSpec.describe "PracticesController", type: :request do
   end
 
   # update
-  describe "PUT /people/:person_id/practices/:id" do
+  describe 'PUT /people/:person_id/practices/:id' do
     let!(:path) { put person_practice_path(person, practice), params: { practice: new_practice_params } }
     let(:new_practice_params) { {
       person_id: person.id, # TODO: update in model
       status: :FINISHED
     } }
 
-    context "when updating status to FINISHED" do
+    context 'when updating status to FINISHED' do
       it { expect(response).to have_http_status(:found) }
       it { expect(response).to redirect_to person_path(person) }
       it { expect(actual_practice.status).to eq 'FINISHED' }

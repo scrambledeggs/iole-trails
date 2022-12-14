@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "RacesController", type: :request do
+RSpec.describe 'RacesController', type: :request do
   let!(:trail) { create(:trail, :SLIM) }
   let!(:race1) { create(:race, trail: trail) }
   let!(:race2) { create(:race, trail: trail) }
@@ -30,8 +30,8 @@ RSpec.describe "RacesController", type: :request do
 
         person1 = create(:person, :SLIM)
         person2 = create(:person, :SLIM)
-        practice1 = create(:practice, :FINISHED, person: person1, trail: trail)
-        practice2 = create(:practice, :FINISHED, person: person2, trail: trail)
+        create(:practice, :FINISHED, person: person1, trail: trail)
+        create(:practice, :FINISHED, person: person2, trail: trail)
         run1 = create(:run, :with_finished_stats, person: person1, race: race3, id: 1)
         run2 = create(:run, :with_unfinished_stats, person: person2, race: race3, id: 2)
 
