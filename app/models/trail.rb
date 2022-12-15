@@ -33,6 +33,15 @@ class Trail < ApplicationRecord
     finished_practices.uniq { |item| [item.person_id] }
   end
 
+  def overlaps_races?(tentative_start, tentative_duration)
+    overlapping_races(tentative_start, tentative_duration).present?
+  end
+
+  def overlapping_races(tentative_start, tentative_duration)
+    tentative_end = tentative_start + tentative_duration.hours
+    races.where("start < ? AND ? <  start + (duration * interval '1 hour')", tentative_end, tentative_start)
+  end
+
   private
 
   def age_eligible(age)

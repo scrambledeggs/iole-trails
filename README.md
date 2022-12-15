@@ -49,7 +49,7 @@ Run model
 - [x] States: Registered and Dropped (manually changed), Finished and Unfinished (randomly assigned when Race has ended)
 
 Rules
-- [ ] Trail can have multiple Races but should have different time slots
+- [x] Trail can have multiple Races but should have different time slots
 - [x] Person should have a finished Practice for the Trail before becoming eligible to register for a Race
 - [x] Person can only register for a Race once.
 - [x] Person cannot register for a Race if there is an ongoing Practice.
