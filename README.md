@@ -37,11 +37,10 @@ Practice model
 
 Race model
 - [x] belongs to a *Trail*
-- [ ] can `register` People to join
+- [x] can `register` People to join
 - [x] can `start`/`end` a race
   - [x] State is manually changed (new → started, started → finished)
 - [x] can't start if less than 2 People registered
-- [ ] can't register when it's starting already
 - [x] when a Race finishes, assign random duration and status (finished or unfinished) for the racers
   - [x] declare the fastest runner as winner
 - [x] Can only have 1 winner
@@ -51,12 +50,13 @@ Run model
 
 Rules
 - [x] Trail can have multiple Races but should have different time slots
-- [ ] Person should have a finished Practice for the Trail before becoming eligible to register for a Race
-- [ ] Person can only register for a Race once.
-- [ ] Person cannot register for a Race if there is an ongoing Practice.
+- [x] Person should have a finished Practice for the Trail before becoming eligible to register for a Race
+- [x] Person can only register for a Race once.
+- [x] Person cannot register for a Race if there is an ongoing Practice.
 - [ ] Person cannot also start a Practice if there is an ongoing Race.
+- [x] Person cannot register when Race is already starting or finished
 - [ ] Person can register for another Race:
-  - [ ] For the same Trail (since none of the Races per Trail would overlap)
+  - [x] For the same Trail (since none of the Races per Trail would overlap)
   - [ ] For another Trail but should not overlap with currently registered Race
 
 Additional
