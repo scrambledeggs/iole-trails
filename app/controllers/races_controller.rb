@@ -14,8 +14,9 @@ class RacesController < ApplicationController
   end
 
   def create
-    # TODO: validation
-    redirect_to trail_races_path(@trail) and return if @trail.races.create!(race_params)
+    @race = @trail.races.create(race_params)
+
+    redirect_to trail_races_path(@trail) and return if @race.errors.blank?
 
     render :new, status: :unprocessable_entity
   end
@@ -46,6 +47,6 @@ class RacesController < ApplicationController
   end
 
   def race_params
-    params.require(:race).permit(:name, :duration, :start)
+    params.require(:race).permit(:name, :duration, :start, :status)
   end
 end
