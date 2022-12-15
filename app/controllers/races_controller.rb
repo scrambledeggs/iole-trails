@@ -1,6 +1,6 @@
 class RacesController < ApplicationController
-  prepend_before_action :set_trail
-  before_action :set_race, except: %i[index new create]
+  prepend_before_action :set_trail, except: %i[all]
+  before_action :set_race, except: %i[index new create all]
 
   def index
     @races = @trail.races
@@ -40,6 +40,10 @@ class RacesController < ApplicationController
   def destroy
     @race.destroy
     redirect_to trail_races_path(@trail), status: :see_other
+  end
+
+  def all
+    @races = Race.all.order(:start)
   end
 
   private
