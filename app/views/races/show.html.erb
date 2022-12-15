@@ -1,12 +1,38 @@
 <h2>The <%= @race.name %> Race</h2>
 
-<h3>Details:</h3>
-<p>Status: <%= @race.status %></p>
-<p>Start: <%= @race.start.to_fs(:db) %></p>
-<p>Duration (hours): <%= @race.duration %></p>
-
 <%= link_to "Edit Details", edit_trail_race_path([@trail, @race]) %> | 
 <%= link_to "Remove", trail_race_path([@trail, @race]), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   } %>
+<h3>Details:</h3>
+<p>Status: <%= @race.status %></p>
+<p>Start: <%= @race.start.to_fs(:db) %></p>
+<p>Duration (hours): <%= @race.duration %></p>
+
+<% if @race.status_NEW? %>
+<%= form_with model: [@trail, @race] do |form| %>
+  <%= form.hidden_field :status, value: :STARTED %>
+  <%= form.submit "Start Race"%>
+<% end %>
+<% end %>
+
+<% if flash[:alert] %>
+  <p style="color:red;"><%= flash[:alert] %></p>
+<% end %>
+
+<% if @race.status_STARTED? %>
+<%= form_with model: [@trail, @race] do |form| %>
+  <%= form.hidden_field :status, value: :FINISHED %>
+  <%= form.submit "Finish Race"%>
+<% end %>
+<% end %>
+
+<h2>Participants</h2>
+<% if @race.registered_runs.present? %> 
+  <% @race.registered_runs.each do |run| %> 
+    <ul><li><%= run.person.name.capitalize %> </li></ul>
+  <% end %> 
+<% else %> 
+  None yet!
+<% end %> 

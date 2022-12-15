@@ -16,7 +16,7 @@ class RacesController < ApplicationController
   def create
     @race = @trail.races.create(race_params)
 
-    redirect_to trail_races_path(@trail) and return if @race.errors.blank?
+    redirect_to trail_race_path(@trail, @race) and return if @race.errors.blank?
 
     render :new, status: :unprocessable_entity
   end
@@ -26,9 +26,12 @@ class RacesController < ApplicationController
 
   def update
     # TODO: dont update an ongoing race
-    redirect_to trail_race_path(@race) and return if @race.update(race_params)
+    redirect_to trail_race_path(@trail, @race) and return if @race.update(race_params)
 
-    render :edit, status: :unprocessable_entity
+    render :edit, status: :unprocessable_entity and return unless @race.errors.include?(:status)
+
+    flash[:alert] = @race.errors.messages_for(:status).first
+    redirect_to trail_race_path(@trail, @race), status: :conflict
   end
 
   def destroy

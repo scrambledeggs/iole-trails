@@ -38,9 +38,9 @@ Practice model
 Race model
 - [x] belongs to a *Trail*
 - [x] can `register` People to join
-- [ ] can `start`/`end` a race
-  - [ ] State is manually changed (new → started, started → finished)
-- [ ] can't start if less than 2 People registered
+- [x] can `start`/`end` a race
+  - [x] State is manually changed (new → started, started → finished)
+- [x] can't start if less than 2 People registered
 - [ ] when a Race finishes, assign random duration and status (finished or unfinished) for the racers
   - [ ] declare the fastest runner as winner
 - [ ] Can only have 1 winner
@@ -63,6 +63,7 @@ Additional
 - [ ] Add view on Trail for races list
 - [ ] Add view on Person for races list
 - [ ] Add view for Races via navbar: `trails/races`
+- [x] Don't update Race details if runners have already registered
 
 ### Diagram
 ![Diagram 2](src/trails_diagram_2.png)
