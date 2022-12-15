@@ -16,9 +16,6 @@ class PracticesController < ApplicationController
     render :new, status: :unprocessable_entity
   end
 
-  def edit
-  end
-
   def update
     @practice = Practice.find(params[:id])
 
@@ -30,7 +27,7 @@ class PracticesController < ApplicationController
   private
 
   def set_person
-    @person = Person.find(practice_params[:person_id])
+    @person = Person.find(params[:person_id] || practice_params[:person_id])
   end
 
   def practice_params

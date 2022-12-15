@@ -47,7 +47,7 @@ class Person < ApplicationRecord
   end
 
   def ongoing_race
-    races.where('"races"."status" = 1 AND "runs"."status" = 0')
+    races.where('"races"."status" = 1 AND "runs"."status" = 0').first
   end
 
   def finished_practice_on?(trail_id)

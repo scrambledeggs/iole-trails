@@ -13,10 +13,10 @@ class Run < ApplicationRecord
     scope: :race_id,
     message: 'already registered for this race'
   }
-  validate :person_availability
-  validate :person_eligibility
-  validate :race_ongoing_registration
-  validate :race_overlaps_registered
+  validate :person_availability, on: :create
+  validate :person_eligibility, on: :create
+  validate :race_ongoing_registration, on: :create
+  validate :race_overlaps_registered, on: :create
 
   private
 

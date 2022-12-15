@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <h1>Happy Trails!</h1>
+    <header>
     <nav>
-        <%= link_to "People", people_path %> | <%= link_to "Trails", trails_path %>
+      <%= link_to "People", people_path %> <%= link_to "Trails", trails_path %> <%= link_to "Races", races_path %>
     </nav>
+    <%= image_tag("logo.png")%>
+    </header>
+    
     <hr>
     <%= yield %>
   </body>

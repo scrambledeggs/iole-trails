@@ -1,11 +1,16 @@
-<h2>List of Trails</h2>
-<ul>
-  <% @trails.each do |trail| %>
-    <li>
-      <%= link_to trail.name, trail %>
-    </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="column left">
+    <h3>List of Trails</h3>
+  </div>
+  <div class="column right">
+    <%= button_to "New Trail", new_trail_path, method: :get %>
+  </div>
+</div>
 
-<br>
-<%= link_to "New Trail", new_trail_path %>
+<article class="cards">
+<% @trails.each do |trail| %>
+  <article class="card">
+    <%= image_tag("trail.png")%> <%= link_to trail.name, trail %>
+  </article>
+<% end %>
+</article>

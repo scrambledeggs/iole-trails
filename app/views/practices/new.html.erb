@@ -1,20 +1,17 @@
-<h1>Start a Practice for: <%= @person.name.capitalize %></h1>
+<h3>Start a Practice for: <%= @person.name.capitalize %></h3>
 
 
 <%= form_with model: [@person, @person.practices.build] do |form| %>
-  <p>
-    <%= form.label "Select a trail" %><br>
+  <div>
+    <%= form.label "Select a trail" %>
     <%= form.select :trail_id, @person.get_trail_options(@trails)%>
-  </p>
-  <p>
-    <%= form.hidden_field :person_id, value: @person.id %>
-  </p>
+  </div>
   <% @practice.errors.full_messages.each do |message| %>
-    <p style="color:red;"><%= message %></p>
+    <div class="form_error"><%= message %></div>
   <% end %>
-  <p>
+  <div>
     <%= form.submit "Start Practice"%>
-  </p>
+  </div>
 <% end %>
 
 <%= link_to "Back", person_path(@person) %>

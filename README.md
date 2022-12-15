@@ -60,11 +60,16 @@ Rules
   - [x] For another Trail but should not overlap with currently registered Race
 
 Additional
-- [ ] Add view on Trail for races list
-- [ ] Add view on Person for races list
-- [ ] Add view for Races via navbar: `trails/races`
+- [x] Add view on Trail for races list
+- [x] Add view on Person for races list
+- [x] Add view for Races via navbar
 - [x] Don't update Race details if runners have already registered
 
 ### Diagram
 ![Diagram 2](src/trails_diagram_2.png)
 
+
+### Attributions
+- [User icons](https://www.flaticon.com/free-icons/user) created by Freepik - Flaticon
+- [Road icons](https://www.flaticon.com/free-icons/road) created by Smashicons - Flaticon
+- [Race icons](https://www.flaticon.com/free-icons/race) created by Good Ware - Flaticon

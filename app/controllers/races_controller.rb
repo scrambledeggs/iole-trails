@@ -1,6 +1,6 @@
 class RacesController < ApplicationController
-  prepend_before_action :set_trail
-  before_action :set_race, except: %i[index new create]
+  prepend_before_action :set_trail, except: %i[all]
+  before_action :set_race, except: %i[index new create all]
 
   def index
     @races = @trail.races
@@ -31,15 +31,19 @@ class RacesController < ApplicationController
   def update
     redirect_to trail_race_path(@trail, @race) and return if @race.update(race_params)
 
-    render :edit, status: :unprocessable_entity and return !@race.errors.include?(:status)
+    render :edit, status: :unprocessable_entity and return if !@race.errors.include?(:status)
 
     flash[:alert] = @race.errors.messages_for(:status).first
-    redirect_to trail_race_path(@trail, @race), status: :conflict
+    redirect_to trail_race_path(@trail, @race)
   end
 
   def destroy
     @race.destroy
     redirect_to trail_races_path(@trail), status: :see_other
+  end
+
+  def all
+    @races = Race.all.order(:start)
   end
 
   private
