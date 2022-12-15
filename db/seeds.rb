@@ -5,6 +5,3 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
-trail = Trail.find(1)
-Race.create(name: "Charity Race", duration: 3, start: "2022-11-30 06:00:00", trail: trail)
