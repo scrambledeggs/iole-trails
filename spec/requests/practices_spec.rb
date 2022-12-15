@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'PracticesController', type: :request do
+  subject(:actual_practice) { assigns(:practice) }
+
   let!(:person) { create(:person, :SLIM) }
   let!(:trail) { create(:trail, :SLIM) }
   let(:practice) { create(:practice, person: person, trail: trail) }
-  let(:actual_practice) { assigns(:practice) }
 
   # new
   describe 'GET /people/:person_id/practices/new' do

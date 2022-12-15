@@ -27,7 +27,7 @@ RSpec.describe Person, type: :model do
   end
 
   describe 'ongoing_practice' do
-    let!(:person1) { create(:person, :FIT) }
+    subject!(:person1) { create(:person, :FIT) }
 
     context 'when a person has ongoing practice' do
       let!(:practice1) { create(:practice, :for_fit, person: person1) }
@@ -43,7 +43,7 @@ RSpec.describe Person, type: :model do
   end
 
   describe 'past_practices' do
-    let!(:person1) { create(:person, :FIT) }
+    subject!(:person1) { create(:person, :FIT) }
 
     context 'when a person has a finished practice' do
       let!(:practice1) { create(:practice, :FINISHED, :for_fit, person: person1) }
@@ -59,10 +59,11 @@ RSpec.describe Person, type: :model do
   end
 
   describe 'ongoing_race' do
+    subject!(:person1) { create(:person, :FIT) }
+
     let!(:trail1) { create(:trail, :FIT) }
     let!(:race1) { create(:race, trail: trail1) }
 
-    let!(:person1) { create(:person, :FIT) }
     let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
     let!(:run1) { create(:run, person: person1, race: race1) }
 
@@ -84,16 +85,17 @@ RSpec.describe Person, type: :model do
   end
 
   describe 'registered_runs' do
+    subject!(:person1) { create(:person, :FIT) }
+
     let!(:trail1) { create(:trail, :FIT) }
     let!(:race1) { create(:race, trail: trail1) }
 
-    let!(:person1) { create(:person, :FIT) }
     let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
-
-    let!(:status) { :REGISTERED }
-    let!(:run) { create(:run, person: person1, race: race1, status: status) }
+    let!(:run1) { create(:run, person: person1, race: race1, status: status) }
 
     context 'when a person has a registered run' do
+      let!(:status) { :REGISTERED }
+
       it { expect(person1.registered_runs.count).to eq 1 }
     end
 
@@ -108,20 +110,21 @@ RSpec.describe Person, type: :model do
     let!(:trail1) { create(:trail, :for_young, :FIT) }
 
     context 'when a person is eligible for the trail' do
-      let!(:person1) { create(:person, :young, :FIT) }
+      subject!(:person1) { create(:person, :young, :FIT) }
 
       it { expect(person1.practice_on?(trail1)).to eq true }
     end
 
     context 'when a person is ineligible for the trail' do
-      let!(:person1) { create(:person, :old) }
+      subject!(:person1) { create(:person, :old) }
 
       it { expect(person1.practice_on?(trail1)).to eq false }
     end
   end
 
   describe 'get_trail_options' do
-    let!(:person1) { create(:person, :young, :FIT, :light) }
+    subject!(:person1) { create(:person, :young, :FIT, :light) }
+
     let!(:trail1) { create(:trail, :for_young, :for_light, :FIT) }
     let!(:trail2) { create(:trail, :for_young_only) }
     let!(:trail3) { create(:trail, :for_heavy_only) }
@@ -136,13 +139,15 @@ RSpec.describe Person, type: :model do
   end
 
   describe 'finished_practice_on' do
-    let!(:person1) { create(:person, :FIT) }
+    subject!(:person1) { create(:person, :FIT) }
+
     let!(:trail1) { create(:trail, :FIT) }
 
-    let!(:status) { :FINISHED }
     let!(:practice1) { create(:practice, status: status, person: person1, trail: trail1) }
 
     context 'when a person has a finished practice' do
+      let!(:status) { :FINISHED }
+
       it { expect(person1.finished_practice_on?(trail1.id)).to eq true }
     end
 

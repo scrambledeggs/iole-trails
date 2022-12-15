@@ -37,27 +37,26 @@ RSpec.describe Trail, type: :model do
   end
 
   describe 'eligible?' do
-    let!(:trail1) { create(:trail, :FIT, :for_young, :for_heavy) }
+    subject(:trail1) { create(:trail, :FIT, :for_young, :for_heavy) }
+
+    let(:weight) { 70 }
+    let(:body_build) { 'FIT' }
 
     context 'when input is eligible' do
-      let!(:age) { 20 }
-      let!(:weight) { 70 }
-      let!(:body_build) { 'FIT' }
+      let(:age) { 20 }
 
       it { expect(trail1.eligible?(age, weight, body_build)).to eq true }
     end
 
     context 'when input is not eligible' do
-      let!(:age) { 50 }
-      let!(:weight) { 70 }
-      let!(:body_build) { 'FIT' }
+      let(:age) { 50 }
 
       it { expect(trail1.eligible?(age, weight, body_build)).to eq false }
     end
   end
 
   describe 'eligible_people' do
-    let!(:trail1) { create(:trail, :for_heavy_only) }
+    subject(:trail1) { create(:trail, :for_heavy_only) }
 
     let!(:person1) { create(:person, :FIT, :young, :heavy) }
     let!(:person2) { create(:person, :young, :light) }
@@ -67,7 +66,7 @@ RSpec.describe Trail, type: :model do
   end
 
   describe 'ongoing_practices' do
-    let!(:trail1) { create(:trail, :for_young_only) }
+    subject(:trail1) { create(:trail, :for_young_only) }
     let!(:person1) { create(:person, :young, :heavy) }
     let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
     let!(:person2) { create(:person, :young, :light) }
@@ -78,7 +77,8 @@ RSpec.describe Trail, type: :model do
   end
 
   describe 'past_practices' do
-    let!(:trail1) { create(:trail, :for_young_only) }
+    subject(:trail1) { create(:trail, :for_young_only) }
+
     let!(:person1) { create(:person, :young, :heavy) }
     let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
     let!(:person2) { create(:person, :young, :light) }

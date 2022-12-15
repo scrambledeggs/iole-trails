@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'PeopleController', type: :request do
+  let(:actual_person) { assigns(:person) }
+  let(:actual_people) { assigns(:people) }
+
   let!(:person1) { create(:person) }
   let!(:person2) { create(:person) }
-  let(:actual_people) { assigns(:people) }
-  let(:actual_person) { assigns(:person) }
 
   # index
   describe 'GET /people' do

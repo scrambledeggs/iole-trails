@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'RacesController', type: :request do
+  let(:actual_race) { assigns(:race) }
+  let(:actual_races) { assigns(:races) }
+
   let!(:trail) { create(:trail, :SLIM) }
   let!(:race1) { create(:race, trail: trail) }
   let!(:race2) { create(:race, trail: trail) }
-  let(:actual_races) { assigns(:races) }
-  let(:actual_race) { assigns(:race) }
 
   # index
   describe 'GET /trails/:trail_id/races' do

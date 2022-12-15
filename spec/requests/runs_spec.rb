@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'RunsController', type: :request do
+  subject(:actual_run) { assigns(:run) }
+
   let!(:trail) { create(:trail, :SLIM) }
   let!(:race) { create(:race, trail: trail) }
   let!(:person) { create(:person, :SLIM) }
   let!(:practice) { create(:practice, :FINISHED, person: person, trail: trail) }
   let(:run) { create(:run, person: person, race: race) }
-  let(:actual_run) { assigns(:run) }
 
   # show
   describe 'GET	/people/:person_id/runs/:id' do

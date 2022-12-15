@@ -5,7 +5,7 @@ RSpec.describe Race, type: :model do
   let!(:trail) { create(:trail, trail_attribute) }
   let!(:person1) { create(:person, :FIT) }
 
-  let!(:race1) { create(:race, trail: trail) }
+  subject(:race1) { create(:race, trail: trail) }
 
   context 'when valid attributes' do
     it { expect(race1).to be_valid }

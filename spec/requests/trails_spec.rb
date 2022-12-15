@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'TrailsController', type: :request do
+  let(:actual_trail) { assigns(:trail) }
+  let(:actual_trails) { assigns(:trails) }
+
   let!(:trail1) { create(:trail, :for_heavy) }
   let!(:trail2) { create(:trail) }
-  let(:actual_trails) { assigns(:trails) }
-  let(:actual_trail) { assigns(:trail) }
 
   # index
   describe 'GET /trails' do

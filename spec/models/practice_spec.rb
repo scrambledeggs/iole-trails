@@ -7,45 +7,44 @@ RSpec.describe Practice, type: :model do
   let(:trail_attribute) { :FIT }
   let(:trail1) { create(:trail, trail_attribute) }
 
-  let(:practice1) { build(:practice, person: person1, trail: trail1) }
+  subject(:practice1) { build(:practice, person: person1, trail: trail1) }
 
   context 'when person is eligible' do
-    it { expect(practice1).to be_valid }
+    it { is_expected.to be_valid }
   end
 
   context 'when person has ineligible body build' do
     let(:person_attribute) { :SLIM }
 
-    it { expect(practice1).not_to be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   context 'when person has ineligible age' do
     let(:person_attribute) { :young }
     let(:trail_attribute) { :for_old }
 
-    it { expect(practice1).not_to be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   context 'when person has ineligible weight' do
     let(:person_attribute) { :light }
     let(:trail_attribute) { :for_heavy }
 
-    it { expect(practice1).not_to be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   context 'when a person has an ongoing race' do
     let!(:race1) { create(:race, trail: trail1) }
 
-    let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail1) }
+    let!(:practice2) { create(:practice, :FINISHED, person: person1, trail: trail1) }
     let!(:run1) { create(:run, person: person1, race: race1) }
 
     let!(:person2) { create(:person, :FIT) }
-    let!(:practice2) { create(:practice, :FINISHED, person: person2, trail: trail1) }
+    let!(:practice3) { create(:practice, :FINISHED, person: person2, trail: trail1) }
     let!(:run2) { create(:run, person: person2, race: race1) }
 
     let!(:status_update) { race1.update(status: :STARTED) }
-    let(:practice3) { build(:practice, person: person1, trail: trail1) }
 
-    it { expect(practice3).not_to be_valid }
+    it { is_expected.not_to be_valid }
   end
 end
