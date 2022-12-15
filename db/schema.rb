@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_17_052208) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_034249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,31 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_052208) do
     t.index ["trail_id"], name: "index_practices_on_trail_id"
   end
 
+  create_table "races", force: :cascade do |t|
+    t.string "name"
+    t.integer "status", default: 0
+    t.datetime "start"
+    t.datetime "end"
+    t.float "duration"
+    t.integer "winner"
+    t.bigint "trail_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trail_id"], name: "index_races_on_trail_id"
+  end
+
+  create_table "runs", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.float "duration"
+    t.integer "place"
+    t.bigint "person_id", null: false
+    t.bigint "race_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_runs_on_person_id"
+    t.index ["race_id"], name: "index_runs_on_race_id"
+  end
+
   create_table "trails", force: :cascade do |t|
     t.string "name"
     t.integer "age_minimum"
@@ -46,4 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_052208) do
 
   add_foreign_key "practices", "people"
   add_foreign_key "practices", "trails"
+  add_foreign_key "races", "trails"
+  add_foreign_key "runs", "people"
+  add_foreign_key "runs", "races"
 end

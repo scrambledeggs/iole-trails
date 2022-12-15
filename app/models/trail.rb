@@ -3,6 +3,7 @@ class Trail < ApplicationRecord
 
   has_many :practices, dependent: :destroy
   has_many :people, through: :practices
+  has_many :races, dependent: :destroy
 
   validates :name, presence: true
 
