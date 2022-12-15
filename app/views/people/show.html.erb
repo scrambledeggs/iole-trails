@@ -1,23 +1,24 @@
-<h2><%= @person.name.upcase %>'s Details</h2>
-
-<p>Age: <%= @person.age %></p>
-<p>Weight: <%= @person.weight %> kg</p>
-<p>Body Build: <%= @person.body_build %></p>
+<h3><%= image_tag("user_32.png")%> <%= @person.name.capitalize %>'s Page</h3>
+<article>
+<h4>Details</h4>
+<p>
+Age: <%= @person.age %> <br>
+Weight: <%= @person.weight %> kg <br>
+Body Build: <%= @person.body_build %>
+</p>
 
 <%= link_to "Edit", edit_person_path(@person) %> | 
 <%= link_to "Remove", person_path(@person), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   } %>
-
-<br><br>
-<h2><%= @person.name.upcase %>'s Ongoing Trail: </h2>
+</article>
+<article>
+<h4>Ongoing Trail</h4>
 <% if @person.ongoing_practice? %> 
-  <table style="border:1px solid gray; width:15% ">
+  <table>
   <tr>
   <td><strong><%= @person.ongoing_practice.trail.name %></strong></td>
-  </tr>
-  <tr>
   <td><%= link_to "Details", @person.ongoing_practice.trail %></td>
   <td>
   <%= form_with model: [@person, @person.ongoing_practice] do |form| %>
@@ -28,28 +29,29 @@
   </tr>
   </table>
 <% else %> 
-  None at the moment. 
-  <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %></td>
+  <p> None at the moment. <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %> </p>
 <% end %> 
 
-<h2><%= @person.name.upcase %>'s Past Trails: </h2>
+<details>
+<summary>Past Trails</summary>
 <% if @person.past_practices? %> 
+  <ul>
   <% @person.past_practices.each do |practice| %> 
-    <ul><li><%= link_to practice.trail.name, practice.trail %> </li> (<%= practice.updated_at.to_fs(:db) %>)</ul>
+    <li><%= link_to practice.trail.name, practice.trail %> (<%= practice.updated_at.strftime("%Y-%m-%d %I:%M%p") %>)</li> 
   <% end %> 
+  </ul>
 <% else %> 
   None yet!
 <% end %>
+</details>
+</article>
 
-<h2><%= @person.name.upcase %>'s Races: </h2>
+<article>
+<h4>Race History</h4>
 <%= link_to "Register for a Race", new_person_run_path(@person) %></td>
-
-<h3>Run history</h3>
 <ul>
 <% @person.runs.each do |run| %> 
-  <li>
-  <%= link_to run.race.name, person_run_path(@person, run) %> 
-  </li>
-  <br>
+  <li><%= link_to run.race.name, person_run_path(@person, run) %></li>
 <% end %> 
 </ul>
+</article>
