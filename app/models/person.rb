@@ -41,4 +41,20 @@ class Person < ApplicationRecord
       [ "#{t.name}#{validity}", t.id ]
     end
   end
+
+  def ongoing_race?
+    ongoing_race.present?
+  end
+
+  def ongoing_race
+    puts 'find race with status = STARTED and run with status = REGISTERED'
+  end
+
+  def finished_practice_on?(trail_id)
+    past_practices.where(trail_id: trail_id).present?
+  end
+
+  def upcoming_runs
+    runs.where(status: :REGISTERED)
+  end
 end
