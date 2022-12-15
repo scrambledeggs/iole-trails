@@ -12,7 +12,7 @@ class Trail < ApplicationRecord
   end
 
   def eligible_people
-    any_body_build = Person.body_builds.keys unless body_build
+    any_body_build = Person.body_builds.keys if !body_build
     Person.where(age: [age_minimum..age_maximum], weight: [weight_minimum..weight_maximum], body_build: body_build || any_body_build)
   end
 
@@ -31,15 +31,6 @@ class Trail < ApplicationRecord
   def past_practices
     finished_practices = practices.where(status: :FINISHED)
     finished_practices.uniq { |item| [item.person_id] }
-  end
-
-  def overlaps_races?(tentative_start, tentative_duration)
-    overlapping_races(tentative_start, tentative_duration).present?
-  end
-
-  def overlapping_races(tentative_start, tentative_duration)
-    tentative_end = tentative_start + tentative_duration.hours
-    races.where("start < ? AND ? <  start + (duration * interval '1 hour')", tentative_end, tentative_start)
   end
 
   private

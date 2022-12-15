@@ -18,11 +18,8 @@ class RunsController < ApplicationController
     render :new, status: :unprocessable_entity
   end
 
-  def edit
-  end
-
   def update
-    redirect_to person_run_path(@person, @run) and return if @run.update!(run_params)
+    redirect_to person_run_path(@person, @run) and return if @run.update(run_params)
 
     render :edit, status: :unprocessable_entity
   end

@@ -8,19 +8,12 @@ class PracticesController < ApplicationController
   end
 
   def create
-    @trail = Trail.find(practice_params[:trail_id])
+    @trails = Trail.all
+    @practice = @person.practices.create(practice_params)
 
-    if !@person.practice_on?(@trail)
-      flash[:alert] = "Not eligible in #{@trail.name} Trail. Select a different trail."
-      redirect_to new_person_practice_path(person_id: practice_params[:person_id]), status: :precondition_failed and return
-    end
-
-    redirect_to person_path(@person) and return if @person.practices.create!(practice_params)
+    redirect_to person_path(@person) and return if @practice.errors.blank?
 
     render :new, status: :unprocessable_entity
-  end
-
-  def edit
   end
 
   def update
@@ -28,13 +21,13 @@ class PracticesController < ApplicationController
 
     redirect_to person_path(@person) and return if @practice.update(practice_params)
 
-    render :edit, status: :unprocessable_entity
+    redirect_to person_path(@person), status: :unprocessable_entity
   end
 
   private
 
   def set_person
-    @person = Person.find(practice_params[:person_id])
+    @person = Person.find(params[:person_id] || practice_params[:person_id])
   end
 
   def practice_params

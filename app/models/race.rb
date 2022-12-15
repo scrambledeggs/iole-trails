@@ -27,6 +27,17 @@ class Race < ApplicationRecord
     runs.where(status: %i[REGISTERED FINISHED UNFINISHED])
   end
 
+  def no_overlaps_within_trail?(trail_id, tentative_start, tentative_duration)
+    tentative_end = tentative_start + tentative_duration.hours
+    overlaps = Race.where("trail_id = ? AND (start < ? AND ? <  start + (duration * interval '1 hour'))", trail_id, tentative_end, tentative_start)
+    overlaps.blank? || (overlaps.length == 1 && overlaps.first.id == id)
+  end
+
+  def overlaps?(tentative_start, tentative_duration)
+    tentative_end = tentative_start + tentative_duration.hours
+    (start < tentative_end) && (tentative_start < expected_end)
+  end
+
   private
 
   def detail_change_allowed
@@ -36,15 +47,13 @@ class Race < ApplicationRecord
   end
 
   def time_overlaps
-    trail = Trail.find(trail_id)
-    overlaps = trail.overlapping_races(start.to_datetime, duration.to_i)
-    return if overlaps.blank? || (overlaps.length == 1 && overlaps.find(id))
+    return if no_overlaps_within_trail?(trail_id, start.to_datetime, duration.to_i)
 
-    errors.add(:time_period, 'overlaps another race')
+    errors.add(:time_period, 'overlaps another race in the same trail')
   end
 
   def status_change
-    return unless status_STARTED?
+    return if !status_STARTED?
 
     return if registered_runs.length > 1
 
@@ -52,7 +61,7 @@ class Race < ApplicationRecord
   end
 
   def finish_sequence
-    return unless status_FINISHED?
+    return if !status_FINISHED?
 
     formatted_updates = []
     first_placer = 0

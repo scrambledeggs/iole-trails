@@ -22,7 +22,6 @@
   <td>
   <%= form_with model: [@person, @person.ongoing_practice] do |form| %>
     <%= form.hidden_field :status, value: :FINISHED %>
-    <%= form.hidden_field :person_id, value: @person.id %>
     <%= form.submit "Mark as Finished"%>
   <% end %>
   </td>

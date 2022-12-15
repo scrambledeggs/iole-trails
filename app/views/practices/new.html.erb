@@ -6,11 +6,8 @@
     <%= form.label "Select a trail" %><br>
     <%= form.select :trail_id, @person.get_trail_options(@trails)%>
   </p>
-  <p>
-    <%= form.hidden_field :person_id, value: @person.id %>
-  </p>
-  <% if flash[:alert] %>
-    <p style="color:red;"><%= flash[:alert] %></p>
+  <% @practice.errors.full_messages.each do |message| %>
+    <p style="color:red;"><%= message %></p>
   <% end %>
   <p>
     <%= form.submit "Start Practice"%>
