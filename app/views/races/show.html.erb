@@ -1,10 +1,10 @@
 <h3><%= image_tag("race_32.png")%> The <%= @race.name %> Race</h3>
 
 <% if @race.status_NEW? %>
-<%= form_with model: [@trail, @race] do |form| %>
-  <%= form.hidden_field :status, value: :STARTED %>
-  <%= form.submit "Start Race"%>
-<% end %>
+  <%= form_with model: [@trail, @race] do |form| %>
+    <%= form.hidden_field :status, value: :STARTED %>
+    <%= form.submit "Start Race"%>
+  <% end %>
 <% end %>
 
 <% if flash[:alert] %>
@@ -12,10 +12,10 @@
 <% end %>
 
 <% if @race.status_STARTED? %>
-<%= form_with model: [@trail, @race] do |form| %>
-  <%= form.hidden_field :status, value: :FINISHED %>
-  <%= form.submit "Finish Race"%>
-<% end %>
+  <%= form_with model: [@trail, @race] do |form| %>
+    <%= form.hidden_field :status, value: :FINISHED %>
+    <%= form.submit "Finish Race"%>
+  <% end %>
 <% end %>
 
 <article>
@@ -36,8 +36,8 @@ Duration (hours): <%= @race.duration %>
 
 <article>
 <% if @race.winner.present? %>
-<h4>Winner</h4>
-Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
+  <h4>Winner</h4>
+  Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
 <% end %>
 <h4>Participants</h4>
 <% if @race.registered_runs.present? %> 

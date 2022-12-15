@@ -12,7 +12,7 @@ class Trail < ApplicationRecord
   end
 
   def eligible_people
-    any_body_build = Person.body_builds.keys unless body_build
+    any_body_build = Person.body_builds.keys if !body_build
     Person.where(age: [age_minimum..age_maximum], weight: [weight_minimum..weight_maximum], body_build: body_build || any_body_build)
   end
 

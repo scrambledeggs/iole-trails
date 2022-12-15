@@ -7,7 +7,7 @@ class RacesController < ApplicationController
   end
 
   def show
-    return unless @race.winner.present?
+    return if !@race.winner.present?
 
     @winning_run = Run.find(@race.winner)
     @winner = @winning_run.person
@@ -29,13 +29,12 @@ class RacesController < ApplicationController
   end
 
   def update
-    # TODO: dont update an ongoing race
     redirect_to trail_race_path(@trail, @race) and return if @race.update(race_params)
 
-    render :edit, status: :unprocessable_entity and return unless @race.errors.include?(:status)
+    render :edit, status: :unprocessable_entity and return if !@race.errors.include?(:status)
 
     flash[:alert] = @race.errors.messages_for(:status).first
-    redirect_to trail_race_path(@trail, @race), status: :conflict
+    redirect_to trail_race_path(@trail, @race)
   end
 
   def destroy

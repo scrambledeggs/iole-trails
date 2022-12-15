@@ -37,7 +37,7 @@ class Person < ApplicationRecord
 
   def get_trail_options(trails)
     trails.collect do |t|
-      validity = " (ineligible)" unless t.eligible?(age, weight, body_build)
+      validity = " (ineligible)" if !t.eligible?(age, weight, body_build)
       [ "#{t.name}#{validity}", t.id ]
     end
   end
@@ -47,7 +47,7 @@ class Person < ApplicationRecord
   end
 
   def ongoing_race
-    races.where('"races"."status" = 1 AND "runs"."status" = 0')
+    races.where('"races"."status" = 1 AND "runs"."status" = 0').first
   end
 
   def finished_practice_on?(trail_id)
