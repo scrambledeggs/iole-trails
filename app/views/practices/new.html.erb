@@ -1,0 +1,20 @@
+<h1>Start a Practice for: <%= @person.name.capitalize %></h1>
+
+
+<%= form_with model: [@person, @person.practices.build] do |form| %>
+  <p>
+    <%= form.label "Select a trail" %><br>
+    <%= form.select :trail_id, @person.get_trail_options(@trails)%>
+  </p>
+  <p>
+    <%= form.hidden_field :person_id, value: @person.id %>
+  </p>
+  <% if flash[:alert] %>
+    <p style="color:red;"><%= flash[:alert] %></p>
+  <% end %>
+  <p>
+    <%= form.submit "Start Practice"%>
+  </p>
+<% end %>
+
+<%= link_to "Back", person_path(@person) %>

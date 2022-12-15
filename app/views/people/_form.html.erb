@@ -1,0 +1,45 @@
+<%= form_with model: person do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    <% person.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :age %><br>
+    <%= form.number_field :age %><br>
+    <% person.errors.full_messages_for(:age).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :weight %><br>
+    <%= form.number_field :weight %><br>
+    <% person.errors.full_messages_for(:weight).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :body_build %><br>
+    <%= form.radio_button :body_build, 'SLIM' %>
+    <%= form.label :body_build, 'SLIM' %><br>
+    <%= form.radio_button :body_build, 'FIT' %>
+    <%= form.label :body_build, 'FIT' %><br>
+    <%= form.radio_button :body_build, 'LARGE' %>
+    <%= form.label :body_build, 'LARGE' %><br>
+
+    <% person.errors.full_messages_for(:body_build).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+  <br>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

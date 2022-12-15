@@ -1,24 +1,35 @@
-# README
+# Trails Exercise
+## Requirements
+3 models
+ - [x] Person (people table)
+ - [x] Trail (trails table)
+ - [x] Practice (practices tables)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Person model
+ - [x] has age, body-build (slim, fit, large)
+ - [x] can `start` *practice* on any *trail*
+  - given he/she has passed the criteria of a trail
+  - given he/she is not already starting a practice on a trail
+ - [x] can `finish` *practice* on a *trail*
+  - given he/she is starting this particular trail
+ - [x] can see all trails finished
+ - [x] can see all uncompleted trails
 
-Things you may want to cover:
+Trail model
+ - [x] has pass criteria depending on age, body-build
+ - [x] can see people who have finished this trail
+ - [x] can see people who have started the trail
+ - [x] can see people who can start the trail
 
-* Ruby version
+Practice model
+ - [x] has the status field of person/trail
 
-* System dependencies
+## To-do list
+ - [x] routes: practice should be nested under people
+ - [x] ruby way for arrays: `%i[ ]`
+ - [x] For new practice view: pre-filter only eligible trails -- added marking for ineligibility only
+ - [x] practice controller: separate method for checking eligibility -- removed nesting only
+ - [x] change if/else in controllers for create, update etc. to 2 lines
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Diagram
+![Diagram](src/trails_diagram.png)

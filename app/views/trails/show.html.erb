@@ -1,0 +1,33 @@
+<h2>The <%= @trail.name %> Trail</h2>
+
+<h3>Requirements:</h3>
+<p>Age (years): <%= @trail.age_minimum %> to <%= @trail.age_maximum %></p>
+<p>Weight (kg): <%= @trail.weight_minimum %> to <%= @trail.weight_maximum %></p>
+<p>Body Build: <%= @trail.body_build %></p>
+
+<%= link_to "Edit", edit_trail_path(@trail) %> | 
+<%= link_to "Remove", trail_path(@trail), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %> |
+<%= link_to "See Eligibles", eligible_people_trail_path(@trail) %> 
+
+
+<br><br>
+<h2><%= @trail.name %> Trail's Ongoing Trailers: </h2>
+<% if @trail.ongoing_practices? %> 
+  <% @trail.ongoing_practices.each do |practice| %> 
+    <ul><li><%= link_to practice.person.name.capitalize, practice.person %> </li></ul>
+  <% end %> 
+<% else %> 
+  None at the moment.
+<% end %> 
+
+<h2><%= @trail.name %> Trail's Finishers</h2>
+<% if @trail.past_practices? %> 
+  <% @trail.past_practices.each do |practice| %> 
+    <ul><li><%= link_to practice.person.name.capitalize, practice.person %> </li></ul>
+  <% end %> 
+<% else %> 
+  None yet!
+<% end %> 

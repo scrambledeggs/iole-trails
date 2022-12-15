@@ -1,0 +1,11 @@
+<h2>People using Trails</h2>
+<ul>
+  <% @people.each do |person| %>
+    <li>
+      <%= link_to person.name.capitalize, person %>
+    </li>
+  <% end %>
+</ul>
+
+<br>
+<%= link_to "New Person", new_person_path %>
