@@ -12,8 +12,12 @@ class Trail < ApplicationRecord
   end
 
   def eligible_people
-    any_body_build = Person.body_builds.keys if !body_build
-    Person.where(age: [age_minimum..age_maximum], weight: [weight_minimum..weight_maximum], body_build: body_build || any_body_build)
+    person_body_build = body_build || Person.body_builds.keys
+    self.age_minimum ||= 1
+    self.age_maximum ||= 100
+    date_maximum = Date.new(Date.today.year-age_minimum, 12, 31)
+    date_minimum = Date.new(Date.today.year-age_maximum, 1, 1)
+    Person.where(birthdate: [date_minimum..date_maximum], weight: [weight_minimum..weight_maximum], body_build: person_body_build)
   end
 
   def ongoing_practices?

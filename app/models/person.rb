@@ -11,9 +11,13 @@ class Person < ApplicationRecord
   has_many :races, through: :runs
 
   validates :name, presence: true
-  validates :age, presence: true
+  validates :birthdate, presence: true
   validates :weight, presence: true
   validates :body_build, presence: true
+
+  def age
+    ((Time.zone.now - birthdate.to_time) / 1.year.seconds).floor
+  end
 
   def ongoing_practice?
     ongoing_practice.present?
