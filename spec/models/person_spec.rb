@@ -136,7 +136,7 @@ RSpec.describe Person, type: :model do
     let!(:trail3) { create(:trail, :for_heavy_only) }
 
     context 'with eligible and ineligible trails' do
-      let(:trail_options) { person1.get_trail_options(Trail.all) }
+      let(:trail_options) { person1.get_trail_options }
 
       it { expect(trail_options[0][0]).to eq trail1.name }
       it { expect(trail_options[1][0]).to eq trail2.name }
