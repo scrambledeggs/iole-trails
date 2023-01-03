@@ -4,6 +4,7 @@ class EligiblesFinder < ApplicationService
   end
 
   def call
+    # TODO: update using updated db schema
     Person.where(
       age: [@trail.age_minimum..@trail.age_maximum],
       weight: [@trail.weight_minimum..@trail.weight_maximum],

@@ -11,11 +11,6 @@ class Trail < ApplicationRecord
     age_eligible(age) && weight_eligible(weight) && body_build_eligible(person_body_build)
   end
 
-  def eligible_people
-    any_body_build = Person.body_builds.keys if !body_build
-    Person.where(age: [age_minimum..age_maximum], weight: [weight_minimum..weight_maximum], body_build: body_build || any_body_build)
-  end
-
   def ongoing_practices?
     ongoing_practices.present?
   end

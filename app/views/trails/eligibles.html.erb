@@ -1,6 +1,6 @@
 <h3>People eligible for the <%= @trail.name.capitalize %> Trail</h3>
 <article class="cards">
-<% @trail.eligible_people.each do |person| %>
+<% @eligible_people.each do |person| %>
   <article class="card">
     <%= image_tag("user.png")%> <%= link_to person.name.capitalize, person %>
   </article>

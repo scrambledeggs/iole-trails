@@ -35,6 +35,7 @@ class TrailsController < ApplicationController
   end
 
   def eligibles
+    @eligible_people = EligiblesFinder.call(@trail)
   end
 
   private
