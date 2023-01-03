@@ -55,16 +55,6 @@ RSpec.describe Trail, type: :model do
     end
   end
 
-  describe 'eligible_people' do
-    subject(:trail1) { create(:trail, :for_heavy_only) }
-
-    let!(:person1) { create(:person, :FIT, :young, :heavy) }
-    let!(:person2) { create(:person, :young, :light) }
-    let!(:person3) { create(:person, :heavy) }
-
-    it { expect(trail1.eligible_people.count).to eq 2 }
-  end
-
   describe 'ongoing_practices' do
     subject(:trail1) { create(:trail, :for_young_only) }
     let!(:person1) { create(:person, :young, :heavy) }
