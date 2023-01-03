@@ -43,9 +43,8 @@ RSpec.describe 'PracticesController', type: :request do
 
   # update
   describe 'PUT /people/:person_id/practices/:id' do
-    let!(:path) { put person_practice_path(person, practice), params: { practice: new_practice_params } }
-    let(:new_practice_params) { {
-      person_id: person.id, # TODO: update in model
+    let!(:path) { put person_practice_path(person, practice), params: { practice: practice_params } }
+    let(:practice_params) { {
       status: :FINISHED
     } }
 

@@ -52,8 +52,8 @@ RSpec.describe 'RunsController', type: :request do
 
   # update
   describe 'PUT	/people/:person_id/runs/:id' do
-    let(:new_run_params) {{ status: :FINISHED }}
-    let!(:path) { put person_run_path(person, run), params: { run: new_run_params } }
+    let(:run_params) {{ status: :FINISHED }}
+    let!(:path) { put person_run_path(person, run), params: { run: run_params } }
 
     it { expect(response).to have_http_status(:found) }
     it { expect(response).to redirect_to person_run_path(person, run) }
