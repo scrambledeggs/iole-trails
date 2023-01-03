@@ -1,4 +1,4 @@
-# Trails Exercise
+# Trails Exercise [![CI](https://github.com/scrambledeggs/iole-trails/actions/workflows/ci.yml/badge.svg)](https://github.com/scrambledeggs/iole-trails/actions/workflows/ci.yml)
 ## Feature 1
 ### Requirements
 3 models

@@ -29,7 +29,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/config/database.yml
+# /config/database.yml
 /config/credentials.yml.enc
 
 /coverage/*
