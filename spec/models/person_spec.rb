@@ -11,7 +11,7 @@ RSpec.describe Person, type: :model do
     expect(person1).not_to be_valid
   end
 
-  it 'is not valid without an birthdate' do
+  it 'is not valid without a birthdate' do
     person1 = build(:person, birthdate: nil)
     expect(person1).not_to be_valid
   end
