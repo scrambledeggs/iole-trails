@@ -1,41 +1,70 @@
 class RaceUpdater < ApplicationService
-  def initialize(race, status)
+  def initialize(race, status, random_flag = false)
     @race = race
     @status = status
+    @random_flag = random_flag
   end
 
   def call
-    return false if @status != :FINISHED
+    if @status != :FINISHED
+      {
+        result: false,
+        message: 'Invalid race status update'
+      } and return
+    end
 
-    formatted_updates = []
-    first_placer = 0
-    registered_runs = @race.registered_runs
+    if @random_flag && !update_runs_random
+      {
+        result: false,
+        message: 'Could not update runs with random'
+      } and return
+    end
 
-    rand_run_duration = registered_runs.length.times.map {
-      rand((@race.duration / 2)..(@race.duration + 1.5))
+    @race.status = @status
+    @race.winner = get_winner
+    save_race = @race.save
+
+    {
+      result: save_race,
+      message: @race.errors.messages.first
     }
-    sorted_duration = rand_run_duration.sort
+  end
+
+  private
+  def generate_random_run_results(runners_count, race_duration)
+    Array.new(runners_count) { rand((race_duration / 2)..(race_duration + 0.75)) }
+  end
+
+  def generate_run_update_hash(registered_runs, random_runs_list)
+    formatted_updates = []
+
+    sorted_runs_list = random_runs_list.sort
 
     registered_runs.each_with_index do |run, index|
-      run_duration = rand_run_duration[index]
+      run_duration = random_runs_list[index]
       run_status = if run_duration <= @race.duration
                      :FINISHED
                    else
                      :UNFINISHED
                    end
-      run_place = sorted_duration.find_index(run_duration) + 1
-
-      first_placer = run.id if run_place == 1
+      run_place = sorted_runs_list.find_index(run_duration) + 1
 
       formatted_updates << { id: run.id, duration: run_duration, status: run_status, place: run_place }
     end
 
-    formatted_updates = formatted_updates.index_by { |run| run[:id] }
+    formatted_updates.index_by { |run| run[:id] }
+  end
 
-    return false if !Run.update(formatted_updates.keys, formatted_updates.values)
+  def update_runs_random
+    registered_runs = @race.registered_runs
 
-    @race.status = @status
-    @race.winner = first_placer
-    @race.save
+    random_runs_list = generate_random_run_results(registered_runs.count, @race.duration)
+    run_update_hash = generate_run_update_hash(registered_runs, random_runs_list)
+
+    Run.update(run_update_hash.keys, run_update_hash.values)
+  end
+
+  def get_winner
+    @race.registered_runs.where(place: 1).first.id
   end
 end
