@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PracticesHelper do
   describe 'get_trail_options' do
-    subject!(:person1) { create(:person, :young, :FIT, :light) }
-
+    let!(:person1) { create(:person, :young, :FIT, :light) }
     let!(:trail1) { create(:trail, :for_young, :for_light, :FIT) }
     let!(:trail2) { create(:trail, :for_young_only) }
     let!(:trail3) { create(:trail, :for_heavy_only) }

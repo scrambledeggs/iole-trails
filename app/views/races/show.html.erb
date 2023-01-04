@@ -41,7 +41,7 @@ Duration (hours): <%= @race.duration %>
 <% if @race.registered_runs.present? %> 
   <ol>
   <% @race.registered_runs.each do |run| %> 
-    <%= participant_string(run) %>
+    <%= participant_line(run) %>
   <% end %> 
   </ol>
 <% else %> 
