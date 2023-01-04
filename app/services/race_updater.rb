@@ -7,17 +7,17 @@ class RaceUpdater < ApplicationService
 
   def call
     if @status != :FINISHED
-      {
+      return {
         result: false,
         message: 'Invalid race status update'
-      } and return
+      }
     end
 
     if @random_flag && !update_runs_random
-      {
+      return {
         result: false,
         message: 'Could not update runs with random'
-      } and return
+      }
     end
 
     @race.status = @status

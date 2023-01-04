@@ -139,4 +139,26 @@ RSpec.describe 'RacesController', type: :request do
     # it { expect(response).to have_http_status(:ok) }
     # it { expect(actual_races.count).to eq 3 }
   end
+
+  # finish
+  describe 'PUT /trails/:trail_id/races/:id/finish' do  
+    let!(:person1) { create(:person, :SLIM) }
+    let!(:person2) { create(:person, :SLIM) }
+    let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail) }
+    let!(:practice2) { create(:practice, :FINISHED, person: person2, trail: trail) }
+    let!(:run1) { create(:run, person: person1, race: race1) }
+    let!(:run2) { create(:run, person: person2, race: race1) }
+
+    let!(:path) { put finish_trail_race_path(trail, race1) }
+
+    context 'when race successfully updates to finished' do
+      it { expect(response).to have_http_status(:found) }
+      it { expect(flash[:alert]).to be_nil }
+    end
+
+    context 'when race fails to update as finished' do
+      it { expect(response).to have_http_status(:found) }
+      # it { expect(flash[:alert]).not_to be_nil } # TODO: it contains a message
+    end
+  end
 end
