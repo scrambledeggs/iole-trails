@@ -3,9 +3,9 @@
 <article>
 <h4>Requirements:</h4>
 <p>
-Age (years): <%= @trail.age_minimum %> to <%= @trail.age_maximum %> <br>
-Weight (kg): <%= @trail.weight_minimum %> to <%= @trail.weight_maximum %> <br>
-Body Build: <%= @trail.body_build %>
+Age (years): <%= age_criteria_line(@trail) %> <br>
+Weight (kg): <%= weight_criteria_line(@trail) %> <br>
+Body Build: <%= body_build_criteria_line(@trail) %>
 </p>
 
 <%= link_to "Edit", edit_trail_path(@trail) %> |
