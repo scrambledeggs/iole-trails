@@ -22,7 +22,7 @@ class Race < ApplicationRecord
   end
 
   def registered_runs
-    runs.where(status: %i[REGISTERED FINISHED UNFINISHED])
+    runs.where(status: %i[REGISTERED FINISHED UNFINISHED]).order(:duration)
   end
 
   def no_overlaps_within_trail?(trail_id, tentative_start, tentative_duration)
