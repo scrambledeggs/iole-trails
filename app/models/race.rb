@@ -17,8 +17,6 @@ class Race < ApplicationRecord
   validate :time_overlaps, if: :start_changed? || :duration_changed?
   validate :status_change, on: :update, if: :status_changed?
 
-  before_commit :finish_sequence, on: :update
-
   def expected_end
     start + duration.hours
   end
@@ -58,34 +56,5 @@ class Race < ApplicationRecord
     return if registered_runs.length > 1
 
     errors.add(:status, 'Cannot start with less than 2 participants')
-  end
-
-  def finish_sequence
-    return if !status_FINISHED?
-
-    formatted_updates = []
-    first_placer = 0
-    rand_duration = registered_runs.length.times.map { rand((duration / 2)..(duration + 1.5)) }
-    sorted_duration = rand_duration.sort
-
-    registered_runs.each_with_index do |run, index|
-      run_duration = rand_duration[index]
-      run_status = if run_duration <= duration
-                     :FINISHED
-                   else
-                     :UNFINISHED
-                   end
-      run_place = sorted_duration.find_index(run_duration) + 1
-
-      first_placer = run.id if run_place == 1
-
-      formatted_updates << { id: run.id, duration: run_duration, status: run_status, place: run_place }
-    end
-
-    formatted_updates = formatted_updates.index_by { |run| run[:id] }
-
-    Run.update(formatted_updates.keys, formatted_updates.values)
-
-    update_attribute(:winner, first_placer)
   end
 end

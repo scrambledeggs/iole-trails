@@ -46,6 +46,15 @@ class RacesController < ApplicationController
     @races = Race.all.order(:start)
   end
 
+  def finish
+    update_race_response = RaceUpdater.call(@race, :FINISHED, true)
+
+    redirect_to trail_race_path(@trail, @race) and return if update_race_response[:result]
+
+    flash[:alert] = update_race_response.message
+    redirect_to trail_race_path(@trail, @race)
+  end
+
   private
 
   def set_trail
