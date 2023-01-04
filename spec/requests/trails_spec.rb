@@ -99,4 +99,19 @@ RSpec.describe 'TrailsController', type: :request do
     it { expect(response).to redirect_to trails_path }
     it { expect(Trail.all.count).to eq 1 }
   end
+
+  # eligibles
+  describe 'GET /trails/:id/eligible-people' do
+    let!(:path) { get eligible_people_trail_path(trail1) }
+
+    let(:actual_eligible_people) { assigns(:eligible_people) }
+
+    context 'when eligible people exist' do
+      let!(:person1) { create(:person, :FIT, :young, :heavy) }
+      let!(:person2) { create(:person, :young, :light) }
+      let!(:person3) { create(:person, :heavy) }
+
+      it { expect(actual_eligible_people.count).to eq 2 }
+    end
+  end
 end
