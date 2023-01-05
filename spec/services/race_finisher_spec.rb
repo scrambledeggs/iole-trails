@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RaceUpdater do
+RSpec.describe RaceFinisher do
   let(:trail_attribute) { :FIT }
   let!(:trail) { create(:trail, trail_attribute) }
   let!(:person1) { create(:person, :FIT) }
@@ -15,7 +15,7 @@ RSpec.describe RaceUpdater do
     let!(:practice2) { create(:practice, :FINISHED, person: person2, trail: trail) }
     let!(:run2) { create(:run, person: person2, race: race1) }
 
-    let!(:return_value) { RaceUpdater.call(race1, :FINISHED, true) }
+    let!(:return_value) { RaceFinisher.call(race1, true) }
 
     it { expect(return_value[:result]).to be_truthy }
     it { expect(return_value[:message]).to be_nil }
@@ -33,19 +33,12 @@ RSpec.describe RaceUpdater do
     end
   end
 
-  context 'when status for update is invalid' do
-    let!(:return_value) { RaceUpdater.call(race1, :STARTED) }
-
-    it { expect(return_value[:result]).to be_falsey }
-    it { expect(return_value[:message]).to match('Invalid race status update') }
-  end
-
   context 'when runs cannot be updated' do
     before do
       allow(Run).to receive(:update).and_return(false)
     end
 
-    let!(:return_value) { RaceUpdater.call(race1, :FINISHED, true) }
+    let!(:return_value) { RaceFinisher.call(race1, true) }
 
     it { expect(return_value[:result]).to be_falsey }
     it { expect(return_value[:message]).to match('Could not update runs with random') }

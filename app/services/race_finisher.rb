@@ -1,18 +1,10 @@
-class RaceUpdater < ApplicationService
-  def initialize(race, status, random_flag = false)
+class RaceFinisher < ApplicationService
+  def initialize(race, random_flag = false)
     @race = race
-    @status = status
     @random_flag = random_flag
   end
 
   def call
-    if @status != :FINISHED
-      return {
-        result: false,
-        message: 'Invalid race status update'
-      }
-    end
-
     if @random_flag && !update_runs_random
       return {
         result: false,
@@ -20,7 +12,7 @@ class RaceUpdater < ApplicationService
       }
     end
 
-    @race.status = @status
+    @race.status = :FINISHED
     @race.winner = get_winner
     save_race = @race.save
 

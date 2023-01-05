@@ -47,7 +47,7 @@ class RacesController < ApplicationController
   end
 
   def finish
-    update_race_response = RaceUpdater.call(@race, :FINISHED, true)
+    update_race_response = RaceFinisher.call(@race, true)
 
     redirect_to trail_race_path(@trail, @race) and return if update_race_response[:result]
 
