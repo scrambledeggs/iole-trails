@@ -40,7 +40,14 @@ RSpec.describe RaceUpdater do
     it { expect(return_value[:message]).to match('Invalid race status update') }
   end
 
-  # context 'when runs cannot be updated' do
-  #   pending 'to be written' # TODO: it returns message
-  # end
+  context 'when runs cannot be updated' do
+    before do
+      allow(Run).to receive(:update).and_return(false)
+    end
+
+    let!(:return_value) { RaceUpdater.call(race1, :FINISHED, true) }
+
+    it { expect(return_value[:result]).to be_falsey }
+    it { expect(return_value[:message]).to match('Could not update runs with random') }
+  end
 end

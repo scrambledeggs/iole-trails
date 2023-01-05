@@ -51,7 +51,7 @@ class RacesController < ApplicationController
 
     redirect_to trail_race_path(@trail, @race) and return if update_race_response[:result]
 
-    flash[:alert] = update_race_response.message
+    flash[:alert] = update_race_response[:message]
     redirect_to trail_race_path(@trail, @race)
   end
 

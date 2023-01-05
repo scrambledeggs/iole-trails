@@ -16,9 +16,10 @@ class PracticesController < ApplicationController
   def update
     @practice = Practice.find(params[:id])
 
-    redirect_to person_path(@person) and return if @practice.update(practice_params)
+    @practice.update(practice_params)
+    redirect_to person_path(@person)
 
-    redirect_to person_path(@person), status: :unprocessable_entity
+    # TODO: case when update fails
   end
 
   private
