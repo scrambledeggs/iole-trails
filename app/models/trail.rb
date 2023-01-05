@@ -51,6 +51,6 @@ class Trail < ApplicationRecord
   end
 
   def body_build_eligible(person_body_build)
-    !body_build.present? || person_body_build == body_build
+    body_build.blank? || person_body_build == body_build
   end
 end
