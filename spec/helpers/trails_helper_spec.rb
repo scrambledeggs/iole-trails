@@ -37,7 +37,7 @@ RSpec.describe TrailsHelper do
       let!(:min) { nil }
       let!(:max) { nil }
 
-      it { expect(age_criteria_line).to match("Any") }
+      it { expect(age_criteria_line).to match('Any') }
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe TrailsHelper do
       let!(:min) { nil }
       let!(:max) { nil }
 
-      it { expect(weight_criteria_line).to match("Any") }
+      it { expect(weight_criteria_line).to match('Any') }
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe TrailsHelper do
 
       let!(:criteria) { nil }
 
-      it { expect(body_build_criteria_line).to match("Any") }
+      it { expect(body_build_criteria_line).to match('Any') }
     end
   end
 end

@@ -40,7 +40,7 @@ RSpec.describe RaceUpdater do
     it { expect(return_value[:message]).to match('Invalid race status update') }
   end
 
-  context 'when runs cannot be updated' do
-    pending 'to be written' # TODO: it returns message
-  end
+  # context 'when runs cannot be updated' do
+  #   pending 'to be written' # TODO: it returns message
+  # end
 end
