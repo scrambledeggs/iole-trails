@@ -57,9 +57,8 @@ RSpec.describe 'RacesController', type: :request do
 
   # create
   describe 'POST /trails/:trail_id/races' do
-    let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
-
     context 'when creating with valid parameters' do
+      let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
       let(:new_race_params) { attributes_for(:race) }
 
       it { expect(response).to have_http_status(:found) }
@@ -68,6 +67,7 @@ RSpec.describe 'RacesController', type: :request do
     end
 
     context 'when creating with invalid parameter' do
+      let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
       let(:new_race_params) { attributes_for(:race, name: nil) }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
@@ -76,7 +76,9 @@ RSpec.describe 'RacesController', type: :request do
     end
 
     context 'when creating overlapping races within the same trail' do
-      let(:new_race_params) { attributes_for(:race, start: race1.start) }
+      let!(:race3) { create(:race, trail: trail, start: DateTime.new(2023, 01, 10, 10, 00, 0)) }
+      let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
+      let(:new_race_params) { attributes_for(:race, start: DateTime.new(2023, 01, 10, 10, 00, 0)) }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(response).to render_template :new }
