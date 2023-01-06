@@ -16,7 +16,8 @@ class PracticesController < ApplicationController
   def update
     @practice = Practice.find(params[:id])
 
-    @practice.update(practice_params)
+    @practice.update!(practice_params)
+
     redirect_to person_path(@person)
 
     # TODO: case when update fails
