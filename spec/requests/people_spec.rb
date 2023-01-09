@@ -33,10 +33,10 @@ RSpec.describe 'PeopleController', type: :request do
 
   # create
   describe 'POST /people' do
-    let(:new_person_params) { attributes_for(:person, age: age) }
+    let(:new_person_params) { attributes_for(:person, birthdate: birthdate) }
 
     context 'when creating with valid parameters' do
-      let(:age) { 25 }
+      let(:birthdate) { Date.new(1997, 1, 10) }
       let!(:path) { post people_path, params: { person: new_person_params } }
 
       it { expect(response).to have_http_status(:found) }
@@ -45,12 +45,12 @@ RSpec.describe 'PeopleController', type: :request do
     end
 
     context 'when creating with invalid parameters' do
-      let(:age) { nil }
+      let(:birthdate) { nil }
       let!(:path) { post people_path, params: { person: new_person_params } }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(response).to render_template :new }
-      it { expect(actual_person.errors.messages_for(:age)).not_to be_empty }
+      it { expect(actual_person.errors.messages_for(:birthdate)).not_to be_empty }
     end
   end
 

@@ -8,9 +8,9 @@
   </div>
 
   <div>
-    <%= form.label :age %>
-    <%= form.number_field :age %>
-    <% person.errors.full_messages_for(:age).each do |message| %>
+    <%= form.label :birthdate %>
+    <%= form.date_field :birthdate %>
+    <% person.errors.full_messages_for(:birthdate).each do |message| %>
       <div class="form_error"><%= message %></div>
     <% end %>
   </div>

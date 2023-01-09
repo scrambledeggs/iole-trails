@@ -132,11 +132,10 @@ RSpec.describe 'RacesController', type: :request do
 
   # all
   describe 'GET /races' do
-    pending 'route to be implemented'
-    # let!(:race3) { create(:trail) }
-    # let!(:path) { get races_path }
+    let!(:race3) { create(:race) }
+    let!(:path) { get races_path }
 
-    # it { expect(response).to have_http_status(:ok) }
-    # it { expect(actual_races.count).to eq 3 }
+    it { expect(response).to have_http_status(:ok) }
+    it { expect(actual_races.count).to eq 3 }
   end
 end

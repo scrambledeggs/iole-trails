@@ -3,12 +3,10 @@ class PracticesController < ApplicationController
 
   def new
     @person = Person.find(params[:person_id])
-    @trails = Trail.all
     @practice = Practice.new
   end
 
   def create
-    @trails = Trail.all
     @practice = @person.practices.create(practice_params)
 
     redirect_to person_path(@person) and return if @practice.errors.blank?

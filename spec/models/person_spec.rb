@@ -11,8 +11,8 @@ RSpec.describe Person, type: :model do
     expect(person1).not_to be_valid
   end
 
-  it 'is not valid without an age' do
-    person1 = build(:person, age: nil)
+  it 'is not valid without a birthdate' do
+    person1 = build(:person, birthdate: nil)
     expect(person1).not_to be_valid
   end
 
@@ -24,6 +24,12 @@ RSpec.describe Person, type: :model do
   it 'is not valid without a body build' do
     person1 = build(:person, body_build: nil)
     expect(person1).not_to be_valid
+  end
+
+  describe 'age' do
+    subject!(:person1) { create(:person, birthdate: 25.years.ago) }
+
+    it { expect(person1.age).to eq 25 }
   end
 
   describe 'ongoing_practice' do
@@ -130,7 +136,7 @@ RSpec.describe Person, type: :model do
     let!(:trail3) { create(:trail, :for_heavy_only) }
 
     context 'with eligible and ineligible trails' do
-      let(:trail_options) { person1.get_trail_options(Trail.all) }
+      let(:trail_options) { person1.get_trail_options }
 
       it { expect(trail_options[0][0]).to eq trail1.name }
       it { expect(trail_options[1][0]).to eq trail2.name }

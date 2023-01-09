@@ -5,7 +5,7 @@ RSpec.describe Race, type: :model do
   let!(:trail) { create(:trail, trail_attribute) }
   let!(:person1) { create(:person, :FIT) }
 
-  subject(:race1) { create(:race, trail: trail) }
+  subject!(:race1) { create(:race, trail: trail) }
 
   context 'when valid attributes' do
     it { expect(race1).to be_valid }
@@ -35,7 +35,7 @@ RSpec.describe Race, type: :model do
       expect(race3).not_to be_valid
     end
 
-    it 'cannot edit a race to overlap' do
+    it 'cannot edit a race to overlap another' do
       race2.update(start: race1.start)
 
       expect(race2.errors.messages_for(:time_period)).not_to be_empty

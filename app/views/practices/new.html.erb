@@ -4,7 +4,7 @@
 <%= form_with model: [@person, @person.practices.build] do |form| %>
   <div>
     <%= form.label "Select a trail" %>
-    <%= form.select :trail_id, @person.get_trail_options(@trails)%>
+    <%= form.select :trail_id, @person.get_trail_options%>
   </div>
   <% @practice.errors.full_messages.each do |message| %>
     <div class="form_error"><%= message %></div>
