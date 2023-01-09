@@ -16,11 +16,9 @@ class PracticesController < ApplicationController
   def update
     @practice = Practice.find(params[:id])
 
-    @practice.update!(practice_params)
+    flash[:alert] = 'Cannot update practice' if !@practice.update(practice_params)
 
     redirect_to person_path(@person)
-
-    # TODO: case when update fails
   end
 
   private
