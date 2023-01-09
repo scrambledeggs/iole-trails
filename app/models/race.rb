@@ -17,6 +17,8 @@ class Race < ApplicationRecord
   validate :time_overlaps, if: :start_changed? || :duration_changed?
   validate :status_change, on: :update, if: :status_changed?
 
+  before_validation :start_time_cleanup, on: :create
+
   def expected_end
     start + duration.hours
   end
@@ -37,6 +39,9 @@ class Race < ApplicationRecord
   end
 
   private
+  def start_time_cleanup
+    self[:start] = self[:start].change(sec: 0) if self[:start].present?
+  end
 
   def detail_change_allowed
     return if registered_runs.blank?

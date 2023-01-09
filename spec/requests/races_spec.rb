@@ -76,9 +76,10 @@ RSpec.describe 'RacesController', type: :request do
     end
 
     context 'when creating overlapping races within the same trail' do
-      let!(:race3) { create(:race, trail: trail, start: DateTime.new(2022, 01, 10, 10, 00, 0)) }
+      # let!(:race3) { create(:race, trail: trail, start: DateTime.new(2022, 01, 10, 10, 00, 0)) }
       let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
-      let(:new_race_params) { attributes_for(:race, start: DateTime.new(2022, 01, 10, 10, 00, 0)) }
+      # let(:new_race_params) { attributes_for(:race, start: DateTime.new(2022, 01, 10, 10, 00, 0)) }
+      let(:new_race_params) { attributes_for(:race, start: race1.start) }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(response).to render_template :new }
