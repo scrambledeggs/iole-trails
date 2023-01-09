@@ -19,11 +19,9 @@ class RunsController < ApplicationController
   end
 
   def update
-    @run.update!(run_params)
+    flash[:alert] = 'Cannot update run' if !@run.update(run_params)
 
     redirect_to person_run_path(@person, @run)
-
-    # TODO: case when update fails
   end
 
   private

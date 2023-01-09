@@ -43,4 +43,25 @@ RSpec.describe RaceFinisher do
     it { expect(return_value[:result]).to be_falsey }
     it { expect(return_value[:message]).to match('Could not update runs with random') }
   end
+
+  context 'when race cannot be updated' do
+    before do
+      allow_any_instance_of(Race).to receive(:save) do |race|
+        race.errors.add(:status, 'Error message')
+        false
+      end
+    end
+
+    let!(:practice1) { create(:practice, :FINISHED, person: person1, trail: trail) }
+    let!(:run1) { create(:run, person: person1, race: race1) }
+
+    let!(:person2) { create(:person, :FIT) }
+    let!(:practice2) { create(:practice, :FINISHED, person: person2, trail: trail) }
+    let!(:run2) { create(:run, person: person2, race: race1) }
+
+    let!(:return_value) { RaceFinisher.call(race1, true) }
+
+    it { expect(return_value[:result]).to be_falsey }
+    it { expect(return_value[:message]).to match('Status Error message') }
+  end
 end

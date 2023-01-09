@@ -18,7 +18,7 @@ class RaceFinisher < ApplicationService
 
     {
       result: save_race,
-      message: @race.errors.messages.first
+      message: @race.errors.full_messages.first
     }
   end
 

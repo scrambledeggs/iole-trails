@@ -54,13 +54,15 @@ RSpec.describe 'PracticesController', type: :request do
       it { expect(actual_practice.status).to eq 'FINISHED' }
     end
 
-    # TODO
-    # context 'when updating fails' do
-    #   before do
-    #     allow(Practice).to receive(:update).and_return(false)
-    #   end
+    context 'when updating fails' do
+      before do
+        allow_any_instance_of(Practice).to receive(:update).and_return(false)
+      end
 
-    #   let!(:path) { put person_practice_path(person, practice), params: { practice: practice_params } }
-    # end
+      let!(:path) { put person_practice_path(person, practice), params: { practice: practice_params } }
+
+      it { expect(response).to redirect_to person_path(person) }
+      it { expect(flash[:alert]).to match('Cannot update practice') }
+    end
   end
 end

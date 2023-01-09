@@ -62,13 +62,15 @@ RSpec.describe 'RunsController', type: :request do
       it { expect(actual_run.status).to eq 'DROPPED' }
     end
 
-    # TODO
-    # context 'when run fails to update' do
-    #   before do
-    #     allow(Run).to receive(:update).and_return(false)
-    #   end
+    context 'when run fails to update' do
+      before do
+        allow_any_instance_of(Run).to receive(:update).and_return(false)
+      end
 
-    #   let!(:path) { put person_run_path(person, run), params: { run: run_params } }
-    # end
+      let!(:path) { put person_run_path(person, run), params: { run: run_params } }
+
+      it { expect(response).to redirect_to person_run_path(person, run) }
+      it { expect(flash[:alert]).to match('Cannot update run') }
+    end
   end
 end

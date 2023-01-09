@@ -12,6 +12,9 @@ Status: <%= @run.status %>
     <%= form.hidden_field :status, value: :DROPPED %>
     <%= form.submit "Drop Race"%>
   <% end %>
+  <% if flash[:alert] %>
+    <p style="color:red;"><%= flash[:alert] %></p>
+  <% end %>
 <% end %>
 
 <% if @run.race.status_FINISHED? %>

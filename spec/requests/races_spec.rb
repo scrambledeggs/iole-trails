@@ -57,8 +57,9 @@ RSpec.describe 'RacesController', type: :request do
 
   # create
   describe 'POST /trails/:trail_id/races' do
+    let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
+
     context 'when creating with valid parameters' do
-      let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
       let(:new_race_params) { attributes_for(:race) }
 
       it { expect(response).to have_http_status(:found) }
@@ -67,7 +68,6 @@ RSpec.describe 'RacesController', type: :request do
     end
 
     context 'when creating with invalid parameter' do
-      let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
       let(:new_race_params) { attributes_for(:race, name: nil) }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
@@ -76,14 +76,11 @@ RSpec.describe 'RacesController', type: :request do
     end
 
     context 'when creating overlapping races within the same trail' do
-      # let!(:race3) { create(:race, trail: trail, start: DateTime.new(2022, 01, 10, 10, 00, 0)) }
-      let!(:path) { post trail_races_path(trail), params: { race: new_race_params } }
-      # let(:new_race_params) { attributes_for(:race, start: DateTime.new(2022, 01, 10, 10, 00, 0)) }
       let(:new_race_params) { attributes_for(:race, start: race1.start) }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(response).to render_template :new }
-      it { expect(actual_race.errors.messages_for(:time_period)).not_to be_empty }
+      it { expect(actual_race.errors.messages_for(:time_period)).to match(['overlaps another race in the same trail']) }
     end
   end
 
@@ -122,6 +119,14 @@ RSpec.describe 'RacesController', type: :request do
       it { expect(response).to redirect_to trail_race_path(trail, actual_race) }
       it { expect(actual_race.errors.messages_for(:status)).not_to be_empty }
     end
+
+    context 'when updating to overlapping another race' do
+      let(:expected_params) { attributes_for(:race, start: race2.start) }
+
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to render_template :edit }
+      it { expect(actual_race.errors.messages_for(:time_period)).to match(['overlaps another race in the same trail']) }
+    end
   end
 
   # destroy
@@ -159,7 +164,7 @@ RSpec.describe 'RacesController', type: :request do
       it { expect(flash[:alert]).to be_nil }
     end
 
-    context 'when race fails to update as finished' do
+    context 'when race fails to update as finished due to runs' do
       before do
         allow(Run).to receive(:update).and_return(false)
       end
@@ -169,7 +174,24 @@ RSpec.describe 'RacesController', type: :request do
       it 'should redirect' do
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to trail_race_path(trail, actual_race)
-        expect(flash[:alert]).not_to be_nil
+        expect(flash[:alert]).to match('Could not update runs with random')
+      end
+    end
+
+    context 'when race fails to update as finished' do
+      before do
+        allow_any_instance_of(Race).to receive(:save) do |race|
+          race.errors.add(:status, 'Error message')
+          false
+        end
+      end
+
+      let!(:path) { put finish_trail_race_path(trail, race1) }
+
+      it 'should redirect' do
+        expect(response).to have_http_status(:found)
+        expect(response).to redirect_to trail_race_path(trail, actual_race)
+        expect(flash[:alert]).to match('Status Error message')
       end
     end
   end

@@ -29,6 +29,9 @@ Body Build: <%= @person.body_build %>
   </td>
   </tr>
   </table>
+  <% if flash[:alert] %>
+    <p style="color:red;"><%= flash[:alert] %></p>
+  <% end %>
 <% else %> 
   <p> None at the moment. <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %> </p>
 <% end %> 
