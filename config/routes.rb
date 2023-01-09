@@ -6,12 +6,10 @@ Rails.application.routes.draw do
   end
   resources :trails do
     get "eligible-people", to: "trails#eligibles", on: :member
-    resources :races
+    resources :races do
+      put "finish", to: "races#finish", on: :member
+    end
   end
 
   get "races", to: "races#all"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 end

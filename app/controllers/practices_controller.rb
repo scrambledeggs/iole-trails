@@ -1,8 +1,7 @@
 class PracticesController < ApplicationController
-  before_action :set_person, only: %i[create update]
+  before_action :set_person
 
   def new
-    @person = Person.find(params[:person_id])
     @practice = Practice.new
   end
 
@@ -17,9 +16,11 @@ class PracticesController < ApplicationController
   def update
     @practice = Practice.find(params[:id])
 
-    redirect_to person_path(@person) and return if @practice.update(practice_params)
+    @practice.update!(practice_params)
 
-    redirect_to person_path(@person), status: :unprocessable_entity
+    redirect_to person_path(@person)
+
+    # TODO: case when update fails
   end
 
   private

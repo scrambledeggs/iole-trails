@@ -19,9 +19,11 @@ class RunsController < ApplicationController
   end
 
   def update
-    redirect_to person_run_path(@person, @run) and return if @run.update(run_params)
+    @run.update!(run_params)
 
-    render :edit, status: :unprocessable_entity
+    redirect_to person_run_path(@person, @run)
+
+    # TODO: case when update fails
   end
 
   private

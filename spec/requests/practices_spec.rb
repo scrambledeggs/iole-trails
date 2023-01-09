@@ -43,18 +43,24 @@ RSpec.describe 'PracticesController', type: :request do
 
   # update
   describe 'PUT /people/:person_id/practices/:id' do
-    let!(:path) { put person_practice_path(person, practice), params: { practice: new_practice_params } }
-    let(:new_practice_params) { {
-      person_id: person.id, # TODO: update in model
+    let(:practice_params) { {
       status: :FINISHED
     } }
-
     context 'when updating status to FINISHED' do
+      let!(:path) { put person_practice_path(person, practice), params: { practice: practice_params } }
+
       it { expect(response).to have_http_status(:found) }
       it { expect(response).to redirect_to person_path(person) }
       it { expect(actual_practice.status).to eq 'FINISHED' }
     end
 
-    # TODO: it renders edit again
+    # TODO
+    # context 'when updating fails' do
+    #   before do
+    #     allow(Practice).to receive(:update).and_return(false)
+    #   end
+
+    #   let!(:path) { put person_practice_path(person, practice), params: { practice: practice_params } }
+    # end
   end
 end

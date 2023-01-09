@@ -17,19 +17,19 @@ class Race < ApplicationRecord
   validate :time_overlaps, if: :start_changed? || :duration_changed?
   validate :status_change, on: :update, if: :status_changed?
 
-  before_commit :finish_sequence, on: :update
+  before_validation :start_time_cleanup, on: :create
 
   def expected_end
     start + duration.hours
   end
 
   def registered_runs
-    runs.where(status: %i[REGISTERED FINISHED UNFINISHED])
+    runs.where(status: %i[REGISTERED FINISHED UNFINISHED]).order(:duration)
   end
 
   def no_overlaps_within_trail?(trail_id, tentative_start, tentative_duration)
     tentative_end = tentative_start + tentative_duration.hours
-    overlaps = Race.where("trail_id = ? AND (start < ? AND ? <  start + (duration * interval '1 hour'))", trail_id, tentative_end, tentative_start)
+    overlaps = Race.where("trail_id = ? AND (start, duration * INTERVAL '1 hour') OVERLAPS (?, ? * INTERVAL '1 hour')", trail_id, tentative_start, tentative_duration)
     overlaps.blank? || (overlaps.length == 1 && overlaps.first.id == id)
   end
 
@@ -39,6 +39,9 @@ class Race < ApplicationRecord
   end
 
   private
+  def start_time_cleanup
+    self[:start] = self[:start].change(sec: 0) if self[:start].present?
+  end
 
   def detail_change_allowed
     return if registered_runs.blank?
@@ -58,34 +61,5 @@ class Race < ApplicationRecord
     return if registered_runs.length > 1
 
     errors.add(:status, 'Cannot start with less than 2 participants')
-  end
-
-  def finish_sequence
-    return if !status_FINISHED?
-
-    formatted_updates = []
-    first_placer = 0
-    rand_duration = registered_runs.length.times.map { rand((duration / 2)..(duration + 1.5)) }
-    sorted_duration = rand_duration.sort
-
-    registered_runs.each_with_index do |run, index|
-      run_duration = rand_duration[index]
-      run_status = if run_duration <= duration
-                     :FINISHED
-                   else
-                     :UNFINISHED
-                   end
-      run_place = sorted_duration.find_index(run_duration) + 1
-
-      first_placer = run.id if run_place == 1
-
-      formatted_updates << { id: run.id, duration: run_duration, status: run_status, place: run_place }
-    end
-
-    formatted_updates = formatted_updates.index_by { |run| run[:id] }
-
-    Run.update(formatted_updates.keys, formatted_updates.values)
-
-    update_attribute(:winner, first_placer)
   end
 end

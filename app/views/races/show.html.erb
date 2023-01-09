@@ -7,20 +7,18 @@
   <% end %>
 <% end %>
 
+<% if @race.status_STARTED? %>
+  <%= button_to "Finish Race", finish_trail_race_path(@trail, @race), method: "put" %>
+<% end %>
+
 <% if flash[:alert] %>
   <p style="color:red;"><%= flash[:alert] %></p>
 <% end %>
 
-<% if @race.status_STARTED? %>
-  <%= form_with model: [@trail, @race] do |form| %>
-    <%= form.hidden_field :status, value: :FINISHED %>
-    <%= form.submit "Finish Race"%>
-  <% end %>
-<% end %>
-
 <article>
-<h4>Details:</h4>
+<h4>Details</h4>
 <p>
+Trail: <%= link_to @race.trail.name, trail_path(@race.trail) %> <br>
 Status: <%= @race.status %> <br>
 Start Date: <%= @race.start.to_date %> <br>
 Start Time: <%= @race.start.strftime("%I:%M%p") %> <br>
@@ -37,15 +35,15 @@ Duration (hours): <%= @race.duration %>
 <article>
 <% if @race.winner.present? %>
   <h4>Winner</h4>
-  Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
+  Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %> (<%= number_with_precision(@winning_run.duration, precision: 2) %>h)
 <% end %>
 <h4>Participants</h4>
 <% if @race.registered_runs.present? %> 
-  <ul>
+  <ol>
   <% @race.registered_runs.each do |run| %> 
-    <li> <%= run.person.name.capitalize %> </li>
+    <%= participant_line(run) %>
   <% end %> 
-  </ul>
+  </ol>
 <% else %> 
   None yet!
 <% end %> 
