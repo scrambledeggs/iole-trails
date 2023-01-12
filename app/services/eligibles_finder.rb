@@ -7,7 +7,7 @@ class EligiblesFinder < ApplicationService
     @trail.age_minimum ||= 1
     @trail.age_maximum ||= 100
     date_maximum = Date.today - @trail.age_minimum.years
-    date_minimum = Date.today - @trail.age_maximum.years - 1.year
+    date_minimum = Date.today - @trail.age_maximum.years - 1.year + 1.day
 
     Person.where(
       birthdate: [date_minimum..date_maximum],
