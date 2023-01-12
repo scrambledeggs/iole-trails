@@ -43,7 +43,10 @@ class RacesController < ApplicationController
   end
 
   def all
-    @races = Race.all.order(:start)
+    filter = {}
+    filter[:trail_id] = races_params[:trail_id] if races_params[:trail_id].present?
+    filter[:status] = races_params[:status] if races_params[:status].present?
+    @races = Race.all.where(filter).order(:start)
   end
 
   def finish
@@ -67,5 +70,9 @@ class RacesController < ApplicationController
 
   def race_params
     params.require(:race).permit(:name, :duration, :start, :status)
+  end
+
+  def races_params
+    params.permit(:status, :trail_id)
   end
 end

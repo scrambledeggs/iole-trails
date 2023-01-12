@@ -2,8 +2,23 @@
   <div class="column left">
     <h3>List of Races</h3>
   </div>
-
 </div>
+
+<%= form_with path: races_path, method: :get do |form| %>
+  <div class="row">
+    <div class="column left">
+      <%= form.label "Trail" %>
+      <%= form.select :trail_id, Trail.all.collect {|trail| [trail.name, trail.id]}, include_blank: true %>
+    </div>
+    <div class="column left">
+      <%= form.label "Status" %>
+      <%= form.select :status, Race.statuses.collect, include_blank: true %>
+    </div>
+  </div>
+  <div>
+    <%= form.submit "Filter"%>
+  </div>
+<% end %>
 
 <table>
   <thead>
