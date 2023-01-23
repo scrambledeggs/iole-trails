@@ -2,10 +2,10 @@
 <article>
 <h4>Details</h4>
 <p>
-Age: <%= @person.age %> <br>
-Birthdate: <%= @person.birthdate %> <br>
-Weight: <%= @person.weight %> kg <br>
-Body Build: <%= @person.body_build %>
+Age: <b><%= @person.age %></b> <br>
+Birthdate: <b><%= @person.birthdate %></b> <br>
+Weight: <b><%= @person.weight %> kg</b> <br>
+Body Build: <b><%= @person.body_build %></b>
 </p>
 
 <%= link_to "Edit", edit_person_path(@person) %> | 
@@ -15,12 +15,13 @@ Body Build: <%= @person.body_build %>
                   } %>
 </article>
 <article>
-<h4>Ongoing Trail Practices</h4>
+<h4>Trail History</h4>
 <% if @person.ongoing_practice? %> 
   <article>
     <div class="row">
       <div class=column_left>
-        <strong><%= @person.ongoing_practice.trail.name %></strong><br>
+        <strong><%= @person.ongoing_practice.trail.name %></strong>
+        <mark>ONGOING</mark><br>
         <%= link_to "Details", @person.ongoing_practice.trail %>
       </div>
       <div class=column_right>
@@ -35,7 +36,7 @@ Body Build: <%= @person.body_build %>
     <% end %>
   </article>
 <% else %> 
-  <p> None at the moment. <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %> </p>
+  <p> No ongoing trails at the moment. <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %> </p>
 <% end %> 
 
 <details>

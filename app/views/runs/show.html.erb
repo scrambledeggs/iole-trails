@@ -1,29 +1,23 @@
 <h3><%= image_tag("user_32.png")%> <%= @person.name.capitalize %>'s Page > <%= @run.race.name %></h3>
 
 <article>
-<h4>Runner #<%= @run.id %></h4>
-<%= link_to "Race Details", trail_race_path(@run.race.trail, @run.race) %>
-<p>
-Status: <%= @run.status %>
-</p>
+  <b>Runner #<%= @run.id %></b> <mark><%= @run.status %></mark><br>
+  <%= link_to "Details", trail_race_path(@run.race.trail, @run.race) %><br><br>
 
-<% if @run.status_REGISTERED? && @run.race.status_NEW? %>
-  <%= form_with model: [@person, @run] do |form| %>
-    <%= form.hidden_field :status, value: :DROPPED %>
-    <%= form.submit "Drop Race"%>
+  <% if @run.status_REGISTERED? && @run.race.status_NEW? %>
+    <%= form_with model: [@person, @run] do |form| %>
+      <%= form.hidden_field :status, value: :DROPPED %>
+      <%= form.submit "Drop Race"%>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="form_error"><%= flash[:alert] %></div>
+    <% end %>
   <% end %>
-  <% if flash[:alert] %>
-    <div class="form_error"><%= flash[:alert] %></div>
-  <% end %>
-<% end %>
 
-<% if @run.race.status_FINISHED? %>
-  <h5>Run Stats</h5>
-  <p>
-  Place: <%= @run.place %> <br>
-  Run hours: <%= number_with_precision(@run.duration, precision: 2) %>
-  </p>
-<% end %>
+  <% if @run.race.status_FINISHED? %>
+    Place: <%= @run.place %> <br>
+    Run hours: <%= number_with_precision(@run.duration, precision: 2) %>
+  <% end %>
 </article>
 
 <%= link_to "Back", person_path(@person) %>
