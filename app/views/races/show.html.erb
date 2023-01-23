@@ -19,11 +19,12 @@
 <h4>Details</h4>
 <p>
 Trail: <%= link_to @race.trail.name, trail_path(@race.trail) %> <br>
-Status: <%= @race.status %> <br>
-Start Date: <%= @race.start.to_date %> <br>
-Start Time: <%= @race.start.strftime("%I:%M%p") %> <br>
-End Time: <%= @race.expected_end.strftime("%I:%M%p") %> <br>
-Duration (hours): <%= @race.duration %>
+Status: <b><%= @race.status %> <br></b>
+Start Date: <b><%= @race.start.to_date %></b> <br>
+Start Time: <b><%= @race.start.strftime("%I:%M%p") %></b> <br>
+End Date: <b><%= @race.expected_end.to_date %></b> <br>
+End Time: <b><%= @race.expected_end.strftime("%I:%M%p") %></b> <br>
+Duration (hours): <b><%= @race.duration %></b>
 </p>
 <%= link_to "Edit Details", edit_trail_race_path([@trail, @race]) %> | 
 <%= link_to "Remove", trail_race_path([@trail, @race]), data: {
