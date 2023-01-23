@@ -13,9 +13,15 @@ h1, h2, h3, h4, h5, h6 {
 
 table {
   width: 100%;
+  table-layout: fixed;
 }
 
 td {
+  border: 1px solid #000;
+  width: 30%;
+}
+
+td+td {
   width: 15%;
 }
 
@@ -58,16 +64,21 @@ td {
   display: flex;
 }
 
-.column {
-  float: left;
-}
-
-.left {
+.column_left {
   width: 80%;
 }
 
-.right {
+.column_right {
+  float: right;
   width: 20%;
   margin-top: auto;
   align-content: flex-end;
+}
+
+.side_left {
+  width: 20%;
+}
+
+.side_right {
+  width: 80%;
 }

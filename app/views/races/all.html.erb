@@ -1,44 +1,41 @@
+<h3>List of Races</h3>
+
 <div class="row">
-  <div class="column left">
-    <h3>List of Races</h3>
+  <div class="side_left">
+    <h5>Filter</h5>
+    <%= form_with path: races_path, method: :get do |form| %>
+      <%= form.label "Trail" %>
+      <%= form.select :trail_id, Trail.all.collect {|trail| [trail.name, trail.id]}, include_blank: true %> <br>
+      <%= form.label "Status" %>
+      <%= form.select :status, Race.statuses.collect, include_blank: true %> <br>
+      <%= form.submit "Filter"%>
+    <% end %>
+
+  </div>
+
+  <div class="side_right">
+    <table>
+      <thead>
+        <tr>
+          <th>Race Name</th>
+          <th>Status</th>
+          <th>Start Date</th>
+          <th>Start Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @races.order(:start).each do |race| %>
+        <tr>
+          <td>
+            <%= link_to race.name, [race.trail, race] %><br>
+            <i><%= race.trail.name %> Trail</i>
+          </td>
+          <td><%= race.status %></td>
+          <td><%= race.start.to_date %></td>
+          <td><%= race.start.strftime("%I:%M%p") %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
-
-<%= form_with path: races_path, method: :get do |form| %>
-  <div class="row">
-    <div class="column left">
-      <%= form.label "Trail" %>
-      <%= form.select :trail_id, Trail.all.collect {|trail| [trail.name, trail.id]}, include_blank: true %>
-    </div>
-    <div class="column left">
-      <%= form.label "Status" %>
-      <%= form.select :status, Race.statuses.collect, include_blank: true %>
-    </div>
-  </div>
-  <div>
-    <%= form.submit "Filter"%>
-  </div>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Trail</th>
-      <th>Race Name</th>
-      <th>Status</th>
-      <th>Start Date</th>
-      <th>Start Time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @races.order(:start).each do |race| %>
-    <tr>
-      <td><%= link_to race.trail.name, [race.trail] %></td>
-      <td style="width:25%"><%= link_to race.name, [race.trail, race] %></td>
-      <td><%= race.status %></td>
-      <td><%= race.start.to_date %></td>
-      <td><%= race.start.strftime("%I:%M%p") %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
