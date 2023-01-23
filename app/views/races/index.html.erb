@@ -1,10 +1,10 @@
 <h3><%= image_tag("trail_32.png")%> The <%= @trail.name %> Trail</h3>
 
 <div class="row">
-  <div class="column left">
+  <div class="column_left">
     <h3>List of Races</h3>
   </div>
-  <div class="column right">
+  <div class="column_right">
     <%= button_to "New Race", new_trail_race_path, method: :get %>
   </div>
 </div>
@@ -22,7 +22,7 @@
 <tbody>
   <% @races.order(:start).each do |race| %>
   <tr>
-    <td style="width:35%"><%= image_tag("race.png")%> <%= link_to race.name, [@trail, race] %></td>
+    <td><%= image_tag("race.png")%> <%= link_to race.name, [@trail, race] %></td>
     <td><%= race.status %></td>
     <td><%= race.start.to_date %></td>
     <td><%= race.start.strftime("%I:%M%p") %></td>

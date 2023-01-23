@@ -30,7 +30,7 @@ Body Build: <%= @person.body_build %>
   </tr>
   </table>
   <% if flash[:alert] %>
-    <p style="color:red;"><%= flash[:alert] %></p>
+    <div class="form_error"><%= flash[:alert] %></div>
   <% end %>
 <% else %> 
   <p> None at the moment. <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %> </p>

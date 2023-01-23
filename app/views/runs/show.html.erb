@@ -13,7 +13,7 @@ Status: <%= @run.status %>
     <%= form.submit "Drop Race"%>
   <% end %>
   <% if flash[:alert] %>
-    <p style="color:red;"><%= flash[:alert] %></p>
+    <div class="form_error"><%= flash[:alert] %></div>
   <% end %>
 <% end %>
 
