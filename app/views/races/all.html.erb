@@ -31,7 +31,7 @@
             <%= link_to race.name, [race.trail, race] %><br>
             <i><%= race.trail.name %> Trail</i>
           </td>
-          <td><%= race.status %></td>
+          <td><%= status_tag(race.status) %></td>
           <td><%= race.start.to_date %></td>
           <td><%= race.start.strftime("%I:%M%p") %></td>
         </tr>

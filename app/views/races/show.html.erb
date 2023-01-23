@@ -19,7 +19,7 @@
 <h4>Details</h4>
 <p>
 Trail: <%= link_to @race.trail.name, trail_path(@race.trail) %> <br>
-Status: <b><%= @race.status %> <br></b>
+Status: <b><%= status_tag(@race.status) %> <br></b>
 Start Date: <b><%= @race.start.to_date %></b> <br>
 Start Time: <b><%= @race.start.strftime("%I:%M%p") %></b> <br>
 End Date: <b><%= @race.expected_end.to_date %></b> <br>

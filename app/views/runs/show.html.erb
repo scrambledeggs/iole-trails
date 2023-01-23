@@ -1,7 +1,7 @@
 <h3><%= image_tag("user_32.png")%> <%= @person.name %>'s Page > <%= @run.race.name %></h3>
 
 <article>
-  <b>Runner #<%= @run.id %></b> <mark><%= @run.status %></mark><br>
+  <b>Runner #<%= @run.id %></b> <%= status_tag(@run.status) %><br>
   <%= link_to "Details", trail_race_path(@run.race.trail, @run.race) %><br><br>
 
   <% if @run.status_REGISTERED? && @run.race.status_NEW? %>

@@ -21,7 +21,7 @@ Body Build: <b><%= @person.body_build %></b>
     <div class="row">
       <div class=column_left>
         <strong><%= @person.ongoing_practice.trail.name %></strong>
-        <mark>ONGOING</mark><br>
+        <%= status_tag('ONGOING') %><br>
         <%= link_to "Details", @person.ongoing_practice.trail %>
       </div>
       <div class=column_right>

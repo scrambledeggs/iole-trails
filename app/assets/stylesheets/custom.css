@@ -82,3 +82,19 @@ td+td {
 .side_right {
   width: 80%;
 }
+
+mark.new {
+  background-color: #afe7af;
+}
+
+mark.ongoing {
+  background-color: bisque;
+}
+
+mark.finished {
+  background-color: #aadeff;
+}
+
+mark.unfinished {
+  background-color: darkgray;
+}

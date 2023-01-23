@@ -23,7 +23,7 @@
   <% @races.order(:start).each do |race| %>
   <tr>
     <td><%= image_tag("race.png")%> <%= link_to race.name, [@trail, race] %></td>
-    <td><%= race.status %></td>
+    <td><%= status_tag(race.status) %></td>
     <td><%= race.start.to_date %></td>
     <td><%= race.start.strftime("%I:%M%p") %></td>
   </tr>
