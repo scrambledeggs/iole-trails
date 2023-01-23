@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :person do
-    name { Faker::Movies::HarryPotter.character }
+    name { Faker::Movies::HarryPotter.character.titleize }
     birthdate { Faker::Date.birthday(min_age: 1, max_age: 100) }
     weight { Faker::Number.within(range: 2.5..150.0) }
     body_build { get_random_body_build(rand(0..2)) }
