@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :trail do
-    name { Faker::Movies::HarryPotter.location }
+    name { Faker::Movies::HarryPotter.location.titleize }
   end
 
   trait :for_young do

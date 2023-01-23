@@ -44,7 +44,7 @@ RSpec.describe Race, type: :model do
 
   context 'with no participants' do
     it 'is allowed to change details' do
-      new_name = 'new_race_name'
+      new_name = 'New Race Name'
 
       race1.update(name: new_name)
 

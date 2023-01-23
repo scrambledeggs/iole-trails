@@ -46,7 +46,7 @@ class RacesController < ApplicationController
     filter = {}
     filter[:trail_id] = races_params[:trail_id] if races_params[:trail_id].present?
     filter[:status] = races_params[:status] if races_params[:status].present?
-    @races = Race.all.where(filter).order(:start)
+    @races = Race.all.where(filter).order(start: :desc)
   end
 
   def finish

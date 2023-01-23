@@ -12,18 +12,19 @@
 <% end %>
 
 <% if flash[:alert] %>
-  <p style="color:red;"><%= flash[:alert] %></p>
+  <div class="form_error"><%= flash[:alert] %></div>
 <% end %>
 
 <article>
 <h4>Details</h4>
 <p>
 Trail: <%= link_to @race.trail.name, trail_path(@race.trail) %> <br>
-Status: <%= @race.status %> <br>
-Start Date: <%= @race.start.to_date %> <br>
-Start Time: <%= @race.start.strftime("%I:%M%p") %> <br>
-End Time: <%= @race.expected_end.strftime("%I:%M%p") %> <br>
-Duration (hours): <%= @race.duration %>
+Status: <b><%= status_tag(@race.status) %> <br></b>
+Start Date: <b><%= @race.start.to_date %></b> <br>
+Start Time: <b><%= @race.start.strftime("%I:%M%p") %></b> <br>
+End Date: <b><%= @race.expected_end.to_date %></b> <br>
+End Time: <b><%= @race.expected_end.strftime("%I:%M%p") %></b> <br>
+Duration (hours): <b><%= @race.duration %></b>
 </p>
 <%= link_to "Edit Details", edit_trail_race_path([@trail, @race]) %> | 
 <%= link_to "Remove", trail_race_path([@trail, @race]), data: {
@@ -35,7 +36,7 @@ Duration (hours): <%= @race.duration %>
 <article>
 <% if @race.winner.present? %>
   <h4>Winner</h4>
-  Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %> (<%= number_with_precision(@winning_run.duration, precision: 2) %>h)
+  Runner #<%= @winning_run.id %>: <%= @winner.name %> (<%= @winning_run.duration %>h)
 <% end %>
 <h4>Participants</h4>
 <% if @race.registered_runs.present? %> 

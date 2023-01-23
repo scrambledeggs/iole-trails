@@ -19,6 +19,10 @@ class Race < ApplicationRecord
 
   before_validation :start_time_cleanup, on: :create
 
+  def name
+    self[:name].titleize if self[:name].present?
+  end
+
   def expected_end
     start + duration.hours
   end

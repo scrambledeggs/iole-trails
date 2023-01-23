@@ -1,11 +1,11 @@
-<h3><%= image_tag("user_32.png")%> <%= @person.name.capitalize %>'s Page</h3>
+<h3><%= image_tag("user_32.png")%> <%= @person.name %>'s Page</h3>
 <article>
 <h4>Details</h4>
 <p>
-Age: <%= @person.age %> <br>
-Birthdate: <%= @person.birthdate %> <br>
-Weight: <%= @person.weight %> kg <br>
-Body Build: <%= @person.body_build %>
+Age: <b><%= @person.age %></b> <br>
+Birthdate: <b><%= @person.birthdate %></b> <br>
+Weight: <b><%= @person.weight %> kg</b> <br>
+Body Build: <b><%= @person.body_build %></b>
 </p>
 
 <%= link_to "Edit", edit_person_path(@person) %> | 
@@ -15,25 +15,28 @@ Body Build: <%= @person.body_build %>
                   } %>
 </article>
 <article>
-<h4>Ongoing Trail</h4>
+<h4>Trail History</h4>
 <% if @person.ongoing_practice? %> 
-  <table>
-  <tr>
-  <td><strong><%= @person.ongoing_practice.trail.name %></strong></td>
-  <td><%= link_to "Details", @person.ongoing_practice.trail %></td>
-  <td>
-  <%= form_with model: [@person, @person.ongoing_practice] do |form| %>
-    <%= form.hidden_field :status, value: :FINISHED %>
-    <%= form.submit "Mark as Finished"%>
-  <% end %>
-  </td>
-  </tr>
-  </table>
-  <% if flash[:alert] %>
-    <p style="color:red;"><%= flash[:alert] %></p>
-  <% end %>
+  <article>
+    <div class="row">
+      <div class=column_left>
+        <strong><%= @person.ongoing_practice.trail.name %></strong>
+        <%= status_tag('ONGOING') %><br>
+        <%= link_to "Details", @person.ongoing_practice.trail %>
+      </div>
+      <div class=column_right>
+        <%= form_with model: [@person, @person.ongoing_practice] do |form| %>
+          <%= form.hidden_field :status, value: :FINISHED %>
+          <%= form.submit "Finish Practice"%>
+        <% end %>
+      </div>
+    </div>
+    <% if flash[:alert] %>
+      <div class="form_error"><%= flash[:alert] %></div>
+    <% end %>
+  </article>
 <% else %> 
-  <p> None at the moment. <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %> </p>
+  <p> No ongoing trails at the moment. <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %> </p>
 <% end %> 
 
 <details>

@@ -7,6 +7,10 @@ class Trail < ApplicationRecord
 
   validates :name, presence: true
 
+  def name
+    self[:name].titleize if self[:name].present?
+  end
+
   def eligible?(age, weight, person_body_build)
     age_eligible(age) && weight_eligible(weight) && body_build_eligible(person_body_build)
   end
