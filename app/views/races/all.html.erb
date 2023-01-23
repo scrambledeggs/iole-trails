@@ -27,6 +27,7 @@
         <% @races.order(:start).each do |race| %>
         <tr>
           <td>
+            <%= image_tag("race.png")%> 
             <%= link_to race.name, [race.trail, race] %><br>
             <i><%= race.trail.name %> Trail</i>
           </td>
