@@ -18,6 +18,10 @@ class Run < ApplicationRecord
   validate :race_ongoing_registration, on: :create
   validate :race_overlaps_registered, on: :create
 
+  def duration
+    ActionController::Base.helpers.number_with_precision(self[:duration], precision: 2) if self[:duration].present?
+  end
+
   private
 
   def person_availability

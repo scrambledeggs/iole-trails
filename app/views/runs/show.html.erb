@@ -16,7 +16,7 @@
 
   <% if @run.race.status_FINISHED? %>
     Place: <%= @run.place %> <br>
-    Run hours: <%= number_with_precision(@run.duration, precision: 2) %>
+    Run hours: <%= @run.duration %>
   <% end %>
 </article>
 

@@ -36,7 +36,7 @@ Duration (hours): <b><%= @race.duration %></b>
 <article>
 <% if @race.winner.present? %>
   <h4>Winner</h4>
-  Runner #<%= @winning_run.id %>: <%= @winner.name %> (<%= number_with_precision(@winning_run.duration, precision: 2) %>h)
+  Runner #<%= @winning_run.id %>: <%= @winner.name %> (<%= @winning_run.duration %>h)
 <% end %>
 <h4>Participants</h4>
 <% if @race.registered_runs.present? %> 
