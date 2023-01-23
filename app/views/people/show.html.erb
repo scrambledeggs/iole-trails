@@ -15,23 +15,25 @@ Body Build: <%= @person.body_build %>
                   } %>
 </article>
 <article>
-<h4>Ongoing Trail</h4>
+<h4>Ongoing Trail Practices</h4>
 <% if @person.ongoing_practice? %> 
-  <table>
-  <tr>
-  <td><strong><%= @person.ongoing_practice.trail.name %></strong></td>
-  <td><%= link_to "Details", @person.ongoing_practice.trail %></td>
-  <td>
-  <%= form_with model: [@person, @person.ongoing_practice] do |form| %>
-    <%= form.hidden_field :status, value: :FINISHED %>
-    <%= form.submit "Mark as Finished"%>
-  <% end %>
-  </td>
-  </tr>
-  </table>
-  <% if flash[:alert] %>
-    <div class="form_error"><%= flash[:alert] %></div>
-  <% end %>
+  <article>
+    <div class="row">
+      <div class=column_left>
+        <strong><%= @person.ongoing_practice.trail.name %></strong><br>
+        <%= link_to "Details", @person.ongoing_practice.trail %>
+      </div>
+      <div class=column_right>
+        <%= form_with model: [@person, @person.ongoing_practice] do |form| %>
+          <%= form.hidden_field :status, value: :FINISHED %>
+          <%= form.submit "Finish Practice"%>
+        <% end %>
+      </div>
+    </div>
+    <% if flash[:alert] %>
+      <div class="form_error"><%= flash[:alert] %></div>
+    <% end %>
+  </article>
 <% else %> 
   <p> None at the moment. <%= link_to "Start Practice on a Trail!", new_person_practice_path(@person) %> </p>
 <% end %> 
