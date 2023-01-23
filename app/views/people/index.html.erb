@@ -10,7 +10,7 @@
 <article class="cards">
 <% @people.each do |person| %>
   <article class="card">
-    <%= image_tag("user.png")%> <%= link_to person.name.capitalize, person %>
+    <%= image_tag("user.png")%> <%= link_to person.name, person %>
   </article>
 <% end %>
 </article>

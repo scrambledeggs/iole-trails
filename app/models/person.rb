@@ -15,6 +15,10 @@ class Person < ApplicationRecord
   validates :weight, presence: true
   validates :body_build, presence: true
 
+  def name
+    self[:name].titleize if self[:name].present?
+  end
+
   def age
     ((Time.zone.now - birthdate.to_time) / 1.year.seconds).floor
   end

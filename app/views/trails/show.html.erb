@@ -42,7 +42,7 @@ Body Build: <%= body_build_criteria_line(@trail) %>
 <% if @trail.ongoing_practices? %> 
   <ul>
   <% @trail.ongoing_practices.each do |practice| %> 
-    <li><%= link_to practice.person.name.capitalize, practice.person %> </li>
+    <li><%= link_to practice.person.name, practice.person %> </li>
   <% end %> 
   </ul>
 <% else %> 
@@ -54,7 +54,7 @@ Body Build: <%= body_build_criteria_line(@trail) %>
 <% if @trail.past_practices? %> 
   <ul>
   <% @trail.past_practices.each do |practice| %> 
-    <li><%= link_to practice.person.name.capitalize, practice.person %> </li>
+    <li><%= link_to practice.person.name, practice.person %> </li>
   <% end %> 
   </ul>
 <% else %> 
