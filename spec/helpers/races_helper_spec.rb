@@ -18,7 +18,7 @@ RSpec.describe RacesHelper do
     context 'when a run has duration' do
       let!(:duration) { 3.50 }
 
-      it { expect(participant_line).to match("<li>#{person.name} (#{number_with_precision(run.duration, precision: 2)}h)</li>") }
+      it { expect(participant_line).to match("<li>#{person.name} (#{run.duration}h)</li>") }
     end
   end
 end
